@@ -15,78 +15,98 @@
     {% bootstrap_css %}
   </head>
 
-  <body style="color: #4a5a4d">
-    <!-- TODO: add toaster/alert for sign ins -->
+  <body style="color: #5a3d2b; overflow-x: hidden; background-color: #f3e5d8">
+    <!-- Page Container -->
+    <div class="d-flex flex-column flex-md-row vh-100">
+      <!-- Left Side: Login/Sign Up Form -->
+      <div
+        class="px-4 h-100 w-md-50 d-flex flex-column justify-content-center"
+        style="background-color: #d7c0ae; color: #4a3325"
+      >
+        <form method="post" id="authForm">
+          {% csrf_token %}
+          <input type="hidden" id="action" name="action" value="" />
+          <h2 class="fw-bold">Login or Sign up!</h2>
+          <p style="font-size: 12px">
+            Don't have an account yet? Enter your username and password and
+            press <b>Sign Up</b>.
+          </p>
 
-    <!-- Login/Sign Up Form -->
-    <div
-      class="py-3 px-5 position-absolute start-0 h-100 w-sm-100 w-md-50"
-      style="background-color: #c4d7b2"
-    >
-      <form method="post" id="authForm" class="mt-5">
-        {% csrf_token %}
-        <input type="hidden" id="action" name="action" value="" />
-        <h2 class="fw-bold">Login or Sign up!</h2>
-        <p style="font-size: 12px">
-          Don't have an account yet? Enter your username and password and press
-          <b>Sign Up</b>.
+          <!-- Author Name Field -->
+          <div class="mb-3">
+            <label for="authorname" class="form-label">Enter your name</label>
+            <input
+              type="text"
+              class="form-control rounded-4"
+              id="authorname"
+              name="author_name"
+              aria-describedby="authornameHelp"
+              required
+            />
+          </div>
+
+          <!-- Password Field -->
+          <div>
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control rounded-4"
+              id="password"
+              name="author_password"
+              required
+            />
+          </div>
+
+          <!-- Login & Sign Up Buttons -->
+          <div>
+            <button
+              type="submit"
+              class="rounded-pill px-3 py-1 fw-medium mt-3"
+              style="
+                border: 2px solid #8b5e3c;
+                background-color: transparent;
+                color: #8b5e3c;
+              "
+              onclick="document.getElementById('action').value='login';"
+            >
+              Login
+            </button>
+            &nbsp;
+            <span class="opacity-50" style="color: #5a3d2b"> or </span> &nbsp;
+            <button
+              type="submit"
+              class="rounded-pill px-3 py-1 fw-medium mt-3"
+              style="
+                border: 1px solid #a98266;
+                background-color: #a98266;
+                color: #ffffff;
+              "
+              onclick="document.getElementById('action').value='signup';"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Side: Introduction Content -->
+      <div
+        class="h-100 w-md-50 d-flex flex-column justify-content-center align-items-center text-center px-4"
+        style="background-color: #a98266; color: #ffffff"
+      >
+        <h1 class="fw-bold">Ready to Brew Your Tech?</h1>
+        <p style="max-width: 500px; line-height: 1.6; font-size: 12px">
+          Craving a tech upgrade? At BrewYourTech, we’ve got the perfect blend
+          of devices to espresso yourself. Whether you’re looking for a latte
+          innovation or a shot of something fresh, we’ll help you brew up the
+          perfect tech match. Let’s get brewing!
         </p>
-
-        <!-- Author Name Field -->
-        <div class="mb-3">
-          <label for="authorname" class="form-label">Enter your name</label>
-          <input
-            type="text"
-            class="form-control rounded-4"
-            id="authorname"
-            name="author_name"
-            aria-describedby="authornameHelp"
-            required
-          />
-        </div>
-
-        <!-- Password Field -->
-        <div>
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control rounded-4"
-            id="password"
-            name="author_password"
-            required
-          />
-        </div>
-
-        <!-- Login & Sign Up Buttons -->
-        <div>
-          <button
-            type="submit"
-            class="rounded-pill px-3 py-1 fw-medium mt-3"
-            style="
-              border: 2px solid #4a5a4d;
-              background-color: #c4d7b2;
-              color: #4a5a4d;
-            "
-            onclick="document.getElementById('action').value='login';"
-          >
-            Login
-          </button>
-          &nbsp;
-          <span class="opacity-50" style="color: #4a5a4d"> or </span> &nbsp;
-          <button
-            type="submit"
-            class="rounded-pill px-3 py-1 fw-medium mt-3"
-            style="
-              border: 1px solid #b292c2;
-              background-color: #b292c2;
-              color: #ffffff;
-            "
-            onclick="document.getElementById('action').value='signup';"
-          >
-            Sign Up
-          </button>
-        </div>
-      </form>
+        <img
+          src="https://via.placeholder.com/400x200"
+          alt="Brew Your Tech Illustration"
+          class="img-fluid mt-4 rounded"
+        />
+      </div>
     </div>
 
     <!-- Custom JS -->
