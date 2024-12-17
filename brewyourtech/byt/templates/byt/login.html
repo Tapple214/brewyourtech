@@ -21,7 +21,7 @@
       <!-- Left Side: Login/Sign Up Form -->
       <div
         class="px-4 h-100 w-md-50 d-flex flex-column justify-content-center"
-        style="background-color: #d7c0ae; color: #4a3325"
+        style="background-color: #d7c0ae; color: #4a3325; min-width: 50%"
       >
         <form method="post" id="authForm">
           {% csrf_token %}
@@ -63,9 +63,9 @@
               type="submit"
               class="rounded-pill px-3 py-1 fw-medium mt-3"
               style="
-                border: 2px solid #8b5e3c;
+                border: 2px solid #5a3d2b;
                 background-color: transparent;
-                color: #8b5e3c;
+                color: #5a3d2b;
               "
               onclick="document.getElementById('action').value='login';"
             >
@@ -77,8 +77,8 @@
               type="submit"
               class="rounded-pill px-3 py-1 fw-medium mt-3"
               style="
-                border: 1px solid #a98266;
-                background-color: #a98266;
+                border: 1px solid #5a3d2b;
+                background-color: #5a3d2b;
                 color: #ffffff;
               "
               onclick="document.getElementById('action').value='signup';"
@@ -95,17 +95,12 @@
         style="background-color: #a98266; color: #ffffff"
       >
         <h1 class="fw-bold">Ready to Brew Your Tech?</h1>
-        <p style="max-width: 500px; line-height: 1.6; font-size: 12px">
+        <p style="line-height: 1.6; font-size: 12px">
           Craving a tech upgrade? At BrewYourTech, we’ve got the perfect blend
           of devices to espresso yourself. Whether you’re looking for a latte
           innovation or a shot of something fresh, we’ll help you brew up the
           perfect tech match. Let’s get brewing!
         </p>
-        <img
-          src="https://via.placeholder.com/400x200"
-          alt="Brew Your Tech Illustration"
-          class="img-fluid mt-4 rounded"
-        />
       </div>
     </div>
 
