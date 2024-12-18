@@ -112,10 +112,7 @@
         </button>
       </form>
 
-      <div>
-        <p>hello</p>
-        {% for phone in phone_data %} heree {{ phone.brand }} {% endfor %}
-      </div>
+      <div>{% for phone in phone_data %} {{ phone.brand }} {% endfor %}</div>
     </div>
 
     <!-- Navbar component -->
