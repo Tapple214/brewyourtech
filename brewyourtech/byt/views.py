@@ -13,11 +13,6 @@ def brewLog(request):
 def login(request):
     return render(request, 'byt/login.html')
 
-
-# Navbar component
-def navbar(request):
-    return render(request, 'byt/navbar.html')
-
 # Assembly/Filer page aka "Brewery"; assembly means where we "assemble" our wanted device
 def brewery(request):
     return render(request, 'byt/brewery.html')

@@ -43,26 +43,7 @@
           <!-- Individual Log Cards -->
           {% for item in brew_logs %}
           <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 rounded-4 border-0">
-              <div
-                class="card-body rounded-4 border-0"
-                style="background-color: #d7c0ae; color: #5a3d2b"
-              >
-                <h5 class="card-title fw-bold">
-                  <!-- name of sth -->
-                </h5>
-                <p class="card-text">
-                  <!-- descripton -->
-                </p>
-                <a
-                  href="{{ item.link }}"
-                  class="btn rounded-pill fw-medium"
-                  style="background-color: #5a3d2b; color: #f3e5d8"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
+            {% include 'byt/resultCard.html' %}
           </div>
           {% empty %}
           <div class="text-center mt-5">
