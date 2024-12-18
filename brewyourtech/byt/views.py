@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
 from .models import *
-import csv
 from .forms import CSVUploadForm
 
 # Create your views here.

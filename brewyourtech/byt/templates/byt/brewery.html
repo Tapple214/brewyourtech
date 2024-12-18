@@ -17,6 +17,77 @@
 
     <!-- Bootstrap CSS -->
     {% bootstrap_css %}
+
+    <style>
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 300px;
+        background: #5a3d2b;
+        border-radius: 10px;
+        outline: none;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+
+      input[type="range"]:hover {
+        opacity: 1;
+      }
+
+      /* Style the slider track */
+      input[type="range"]::-webkit-slider-runnable-track {
+        background: #5a3d2b;
+        border-radius: 10px;
+      }
+
+      input[type="range"]::-moz-range-track {
+        background: #5a3d2b;
+        border-radius: 10px;
+      }
+
+      input[type="range"]::-ms-track {
+        background: transparent;
+        border-color: transparent;
+        border-width: 6px 0;
+        color: transparent;
+        width: 300px;
+        height: 8px;
+      }
+
+      /* Style the slider thumb */
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #f3e5d8;
+        border-radius: 50%;
+        border: 2px solid #5a3d2b;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #f3e5d8;
+        border-radius: 50%;
+        border: 2px solid #5a3d2b;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-ms-thumb {
+        width: 20px;
+        height: 20px;
+        background: #f3e5d8;
+        border-radius: 50%;
+        border: 2px solid #5a3d2b;
+        cursor: pointer;
+      }
+
+      /* Adjust thumb hover effect */
+      input[type="range"]:hover::-webkit-slider-thumb {
+        background: #dab896;
+      }
+    </style>
   </head>
 
   <body
@@ -67,39 +138,153 @@
       <p>Add your main content here. The sidebar remains fixed on the left.</p>
 
       <form>
-        <!-- iOS Checkbox -->
-        <div style="margin-bottom: 15px">
-          <label for="ios" style="display: block">iOS:</label>
-          <input type="checkbox" id="ios" name="ios" />
-        </div>
-
-        <!-- Number of Cameras -->
-        <div style="margin-bottom: 15px">
-          <label for="cameras" style="display: block">Number of Cameras:</label>
-          <input
-            type="number"
-            class="rounded-4 border-1 px-2 py-1"
-            id="cameras"
-            name="cameras"
-            min="1"
-            max="10"
-            step="1"
-            style="width: 60px; background-color: #f3e5d8"
-          />
-        </div>
-
         <!-- Price -->
-        <!-- Maybe have a currency converter -->
         <div style="margin-bottom: 15px">
-          <label for="price" style="display: block">Price:</label>
+          <label for="price" style="display: block">Price in USD:</label>
           <input
-            type="number"
+            type="range"
             id="price"
-            class="rounded-4 border-1 px-2 py-1"
             name="price"
-            placeholder="Enter price"
-            style="width: 150px; background-color: #f3e5d8"
+            min="10"
+            max="2000"
+            step="10"
+            value="10"
+            oninput="document.getElementById('price_value').textContent = this.value"
+            style="width: 300px"
           />
+          <span id="price_value">10</span> USD
+        </div>
+
+        <!-- Launch Expected Year -->
+        <div style="margin-bottom: 15px">
+          <label for="launch_year" style="display: block">Launch Year:</label>
+          <input
+            type="range"
+            id="launch_year"
+            name="launch_year"
+            min="2003"
+            max="2024"
+            step="1"
+            value="2003"
+            oninput="document.getElementById('year_value').textContent = this.value"
+            style="width: 300px"
+          />
+          <span id="year_value">2003</span>
+        </div>
+
+        <!-- RAM -->
+        <div style="margin-bottom: 15px">
+          <label for="ram" style="display: block">RAM (MB):</label>
+          <input
+            type="range"
+            id="ram"
+            name="ram"
+            min="0"
+            max="512"
+            step="1"
+            value="0"
+            oninput="document.getElementById('ram_value').textContent = this.value"
+            style="width: 300px"
+          />
+          <span id="ram_value">0</span> MB
+        </div>
+
+        <!-- Main Camera Single -->
+        <div style="margin-bottom: 15px">
+          <label for="main_camera" style="display: block"
+            >Main Camera Single (MP):</label
+          >
+          <input
+            type="range"
+            id="main_camera"
+            name="main_camera"
+            min="0"
+            max="60"
+            step="1"
+            value="0"
+            oninput="document.getElementById('main_camera_value').textContent = this.value"
+            style="width: 300px"
+          />
+          <span id="main_camera_value">0</span> MP
+        </div>
+
+        <!-- Selfie Camera Single -->
+        <div style="margin-bottom: 15px">
+          <label for="selfie_camera" style="display: block"
+            >Selfie Camera Single (MP):</label
+          >
+          <input
+            type="range"
+            id="selfie_camera"
+            name="selfie_camera"
+            min="0"
+            max="60"
+            step="1"
+            value="0"
+            oninput="document.getElementById('selfie_camera_value').textContent = this.value"
+            style="width: 300px"
+          />
+          <span id="selfie_camera_value">0</span> MP
+        </div>
+
+        <!-- Sound 3.5mm Jack -->
+        <div style="margin-bottom: 15px">
+          <label for="sound_jack" style="display: block"
+            >Sound 3.5mm Jack:</label
+          >
+          <select
+            id="sound_jack"
+            name="sound_jack"
+            style="
+              width: 100px;
+              background-color: #f3e5d8;
+              border: 2px #5a3d2b solid;
+            "
+            class="rounded-4 p-1"
+            required
+          >
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <!-- Comms Bluetooth -->
+        <div style="margin-bottom: 15px">
+          <label for="bluetooth" style="display: block"
+            >Comms Bluetooth (version):</label
+          >
+          <input
+            type="range"
+            id="bluetooth"
+            name="bluetooth"
+            min="0"
+            max="5.5"
+            step="0.1"
+            value="0"
+            oninput="document.getElementById('bluetooth_value').textContent = this.value"
+            style="width: 300px"
+          />
+          <span id="bluetooth_value">0.0</span>
+        </div>
+
+        <!-- Battery Capacity -->
+        <div style="margin-bottom: 15px">
+          <label for="battery_capacity" style="display: block"
+            >Battery Capacity (mAh):</label
+          >
+          <input
+            type="range"
+            id="battery_capacity"
+            name="battery_capacity"
+            min="0"
+            max="28000"
+            step="100"
+            value="0"
+            oninput="document.getElementById('battery_capacity_value').textContent = this.value"
+            style="width: 300px"
+          />
+          <span id="battery_capacity_value">0</span> mAh
         </div>
 
         <!-- Submit Button -->
