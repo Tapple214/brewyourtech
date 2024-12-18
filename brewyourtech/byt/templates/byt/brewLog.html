@@ -25,12 +25,10 @@
       <!-- Header Section -->
       <div
         class="py-4 text-center card border-0 rounded-4 mt-3 mx-3"
-        style="background-color: #d7c0ae"
+        style="background-color: #5a3d2b; color: #f3e5d8"
       >
-        <h1 class="fw-bold" style="color: #4a3325">
-          Welcome to Your Brew Log!
-        </h1>
-        <p class="small" style="color: #5a3d2b">
+        <h1 class="fw-bold">Welcome to Your Brew Log!</h1>
+        <p class="small">
           This is where all your saved tech brews can be found, revisited, and
           viewed!<br />
           Dive into your personalized brew history.
@@ -45,20 +43,23 @@
           <!-- Individual Log Cards -->
           {% for item in brew_logs %}
           <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm" style="border: 1px solid #5a3d2b">
-              <div class="card-body" style="background-color: #ffffff">
-                <h5 class="card-title fw-bold" style="color: #4a3325">
+            <div class="card h-100 rounded-4 border-0">
+              <div
+                class="card-body rounded-4 border-0"
+                style="background-color: #d7c0ae; color: #5a3d2b"
+              >
+                <h5 class="card-title fw-bold">
                   <!-- name of sth -->
                 </h5>
-                <p class="card-text" style="color: #5a3d2b">
+                <p class="card-text">
                   <!-- descripton -->
                 </p>
                 <a
                   href="{{ item.link }}"
                   class="btn rounded-pill fw-medium"
-                  style="background-color: #5a3d2b; color: #ffffff"
+                  style="background-color: #5a3d2b; color: #f3e5d8"
                 >
-                  View Detailsß
+                  View Details
                 </a>
               </div>
             </div>
