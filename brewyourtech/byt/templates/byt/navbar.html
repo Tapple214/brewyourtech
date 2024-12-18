@@ -5,7 +5,11 @@
 >
   <div class="container-fluid d-flex justify-content-around">
     <!-- Brewery -->
-    <a href="#" class="nav-link text-center text-light" aria-label="Brewery">
+    <a
+      href="{% url 'brewery' %}"
+      class="nav-link text-center text-light"
+      aria-label="Brewery"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="25"
@@ -24,7 +28,7 @@
 
     <!-- Brew Log -->
     <a
-      href="{% url 'index' %}"
+      href="{% url 'brewLog' %}"
       class="nav-link text-center text-light"
       aria-label="Brew Log"
     >

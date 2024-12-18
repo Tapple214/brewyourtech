@@ -1,0 +1,71 @@
+<!-- USER'S HOME PAGE AKA "BREW LOG" PAGE -->
+{% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title & Icon -->
+    <title>Brewery</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'byt/images/logo.png' %}"
+    />
+
+    <!-- Bootstrap CSS -->
+    {% bootstrap_css %}
+  </head>
+
+  <body
+    class="d-flex align-items-center"
+    style="
+      color: #5a3d2b;
+      overflow-x: hidden;
+      background-color: #f3e5d8;
+      height: 93vh;
+    "
+  >
+    <!-- Sidebar-style Div -->
+    <div
+      class="py-4 card border-0 rounded-4 m-4 p-4 text-center d-flex align-items-center justify-content-center"
+      style="background-color: #d7c0ae; width: 250px; height: 87vh"
+    >
+      <h2 class="fw-bold" style="color: #4a3325">Welcome to the Brewery!</h2>
+      <p class="small mb-0" style="color: #5a3d2b">
+        Step into a world where your tastes take center stage! Here, you’ll
+        craft your perfect device — a unique "brew" that captures your style and
+        needs.
+      </p>
+
+      <img
+        src="{% static 'byt/images/logo.png' %}"
+        alt="BrewYourTech Logo"
+        style="width: 70px"
+        class="my-4"
+      />
+
+      <h4 class="fw-bold" style="color: #4a3325">To Get Started</h4>
+      <p style="color: #5a3d2b" class="mb-0 small">
+        Fill out the form on the right to share your preferences. Based on your
+        inputs, we’ll provide a curated selection of options just for you.
+        Explore each choice and, if you find your perfect match, tap the save
+        icon to keep it in your collection. It’s as simple as that!
+      </p>
+    </div>
+
+    <!-- Main Content -->
+    <div style="padding: 20px" class="bg-primary h-100 w-75">
+      <h2>Main Content Area</h2>
+      <p>Add your main content here. The sidebar remains fixed on the left.</p>
+    </div>
+
+    <!-- Navbar component -->
+    {% include 'byt/navbar.html' %}
+
+    <!-- Bootstrap JavaScript -->
+    {% bootstrap_javascript %}
+  </body>
+</html>
