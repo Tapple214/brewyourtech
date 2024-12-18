@@ -64,9 +64,19 @@
             </div>
           </div>
           {% empty %}
-          <p class="text-center" style="color: #5a3d2b">
-            No brew logs found. Head to the brewery to craft your tech!
-          </p>
+          <div class="text-center mt-5">
+            <img
+              src="{% static 'byt/images/empty.png' %}"
+              alt="BrewYourTech empty"
+              style="width: 100px"
+              class="mb-2 mx-auto"
+            />
+            <p style="color: #5a3d2b">
+              No brew logs found. Head to the <strong>Brewery</strong> to craft
+              your tech!
+            </p>
+          </div>
+
           {% endfor %}
         </div>
       </div>
