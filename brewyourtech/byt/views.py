@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 from .models import *
+import csv
+from .forms import CSVUploadForm
 
 # Create your views here.
 
@@ -15,4 +17,5 @@ def login(request):
 
 # Assembly/Filer page aka "Brewery"; assembly means where we "assemble" our wanted device
 def brewery(request):
-    return render(request, 'byt/brewery.html')
+    response_string = Phone.objects.all()
+    return render(request, 'byt/brewery.html', {'phone_data': response_string})
