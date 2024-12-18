@@ -62,9 +62,54 @@
     </div>
 
     <!-- Main Content -->
-    <div style="padding: 20px" class="bg-primary h-100 w-75">
-      <h2>Main Content Area</h2>
+    <div style="padding: 20px" class="h-100 w-75 overflow-y">
+      <h2 class="fw-bold">Find your perfect brew!</h2>
       <p>Add your main content here. The sidebar remains fixed on the left.</p>
+
+      <form>
+        <!-- iOS Checkbox -->
+        <div style="margin-bottom: 15px">
+          <label for="ios" style="display: block">iOS:</label>
+          <input type="checkbox" id="ios" name="ios" />
+        </div>
+
+        <!-- Number of Cameras -->
+        <div style="margin-bottom: 15px">
+          <label for="cameras" style="display: block">Number of Cameras:</label>
+          <input
+            type="number"
+            class="rounded-4 border-1 px-2 py-1"
+            id="cameras"
+            name="cameras"
+            min="1"
+            max="10"
+            step="1"
+            style="width: 60px; background-color: #f3e5d8"
+          />
+        </div>
+
+        <!-- Price -->
+        <div style="margin-bottom: 15px">
+          <label for="price" style="display: block">Price:</label>
+          <input
+            type="number"
+            id="price"
+            class="rounded-4 border-1 px-2 py-1"
+            name="price"
+            placeholder="Enter price"
+            style="width: 150px; background-color: #f3e5d8"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="rounded-pill border-0 px-3 py-1 fw-semibold"
+          style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
+        >
+          Submit
+        </button>
+      </form>
     </div>
 
     <!-- Navbar component -->
