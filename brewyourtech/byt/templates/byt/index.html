@@ -1,7 +1,81 @@
-<html>
-  <head></head>
-  <body>
-    <h1>HELLOW WORLD</h1>
-    <p>{{ user_data.name }}</p>
+<!-- USER'S HOME PAGE AKA "BREW LOG" PAGE -->
+{% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title & Icon -->
+    <title>Brew Log</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'byt/images/logo.png' %}"
+    />
+
+    <!-- Bootstrap CSS -->
+    {% bootstrap_css %}
+  </head>
+
+  <body style="color: #5a3d2b; overflow-x: hidden; background-color: #f3e5d8">
+    <!-- Page Container -->
+    <div class="container-fluid vh-100 d-flex flex-column">
+      <!-- Header Section -->
+      <div
+        class="py-4 text-center card border-0 rounded-4 mt-3 mx-3"
+        style="background-color: #d7c0ae"
+      >
+        <h1 class="fw-bold" style="color: #4a3325">
+          Welcome to Your Brew Log!
+        </h1>
+        <p class="small" style="color: #5a3d2b">
+          This is where all your saved tech brews can be found, revisited, and
+          viewed!<br />
+          Dive into your personalized brew history.
+        </p>
+      </div>
+
+      <!-- Content Section -->
+      <div
+        class="flex-grow-1 d-flex justify-content-center align-items-start py-4"
+      >
+        <div class="row w-100 px-4">
+          <!-- Individual Log Cards -->
+          {% for item in brew_logs %}
+          <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm" style="border: 1px solid #5a3d2b">
+              <div class="card-body" style="background-color: #ffffff">
+                <h5 class="card-title fw-bold" style="color: #4a3325">
+                  <!-- name of sth -->
+                </h5>
+                <p class="card-text" style="color: #5a3d2b">
+                  <!-- descripton -->
+                </p>
+                <a
+                  href="{{ item.link }}"
+                  class="btn rounded-pill fw-medium"
+                  style="background-color: #5a3d2b; color: #ffffff"
+                >
+                  View Detailsß
+                </a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p class="text-center" style="color: #5a3d2b">
+            No brew logs found. Head to the brewery to craft your tech!
+          </p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar component -->
+    {% include 'byt/navbar.html' %}
+
+    <!-- Bootstrap JavaScript -->
+    {% bootstrap_javascript %}
   </body>
 </html>

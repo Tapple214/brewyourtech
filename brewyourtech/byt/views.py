@@ -12,3 +12,8 @@ def index(request):
 # Login page
 def login(request):
     return render(request, 'byt/login.html')
+
+
+# Login page
+def navbar(request):
+    return render(request, 'byt/navbar.html')

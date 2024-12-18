@@ -71,6 +71,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'brewyourtech.wsgi.application'
 
+# To enable image access
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

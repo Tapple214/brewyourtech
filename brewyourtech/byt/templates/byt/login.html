@@ -1,5 +1,5 @@
 <!-- LOGIN PAGE -->
-{% load django_bootstrap5 %}
+{% load django_bootstrap5 %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +9,11 @@
 
     <!-- Title & Icon -->
     <title>BrewYourTech</title>
-    <!-- <link rel="icon" type="image/x-icon" href="/static/images/logo.png" /> -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'byt/images/logo.png' %}"
+    />
 
     <!-- Bootstrap CSS -->
     {% bootstrap_css %}
@@ -26,7 +30,16 @@
         <form method="post" id="authForm">
           {% csrf_token %}
           <input type="hidden" id="action" name="action" value="" />
-          <h2 class="fw-bold">Login or Sign up!</h2>
+          <div class="text-center pb-3">
+            <img
+              src="{% static 'byt/images/logo.png' %}"
+              alt="BrewYourTech Logo"
+              style="width: 70px"
+              class="mb-2"
+            />
+            <h2 class="fw-bold">Login or Sign up!</h2>
+          </div>
+
           <p style="font-size: 12px">
             Don't have an account yet? Enter your username and password and
             press <b>Sign Up</b>.
@@ -36,6 +49,7 @@
           <div class="mb-3">
             <label for="authorname" class="form-label">Enter your name</label>
             <input
+              style="background-color: #f3e5d8"
               type="text"
               class="form-control rounded-4"
               id="authorname"
@@ -49,6 +63,7 @@
           <div>
             <label for="password" class="form-label">Password</label>
             <input
+              style="background-color: #f3e5d8"
               type="password"
               class="form-control rounded-4"
               id="password"
@@ -79,7 +94,7 @@
               style="
                 border: 1px solid #5a3d2b;
                 background-color: #5a3d2b;
-                color: #ffffff;
+                color: #f3e5d8;
               "
               onclick="document.getElementById('action').value='signup';"
             >
@@ -92,18 +107,31 @@
       <!-- Right Side: Introduction Content -->
       <!-- TODO: rethink about where to use #a98266 -->
       <div
-        class="h-100 w-md-50 d-flex flex-column justify-content-center align-items-center text-center px-4"
-        style="background-color: #5a3d2b; color: #ffffff"
-      >
-        <h1 class="fw-bold">Ready to Brew Your Tech?</h1>
-        <p style="line-height: 1.6; font-size: 12px">
-          Craving a tech upgrade? At BrewYourTech, we’ve got the perfect blend
-          of devices to espresso yourself. Whether you’re looking for a latte
-          innovation or a shot of something fresh, we’ll help you brew up the
-          perfect tech match. Let’s get brewing!
-        </p>
-      </div>
+      class="h-100 w-md-50 d-flex flex-column justify-content-center align-items-center text-center px-4 position-relative"
+      style="background-color: #5a3d2b; color: #f3e5d8;"
+    >
+  
+      <!-- Content -->
+      <h1 class="fw-bold z-3">Ready to Brew Your Tech?</h1>
+      <p style="line-height: 1.6; font-size: 12px" class="z-3">
+        Craving a tech upgrade? At BrewYourTech, we’ve got the perfect blend
+        of devices to espresso yourself. Whether you’re looking for a latte
+        innovation or a shot of something fresh, we’ll help you brew up the
+        perfect tech match. Let’s get brewing!
+      </p>
+
+      <img
+      src="{% static 'byt/images/deco1.png' %}"
+      alt="BrewYourTech decoration"
+      class="position-absolute w-100 top-0"
+    />
+    <img
+    src="{% static 'byt/images/deco2.png' %}"
+    alt="BrewYourTech decoration"
+    class="position-absolute w-100 bottom-0"
+  />
     </div>
+    
 
     <!-- Custom JS -->
     <!-- <script>
