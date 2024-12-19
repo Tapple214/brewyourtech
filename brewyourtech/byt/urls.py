@@ -11,4 +11,5 @@ urlpatterns = [
     path('phoneBrew', views.phoneBrew, name='phoneBrew'),
     path('laptopBrew', views.laptopBrew, name='laptopBrew'),
     path('cameraBrew', views.cameraBrew, name='cameraBrew'),
+    path('tabletBrew', views.tabletBrew, name='tabletBrew'),
 ]

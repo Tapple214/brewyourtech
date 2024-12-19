@@ -46,7 +46,7 @@ def loginSignUp(request):
 
 # Index/Home page aka "Brew Log"
 def brewLog(request):
-    response_string = User.objects.all()[0]
+    response_string = User.objects.all()
     return render(request, 'byt/brewLog.html', {'user_data': response_string})
 
 # Phone Filter page
@@ -143,6 +143,31 @@ def cameraBrew(request):
 
         # Pass the filtered cameras to the template context
         return render(request, "byt/cameraBrew.html", {"cameras": cameras})
+    
+def tabletBrew(request):
+    if request.method == "GET":
+        # Take in form inputs/GET params
+        price = request.GET.get("price", None)
+        display_size_inches = request.GET.get("display_size_inches", None)
+        battery_capacity = request.GET.get("battery_capacity", None)
+
+        # Initialize filters dictionary
+        filters = {}
+
+        # Add inputs to filters
+        if price:
+            filters["price__lte"] = price  # Less than or equal to price
+        if display_size_inches:
+            filters["display_size_inches__gte"] = display_size_inches  # Greater than or equal to display size
+        if battery_capacity:
+            filters["battery_capacity__gte"] = battery_capacity  # Greater than or equal to battery capacity
+
+        # Query the Tablet model with the filters
+        tablets = Tablet.objects.filter(**filters)
+
+        # Pass the filtered tablets to the template context
+        return render(request, "byt/tabletBrew.html", {"tablets": tablets})
+
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
@@ -177,7 +202,7 @@ def brewery(request):
             "name": "Tablets",
             "icon": "bi-tablet",
             "svg_path": "<path d='M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z' /><path d='M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2' />",
-            "link": "byt/tabletForm.html",
+            "link": "/tabletBrew",
         },
     ]
 

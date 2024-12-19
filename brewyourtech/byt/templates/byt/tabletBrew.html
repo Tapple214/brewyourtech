@@ -123,38 +123,39 @@
             <span id="price_value">{{ request.GET.price|default:500 }}</span> USD
           </div>
 
-          <!-- Display Size -->
+          <!-- Max Resolution -->
           <div style="margin-bottom: 15px">
-            <label for="display_size_inches">Display Size (inches):</label>
+            <label for="max_resolution">Max Resolution (px):</label>
             <input
               type="range"
-              id="display_size_inches"
-              name="display_size_inches"
-              min="7"
-              max="14"
-              step="0.1"
-              value="{{ request.GET.display_size_inches|default:10.1 }}"
-              oninput="document.getElementById('display_value').textContent = this.value"
+              id="max_resolution"
+              name="max_resolution"
+              min="640"
+              max="8192"
+              step="100"
+              value="{{ request.GET.max_resolution|default:1024 }}"
+              oninput="document.getElementById('resolution_value').textContent = this.value"
             />
-            <span id="display_value">{{ request.GET.display_size_inches|default:10.1 }}</span> inches
+            <span id="resolution_value">{{ request.GET.max_resolution|default:1024 }}</span> px
           </div>
 
-          <!-- Battery Capacity -->
+          <!-- Zoom Wide -->
           <div style="margin-bottom: 15px">
-            <label for="battery_capacity">Battery Capacity:</label>
+            <label for="zoom_wide">Zoom Wide (mm):</label>
             <input
               type="range"
-              id="battery_capacity"
-              name="battery_capacity"
-              min="3000"
-              max="15000"
-              step="500"
-              value="{{ request.GET.battery_capacity|default:7000 }}"
-              oninput="document.getElementById('battery_value').textContent = this.value"
+              id="zoom_wide"
+              name="zoom_wide"
+              min="10"
+              max="200"
+              step="10"
+              value="{{ request.GET.zoom_wide|default:38 }}"
+              oninput="document.getElementById('zoom_wide_value').textContent = this.value"
             />
-            <span id="battery_value">{{ request.GET.battery_capacity|default:7000 }}</span> mAh
+            <span id="zoom_wide_value">{{ request.GET.zoom_wide|default:38 }}</span> mm
           </div>
 
+          <!-- Submit Button -->
           <button
             type="submit"
             class="rounded-pill border-0 px-3 py-1 fw-semibold"
@@ -180,10 +181,10 @@
                 style="background-color: #d7c0ae; color: #5a3d2b"
               >
                 <h5 class="card-title fw-bold">
-                  {{ tablet.brand }} - {{ tablet.model }}
+                  {{ tablet.brand }} - {{ tablet.name }}
                 </h5>
-                <p class="card-text">Display Size: {{ tablet.display_size_inches }} inches</p>
-                <p class="card-text">Battery: {{ tablet.battery_capacity }} mAh</p>
+                <p class="card-text">Max Resolution: {{ tablet.max_resolution }} px</p>
+                <p class="card-text">Zoom Wide: {{ tablet.zoom_wide }} mm</p>
                 <p class="card-text">Price: ${{ tablet.price }}</p>
                 <a
                   href="#"
