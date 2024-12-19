@@ -91,6 +91,7 @@ def phoneBrew(request):
         # Pass the filtered phones to the template context
         return render(request, "byt/phoneBrew.html", {"phones": phones})
 
+# TODO: clean
 def laptopBrew(request):
     if request.method == "GET":
         # Take in form inputs/GET params
@@ -118,7 +119,30 @@ def laptopBrew(request):
 
         # Pass the filtered laptops to the template context
         return render(request, "byt/laptopBrew.html", {"laptops": laptops})
+    
+def cameraBrew(request):
+    if request.method == "GET":
+        # Take in form inputs/GET params
+        price = request.GET.get("price", None)
+        max_resolution = request.GET.get("max_resolution", None)
+        zoom_tele = request.GET.get("zoom_tele", None)
 
+        # Initialize filters dictionary
+        filters = {}
+
+        # Add inputs to filters
+        if price:
+            filters["price__lte"] = price  # Less than or equal to price
+        if max_resolution:
+            filters["max_resolution__gte"] = max_resolution  # Greater than or equal to max resolution
+        if zoom_tele:
+            filters["zoom_tele__gte"] = zoom_tele  # Greater than or equal to zoom tele
+
+        # Query the Camera model with the filters
+        cameras = Camera.objects.filter(**filters)
+
+        # Pass the filtered cameras to the template context
+        return render(request, "byt/cameraBrew.html", {"cameras": cameras})
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
@@ -146,7 +170,7 @@ def brewery(request):
             "name": "Cameras",
             "icon": "bi-camera",
             "svg_path": "<path d='M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 1 3.172 4z' /><path d='M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0' />",
-            "link": "byt/cameraForm.html",
+            "link": "/cameraBrew",
         }, 
         {
             "id": "tablet",
