@@ -2,7 +2,7 @@
 
 <nav
   class="navbar navbar-expand fixed-bottom"
-  style="height: 65px; background-color: #5a3d2b; color: #f3e5d8"
+  style="background-color: #5a3d2b; color: #f3e5d8"
 >
   <div class="container-fluid d-flex justify-content-around">
     {% for item in navbar_items %}
@@ -19,8 +19,9 @@
         class="bi {{ item.icon_class }} mt-1"
         viewBox="0 0 16 16"
         style="color: #f3e5d8"
-      ></svg>
-
+      >
+        {{ item.svg_path|safe }}
+      </svg>
       <span class="d-block small fw-bold" style="color: #f3e5d8"
         >{{ item.label }}</span
       >
