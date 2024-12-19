@@ -15,9 +15,6 @@ def login(request):
     return render(request, 'byt/login.html')
 
 # Assembly/Filer page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
-from django.shortcuts import render
-from .models import Phone  # Adjust based on your app's name and model
-
 def brewery(request):
     # Query all phone data
     phone_data = Phone.objects.all()
