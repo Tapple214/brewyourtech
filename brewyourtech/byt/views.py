@@ -32,22 +32,50 @@ def loginSignUp(request):
                 user = User.objects.get(name=name)
                 if check_password(password, user.password):
                     # If user exists
+                    request.session['user_id'] = user.id
+                    request.session['user_name'] = user.name
                     messages.success(request, f"Welcome back, {name}!")
-                    # TODO: Implement session or redirect logic here
                     return redirect('brewLog')  
                 else:
-                    # If user DOES NOT exist
+                    # If password is invalid
                     messages.error(request, "Uh oh.. The password you entered is invalid. Please try again!")
             except User.DoesNotExist:
                 messages.error(request, "Oops! It seems this user doesn’t exist yet. If you’re new here, please sign up to get started!")
             return redirect("loginSignUp")  
 
-    return render(request, "byt/loginSignUp.html") 
+    return render(request, "byt/loginSignUp.html")
 
-# Index/Home page aka "Brew Log"
+# # Fetch the user givent that we are using django hash then we goot do below
+# user = User.objects.get(name="Apple")
+
+# # Update the password to a hashed version
+# user.password = make_password("123")
+# user.save()
+
+def logout(request):
+    # Clear the session
+    request.session.flush()
+    messages.success(request, "You have been logged out successfully!")
+    return redirect("loginSignUp")
+
 def brewLog(request):
-    response_string = User.objects.all()
-    return render(request, 'byt/brewLog.html', {'user_data': response_string})
+    # Check if the user is logged in by checking the session
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        # If no session exists, redirect to login page
+        return redirect('loginSignUp')
+    
+    try:
+        # Fetch the user's profile using the ID stored in the session
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        # Handle the case where the user ID in the session is invalid
+        request.session.flush()  # Clear the session
+        return redirect('loginSignUp')
+
+    # Pass the user's data to the template
+    return render(request, 'byt/brewLog.html', {'user': user})
 
 # Phone Filter page
 def phoneBrew(request):
