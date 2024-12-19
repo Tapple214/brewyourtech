@@ -47,16 +47,16 @@
             press <b>Sign Up</b>.
           </p>
 
-          <!-- Author Name Field -->
+          <!-- Name Field -->
           <div class="mb-3">
-            <label for="authorname" class="form-label">Enter your name</label>
+            <label for="name" class="form-label">Enter your name</label>
             <input
               style="background-color: #f3e5d8"
               type="text"
               class="form-control rounded-4"
-              id="authorname"
-              name="author_name"
-              aria-describedby="authornameHelp"
+              id="name"
+              name="name"
+              aria-describedby="nameHelp"
               required
             />
           </div>
@@ -69,40 +69,47 @@
               type="password"
               class="form-control rounded-4"
               id="password"
-              name="author_password"
+              name="password"
               required
             />
           </div>
 
           <!-- Login & Sign Up Buttons -->
           <div>
+            <!-- Login Button -->
             <button
-              type="submit"
-              class="rounded-pill px-3 py-1 fw-medium mt-3"
-              style="
-                border: 2px solid #5a3d2b;
-                background-color: transparent;
-                color: #5a3d2b;
-              "
-              onclick="document.getElementById('action').value='login';"
+            type="submit"
+            class="rounded-pill px-3 py-1 fw-medium mt-3"
+            style="border: 2px solid #5a3d2b; background-color: transparent; color: #5a3d2b;"
+            onclick="document.getElementById('action').value='login';"
             >
-              Login
+            Login
             </button>
-            &nbsp;
-            <span class="opacity-50" style="color: #5a3d2b"> or </span> &nbsp;
+
+            <span class="px-2">Or</span>
+            
+            <!-- Sign Up Button -->
             <button
-              type="submit"
-              class="rounded-pill px-3 py-1 fw-medium mt-3"
-              style="
-                border: 1px solid #5a3d2b;
-                background-color: #5a3d2b;
-                color: #f3e5d8;
-              "
-              onclick="document.getElementById('action').value='signup';"
+            type="submit"
+            class="rounded-pill px-3 py-1 fw-medium mt-3"
+            style="border: 1px solid #5a3d2b; background-color: #5a3d2b; color: #f3e5d8;"
+            onclick="document.getElementById('action').value='signup';"
             >
-              Sign Up
+            Sign Up
             </button>
           </div>
+
+          {% if messages %}
+            <!-- Display Messages -->
+            <div class="text-center mt-4 small">
+              {% for message in messages %}
+                <div class="" >
+                  {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
         </form>
       </div>
 

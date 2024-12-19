@@ -2,6 +2,10 @@ from django.shortcuts import render
 
 from .models import *
 from .forms import CSVUploadForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password, check_password
+from .models import User
 
 # Views
 
@@ -11,8 +15,38 @@ def brewLog(request):
     return render(request, 'byt/brewLog.html', {'user_data': response_string})
 
 # Login page
-def login(request):
-    return render(request, 'byt/login.html')
+def loginSignUp(request):
+    if request.method == "POST":
+        action = request.POST.get("action")
+        name = request.POST.get("name")
+        password = request.POST.get("password")
+
+        if action == "signup":
+            # Check if the user already exists
+            if User.objects.filter(name=name).exists():
+                messages.error(request, "Oops! This username already exists! Please login instead.")
+            else:
+                # Create a new user
+                hashed_password = make_password(password)
+                User.objects.create(name=name, password=hashed_password)
+                messages.success(request, "Yay! Sign-up successful! Please re-enter your input and hit login!")
+            return redirect("loginSignUp")  
+
+        elif action == "login":
+            # Authenticate the user
+            try:
+                user = User.objects.get(name=name)
+                if check_password(password, user.password):
+                    messages.success(request, f"Welcome back, {name}!")
+                    # Implement session or redirect logic here
+                    return redirect("home")  # Replace with your homepage URL or view
+                else:
+                    messages.error(request, "Uh oh.. The password you entered is invalid. Please try again!")
+            except User.DoesNotExist:
+                messages.error(request, "Oops! It seems this user doesn’t exist yet. If you’re new here, please sign up to get started!")
+            return redirect("loginSignUp")  
+
+    return render(request, "byt/loginSignUp.html") 
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
