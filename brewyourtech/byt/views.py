@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .models import *
 from .forms import CSVUploadForm
 
-# Create your views here.
+# Views
 
 # Index/Home page aka "Brew Log"
 def brewLog(request):
@@ -14,7 +14,7 @@ def brewLog(request):
 def login(request):
     return render(request, 'byt/login.html')
 
-# Assembly/Filer page aka "Brewery"; assembly means where we "assemble" our wanted device
+# Assembly/Filer page aka "Brewery"; assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
     response_string = Phone.objects.all()
     return render(request, 'byt/brewery.html', {'phone_data': response_string})
