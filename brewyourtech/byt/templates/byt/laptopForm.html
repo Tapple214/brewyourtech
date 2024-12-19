@@ -1,0 +1,73 @@
+<form>
+  <!-- Price -->
+  <div style="margin-bottom: 15px">
+    <label for="price" style="display: block">Price in USD:</label>
+    <input
+      type="range"
+      id="price"
+      name="price"
+      min="100"
+      max="5000"
+      step="50"
+      value="1000"
+      oninput="document.getElementById('laptop_price_value').textContent = this.value"
+      style="width: 300px"
+    />
+    <span id="laptop_price_value">1000</span> USD
+  </div>
+
+  <!-- RAM -->
+  <div style="margin-bottom: 15px">
+    <label for="ram_memory" style="display: block">RAM (GB):</label>
+    <input
+      type="range"
+      id="ram_memory"
+      name="ram_memory"
+      min="4"
+      max="64"
+      step="4"
+      value="8"
+      oninput="document.getElementById('laptop_ram_value').textContent = this.value"
+      style="width: 300px"
+    />
+    <span id="laptop_ram_value">8</span> GB
+  </div>
+
+  <!-- Display Size -->
+  <div style="margin-bottom: 15px">
+    <label for="display_size" style="display: block"
+      >Display Size (inches):</label
+    >
+    <input
+      type="range"
+      id="display_size"
+      name="display_size"
+      min="11"
+      max="18"
+      step="0.5"
+      value="15.6"
+      oninput="document.getElementById('laptop_display_value').textContent = this.value"
+      style="width: 300px"
+    />
+    <span id="laptop_display_value">15.6</span> inches
+  </div>
+
+  <!-- Processor Brand -->
+  <div style="margin-bottom: 15px">
+    <label for="processor_brand" style="display: block">Processor Brand:</label>
+    <select id="processor_brand" name="processor_brand" style="width: 300px">
+      <option value="Intel">Intel</option>
+      <option value="AMD">AMD</option>
+      <option value="Apple">Apple</option>
+    </select>
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    class="rounded-pill border-0 px-3 py-1 fw-semibold"
+    style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
+  >
+    Submit
+  </button>
+</form>
