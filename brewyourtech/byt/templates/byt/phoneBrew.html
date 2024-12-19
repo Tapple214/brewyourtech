@@ -1,3 +1,5 @@
+<!-- ### START ### -->
+
 <!-- PHONE FILTERING PAGE -->
 
 {% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
@@ -302,22 +304,6 @@
     
     </div>
 
-    <!-- JavaScript -->
-    <script>
-      function showForm(formId) {
-        document.getElementById("card-view").classList.add("hidden");
-        document.getElementById("form-view").classList.remove("hidden");
-        document.getElementById(formId).classList.remove("hidden");
-      }
-
-      function goBack() {
-        document.getElementById("card-view").classList.remove("hidden");
-        document.getElementById("form-view").classList.add("hidden");
-        const forms = document.querySelectorAll("#form-view > div");
-        forms.forEach((form) => form.classList.add("hidden"));
-      }
-    </script>
-
     <!-- Navbar component -->
     {% include 'byt/navbar.html' %}
 
@@ -325,3 +311,5 @@
     {% bootstrap_javascript %}
   </body>
 </html>
+
+<!-- ### END ### -->
