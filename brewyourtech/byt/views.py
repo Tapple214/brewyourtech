@@ -49,7 +49,45 @@ def brewLog(request):
     response_string = User.objects.all()[0]
     return render(request, 'byt/brewLog.html', {'user_data': response_string})
 
+def phoneBrew(request):
+    if request.method == "GET":
+        # Extract filter criteria from GET parameters
+        price = request.GET.get("price", None)
+        launch_year = request.GET.get("launch_year", None)
+        ram = request.GET.get("ram", None)
+        main_camera = request.GET.get("main_camera", None)
+        selfie_camera = request.GET.get("selfie_camera", None)
+        sound_jack = request.GET.get("sound_jack", None)
+        bluetooth = request.GET.get("bluetooth", None)
+        battery_capacity = request.GET.get("battery_capacity", None)
 
+        # Initialize filters dictionary
+        filters = {}
+
+        # Add criteria to filters dictionary if provided
+        if price:
+            filters["price_usd__lte"] = price
+        if launch_year:
+            filters["launch_expected_year__lte"] = launch_year
+        if ram:
+            filters["ram_gb__gte"] = float(ram) / 1024  # Convert MB to GB
+        if main_camera:
+            filters["main_camera_single_mp__gte"] = main_camera
+        if selfie_camera:
+            filters["selfie_camera_single_mp__gte"] = selfie_camera
+        if sound_jack:
+            filters["sound_3_5mm_jack"] = sound_jack == "Yes"
+        if bluetooth:
+            filters["comms_bluetooth__gte"] = bluetooth
+        if battery_capacity:
+            filters["battery_capacity_mah__gte"] = battery_capacity
+
+        # Query the Phone model with the filters
+        phones = Phone.objects.filter(**filters)
+
+        # Pass the filtered phones to the template context
+        return render(request, "byt/phoneBrew.html", {"phones": phones})
+    
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
     # Query all phone data
@@ -62,7 +100,7 @@ def brewery(request):
             "name": "Phones",
             "icon": "bi-phone",
             "svg_path": "<path d='M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z' /><path d='M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2' />",
-            "form_template": "byt/phoneForm.html",
+            "form_template": "byt/phoneBrew.html",
         },
         {
             "id": "laptop",
