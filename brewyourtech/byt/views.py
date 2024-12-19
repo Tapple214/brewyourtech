@@ -9,11 +9,6 @@ from .models import User
 
 # Views
 
-# Index/Home page aka "Brew Log"
-def brewLog(request):
-    response_string = User.objects.all()[0]
-    return render(request, 'byt/brewLog.html', {'user_data': response_string})
-
 # Login page
 def loginSignUp(request):
     if request.method == "POST":
@@ -48,6 +43,12 @@ def loginSignUp(request):
             return redirect("loginSignUp")  
 
     return render(request, "byt/loginSignUp.html") 
+
+# Index/Home page aka "Brew Log"
+def brewLog(request):
+    response_string = User.objects.all()[0]
+    return render(request, 'byt/brewLog.html', {'user_data': response_string})
+
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
