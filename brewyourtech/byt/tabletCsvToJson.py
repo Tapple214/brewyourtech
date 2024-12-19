@@ -1,42 +1,48 @@
+### START ###
+
 import csv
 import json
 
-# Input and output file paths
-input_file = '/Users/tapple/Desktop/UOL Y3/Sem 1/Advanced Web Development/Midterm/BYT/brewyourtech/byt/static/byt/csv/Tablets.csv'
-output_file = 'Tablets.json'  # The fixture file to be created
+# A CSV to fixture (JSON) converter for the Tablets.csv
 
-# Initialize counters
+# Input and output file paths; Output will appear in the same directory as input
+input_file = '/Users/tapple/Desktop/UOL Y3/Sem 1/Advanced Web Development/Midterm/BYT/brewyourtech/byt/static/byt/csv/Tablets.csv'
+output_file = 'Tablets.json' 
+
+
 total_rows = 0
 passed_checks = 0
 
-# Open the CSV file and read its contents
+# Open the CSV file
+# Read its contents
 with open(input_file, newline='', encoding='utf-8') as csvfile:
-    reader = csv.DictReader(csvfile)  # Automatically uses the header row for keys
+    # Uses the header row for keys
+    reader = csv.DictReader(csvfile) 
     data = []
 
-    # Process each row
     for row in reader:
-        total_rows += 1  # Increment total row count
+        # Start row count in increments of 1
+        total_rows += 1  
         
-        # Safeguard: Remove the 'index' column if it exists
+        # Remove/Pop the 'index' column if it exists
         row.pop('index', None)
 
         try:
             # Append a JSON object for each row
             data.append({
-                "model": "byt.Tablet",  # Replace `your_app_name` with the name of your app
-                "pk": None,  # Optionally set this to a unique value if needed
+                "model": "byt.Tablet", 
+                "pk": None, 
                 "fields": {
                     "name": row['name'],
                     "brand": row['brand'],
                     "rating": float(row['rating']) if row['rating'] else 0.0,
-                    "price": row['price'],  # Keep as string
+                    "price": row['price'],  
                     "processor_brand": row['processor_brand'],
                     "num_processor": int(float(row['num_processor'])) if row['num_processor'] else 0,
                     "processor_speed": float(row['processor_speed']) if row['processor_speed'] else 0.0,
-                    "ram": row['ram'],  # Keep as string
-                    "memory_inbuilt": row['memory_inbuilt'],  # Keep as string
-                    "battery_capacity": row['battery_capacity'],  # Keep as string
+                    "ram": row['ram'], 
+                    "memory_inbuilt": row['memory_inbuilt'],  
+                    "battery_capacity": row['battery_capacity'],  
                     "charger": row['charger'],
                     "charging": row['charging'],
                     "display_size_inches": float(row['display_size_inches']) if row['display_size_inches'] else 0.0,
@@ -51,13 +57,14 @@ with open(input_file, newline='', encoding='utf-8') as csvfile:
                     "secondary_rear_camera": float(row['secondry_rear_camera']) if row['secondry_rear_camera'] else None,
                     "os_brand": row['os_brand'],
                     "version": row['version'],
-                    "memory_card_upto": row['memory_card_upto'],  # Keep as string
+                    "memory_card_upto": row['memory_card_upto'],  
                     "sim": row['sim'],
                     "is_5G": row['is_5G'].lower() == 'true',
                     "is_wifi": row['is_wifi'].lower() == 'true',
                 }
             })
-            passed_checks += 1  # Increment passed checks count
+            # +1 increment to entry successfully added to fixture
+            passed_checks += 1  
         except (ValueError, KeyError) as e:
             print(f"Skipping row due to error: {e}")
             continue
@@ -66,11 +73,17 @@ with open(input_file, newline='', encoding='utf-8') as csvfile:
 with open(output_file, 'w', encoding='utf-8') as jsonfile:
     json.dump(data, jsonfile, ensure_ascii=False, indent=4)
 
-# Print comparison results
-print(f"Total rows processed: {total_rows}")
-print(f"Rows that passed the checks: {passed_checks}")
-print(f"Fixture file {output_file} created successfully!")
+# Step 1: RUN python byt/tabletCsvToJson.py
+# Step 2: Move the output file into fixtures
+# Step 3: RUN python manage.py loaddata Tablets.json
 
-# Total rows processed: 390
-# Rows that passed the checks: 390
-# Fixture file Tablets.json created successfully!
+# Print counts; For display and tracking purposes 
+print(f"Total rows processed: {total_rows}") # Total rows processed: 390
+print(f"Rows that passed the checks: {passed_checks}") # Rows that passed the checks: 390
+print(f"Fixture file {output_file} created successfully!") # Fixture file Tablets.json created successfully!
+
+# All data from the csv was loaded into the db
+
+### END ###
+
+
