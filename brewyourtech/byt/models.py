@@ -46,32 +46,8 @@ class Phone(models.Model):
     # To ensure that display is readable
     # Example Output: Apple iPhone 14
 
-class Laptop(models.Model):
-    brand = models.CharField(max_length=100)
-    model = models.CharField(max_length=100)
-    price = models.FloatField()
-    rating = models.FloatField()
-    processor_brand = models.CharField(max_length=100)
-    processor_tier = models.CharField(max_length=100)
-    num_cores = models.IntegerField()
-    num_threads = models.IntegerField()
-    ram_memory = models.FloatField()  
-    primary_storage_type = models.CharField(max_length=100)
-    primary_storage_capacity = models.IntegerField() 
-    secondary_storage_type = models.CharField(max_length=100, null=True, blank=True)  
-    secondary_storage_capacity = models.IntegerField(null=True, blank=True)  
-    gpu_brand = models.CharField(max_length=100)
-    gpu_type = models.CharField(max_length=100)
-    is_touch_screen = models.BooleanField()
-    display_size = models.FloatField() 
-    resolution_width = models.IntegerField()
-    resolution_height = models.IntegerField()
-    operating_system = models.CharField(max_length=100)
-    year_of_warranty = models.IntegerField(null=True, blank=True)
 
-    def __str__(self):
-        return f"{self.brand} {self.model}"
-    # To ensure that display is readable
+
 
 class Tablet(models.Model):
     index = models.AutoField(primary_key=True)  

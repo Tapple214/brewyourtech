@@ -90,7 +90,35 @@ def phoneBrew(request):
 
         # Pass the filtered phones to the template context
         return render(request, "byt/phoneBrew.html", {"phones": phones})
-    
+
+def laptopBrew(request):
+    if request.method == "GET":
+        # Take in form inputs/GET params
+        price = request.GET.get("price", None)
+        ram_memory = request.GET.get("ram_memory", None)
+        display_size = request.GET.get("display_size", None)
+        processor_brand = request.GET.get("processor_brand", None)
+
+        # Initialize filters dictionary
+        filters = {}
+
+        # Add inputs to filters
+        if price:
+            filters["price__lte"] = price  # Less than or equal to price
+        if ram_memory:
+            filters["ram_memory__gte"] = ram_memory  # Greater than or equal to RAM
+        if display_size:
+            filters["display_size__gte"] = display_size  # Minimum display size
+        # Only apply the processor brand filter if a specific value is selected (not "All" or empty)
+        if processor_brand and processor_brand.strip():  # Ensure 'All' (empty) option doesn't filter
+            filters["processor_brand__icontains"] = processor_brand  # Case-insensitive match for processor brand
+
+        # Query the Laptop model with the filters
+        laptops = Laptop.objects.filter(**filters)
+
+        # Pass the filtered laptops to the template context
+        return render(request, "byt/laptopBrew.html", {"laptops": laptops})
+
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
     # Query all phone data
@@ -110,7 +138,7 @@ def brewery(request):
             "name": "Laptops",
             "icon": "bi-laptop",
             "svg_path": "<path d='M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5' />",
-            "link": "byt/laptopForm.html",
+            "link": "/laptopBrew",
         },
         {
             "id": "camera",
