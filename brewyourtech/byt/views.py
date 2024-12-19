@@ -49,10 +49,10 @@ def brewLog(request):
     response_string = User.objects.all()[0]
     return render(request, 'byt/brewLog.html', {'user_data': response_string})
 
-# TODO: clean this; change minimunm to 2016 as 2015s are discontinued
+# Phone Filter page
 def phoneBrew(request):
     if request.method == "GET":
-        # Extract filter criteria from GET parameters
+        # Take in form inputs/GET params
         price = request.GET.get("price", None)
         launch_year = request.GET.get("launch_year", None)
         ram = request.GET.get("ram", None)
@@ -65,11 +65,13 @@ def phoneBrew(request):
         # Initialize filters dictionary
         filters = {}
 
-        # Add criteria to filters dictionary if provided
+        # lte = less than equal to
+        # gte = greater than equal to
+        # Add inputs to filter
         if price:
-            filters["price_usd__lte"] = price
+            filters["price_usd__lte"] = price 
         if launch_year:
-            filters["launch_expected_year__lte"] = launch_year
+            filters["launch_expected_year__gte"] = launch_year  
         if ram:
             filters["ram_gb__gte"] = float(ram) / 1024  # Convert MB to GB
         if main_camera:

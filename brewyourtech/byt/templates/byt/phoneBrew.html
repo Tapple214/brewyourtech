@@ -1,5 +1,7 @@
+<!-- PHONE FILTERING PAGE -->
+
 {% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
-<!-- TODO: clean this -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -137,14 +139,14 @@
                 type="range"
                 id="launch_year"
                 name="launch_year"
-                min="2015"
+                min="2016"
                 max="2024"
                 step="1"
-                value="{{ request.GET.launch_year|default:2015 }}"
+                value="{{ request.GET.launch_year|default:2016 }}"
                 oninput="document.getElementById('year_value').textContent = this.value"
             
             />
-            <span id="year_value">{{ request.GET.launch_year|default:2015 }}</span>
+            <span id="year_value">{{ request.GET.launch_year|default:2016 }}</span>
         </div>
 
         <!-- RAM -->
@@ -216,7 +218,7 @@
 
         <!-- Comms Bluetooth -->
         <div style="margin-bottom: 15px">
-            <label for="bluetooth" style="display: block">Comms Bluetooth (version):</label>
+            <label for="bluetooth" style="display: block">Bluetooth Version:</label>
             <input
                 type="range"
                 id="bluetooth"
@@ -260,7 +262,7 @@
       </div>
 
       <!-- Main Content -->
-      <div
+    <div
       class="py-3 px-3"
       style="height: 93vh; overflow-y: auto"
     >
@@ -275,11 +277,8 @@
               style="background-color: #d7c0ae; color: #5a3d2b"
             >
               <h5 class="card-title fw-bold">
-                {{ phone.brand }} {{ phone.model }}
+                {{ phone.brand }} - {{ phone.model }}
               </h5>
-              <p class="card-text">
-                <!-- Add additional description here if needed, or leave empty -->
-              </p>
               <a
                 href="{{ phone.url }}"
                 target="_blank"
