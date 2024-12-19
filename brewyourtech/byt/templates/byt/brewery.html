@@ -157,7 +157,7 @@
           <div class="col d-flex align-items-stretch">
             <div
               class="card rounded-4 border-0 w-100"
-              onclick="showForm('{{ category.id }}Form')"
+              onclick="window.location.href='{{ category.link }}'"
             >
               <div
                 class="card-body rounded-4 border-0 d-flex flex-column justify-content-center align-items-center"
@@ -179,18 +179,6 @@
           </div>
           {% endfor %}
         </div>
-      </div>
-
-      <!-- Form Views -->
-      <div id="form-view" class="hidden">
-        <button class="btn btn-back mb-3" onclick="goBack()">
-          &larr; Back
-        </button>
-        {% for category in categories %}
-        <div id="{{ category.id }}Form" class="hidden">
-          {% include category.form_template %}
-        </div>
-        {% endfor %}
       </div>
     </div>
 
