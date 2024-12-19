@@ -151,12 +151,12 @@ class Camera(models.Model):
 # print(Phone.objects.count())
 # 3550
 # print(Laptop.objects.count())
-# 991
+# 1275
 # print(Tablet.objects.count())
 # 390
 # print(Camera.objects.count())
 # 1038
 
-# Total entries: 5969 
+# Total entries: 6253 
 
 ### END ###
