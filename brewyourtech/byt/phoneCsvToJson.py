@@ -9,7 +9,6 @@ output_file = 'Phones.json'  # The fixture file to be created
 total_rows = 0
 passed_checks = 0
 
-
 # Open the CSV file and read its contents
 with open(input_file, newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)  # Automatically uses the header row for keys

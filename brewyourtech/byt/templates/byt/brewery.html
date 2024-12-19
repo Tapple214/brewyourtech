@@ -1,4 +1,3 @@
-<!-- USER'S HOME PAGE AKA "BREW LOG" PAGE -->
 {% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
 
 <!DOCTYPE html>
@@ -19,6 +18,33 @@
     {% bootstrap_css %}
 
     <style>
+      body {
+        color: #5a3d2b;
+        background-color: #f3e5d8;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .btn-back {
+        background-color: #5a3d2b;
+        color: #f3e5d8;
+        border: none;
+      }
+
+      .btn-back:hover {
+        background-color: #dab896;
+      }
+
       input[type="range"] {
         -webkit-appearance: none;
         width: 300px;
@@ -90,15 +116,7 @@
     </style>
   </head>
 
-  <body
-    class="d-flex align-items-center"
-    style="
-      color: #5a3d2b;
-      overflow-x: hidden;
-      background-color: #f3e5d8;
-      height: 93vh;
-    "
-  >
+  <body class="d-flex">
     <!-- Sidebar-style Div -->
     <div
       class="py-4 card border-0 rounded-4 m-4 p-4 text-center d-flex align-items-center justify-content-center"
@@ -125,7 +143,8 @@
 
       <h4 class="fw-bold">To Get Started</h4>
       <p class="mb-0 small">
-        Fill out the form on the right to share your preferences. Based on your
+        First select the type of device you are looking for then fill out the
+        form that respectively appears to share your preferences. Based on your
         inputs, we’ll provide a curated selection of options just for you.
         Explore each choice and, if you find your perfect match, tap the save
         icon to keep it in your collection. It’s as simple as that!
@@ -133,171 +152,72 @@
     </div>
 
     <!-- Main Content -->
-    <div style="overflow-y: auto" class="h-100 w-75 h-100 py-4 ps-0 pe-4">
-      <h2 class="fw-bold">Find your perfect brew!</h2>
-
-      <form>
-        <!-- Price -->
-        <div style="margin-bottom: 15px">
-          <label for="price" style="display: block">Price in USD:</label>
-          <input
-            type="range"
-            id="price"
-            name="price"
-            min="10"
-            max="2000"
-            step="10"
-            value="10"
-            oninput="document.getElementById('price_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="price_value">10</span> USD
+    <div class="w-75 py-3 pe-3">
+      <div id="card-view">
+        <h2 class="fw-bold">Find your perfect brew!</h2>
+        <div class="card-grid">
+          <!-- Cards for options -->
+          <div class="card rounded-4 border-0" onclick="showForm('phoneForm')">
+            <div
+              class="card-body rounded-4 border-0"
+              style="background-color: #d7c0ae; color: #5a3d2b"
+            >
+              <h4>Phones</h4>
+            </div>
+          </div>
+          <div class="card rounded-4 border-0" onclick="showForm('laptopForm')">
+            <div
+              class="card-body rounded-4 border-0"
+              style="background-color: #d7c0ae; color: #5a3d2b"
+            >
+              <h4>Laptops</h4>
+            </div>
+          </div>
+          <div class="card rounded-4 border-0" onclick="showForm('tabletForm')">
+            <div
+              class="card-body rounded-4 border-0"
+              style="background-color: #d7c0ae; color: #5a3d2b"
+            >
+              <h4>Tablets</h4>
+            </div>
+          </div>
+          <div class="card rounded-4 border-0" onclick="showForm('cameraForm')">
+            <div
+              class="card-body rounded-4 border-0"
+              style="background-color: #d7c0ae; color: #5a3d2b"
+            >
+              <h4>Cameras</h4>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Launch Expected Year -->
-        <div style="margin-bottom: 15px">
-          <label for="launch_year" style="display: block">Launch Year:</label>
-          <input
-            type="range"
-            id="launch_year"
-            name="launch_year"
-            min="2003"
-            max="2024"
-            step="1"
-            value="2003"
-            oninput="document.getElementById('year_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="year_value">2003</span>
-        </div>
-
-        <!-- RAM -->
-        <div style="margin-bottom: 15px">
-          <label for="ram" style="display: block">RAM (MB):</label>
-          <input
-            type="range"
-            id="ram"
-            name="ram"
-            min="0"
-            max="512"
-            step="1"
-            value="0"
-            oninput="document.getElementById('ram_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="ram_value">0</span> MB
-        </div>
-
-        <!-- Main Camera Single -->
-        <div style="margin-bottom: 15px">
-          <label for="main_camera" style="display: block"
-            >Main Camera Single (MP):</label
-          >
-          <input
-            type="range"
-            id="main_camera"
-            name="main_camera"
-            min="0"
-            max="60"
-            step="1"
-            value="0"
-            oninput="document.getElementById('main_camera_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="main_camera_value">0</span> MP
-        </div>
-
-        <!-- Selfie Camera Single -->
-        <div style="margin-bottom: 15px">
-          <label for="selfie_camera" style="display: block"
-            >Selfie Camera Single (MP):</label
-          >
-          <input
-            type="range"
-            id="selfie_camera"
-            name="selfie_camera"
-            min="0"
-            max="60"
-            step="1"
-            value="0"
-            oninput="document.getElementById('selfie_camera_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="selfie_camera_value">0</span> MP
-        </div>
-
-        <!-- Sound 3.5mm Jack -->
-        <div style="margin-bottom: 15px">
-          <label for="sound_jack" style="display: block"
-            >Sound 3.5mm Jack:</label
-          >
-          <select
-            id="sound_jack"
-            name="sound_jack"
-            style="
-              width: 100px;
-              background-color: #f3e5d8;
-              border: 2px #5a3d2b solid;
-            "
-            class="rounded-4 p-1"
-            required
-          >
-            <option value="">Select</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-
-        <!-- Comms Bluetooth -->
-        <div style="margin-bottom: 15px">
-          <label for="bluetooth" style="display: block"
-            >Comms Bluetooth (version):</label
-          >
-          <input
-            type="range"
-            id="bluetooth"
-            name="bluetooth"
-            min="0"
-            max="5.5"
-            step="0.1"
-            value="0"
-            oninput="document.getElementById('bluetooth_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="bluetooth_value">0.0</span>
-        </div>
-
-        <!-- Battery Capacity -->
-        <div style="margin-bottom: 15px">
-          <label for="battery_capacity" style="display: block"
-            >Battery Capacity (mAh):</label
-          >
-          <input
-            type="range"
-            id="battery_capacity"
-            name="battery_capacity"
-            min="0"
-            max="28000"
-            step="100"
-            value="0"
-            oninput="document.getElementById('battery_capacity_value').textContent = this.value"
-            style="width: 300px"
-          />
-          <span id="battery_capacity_value">0</span> mAh
-        </div>
-
-        <!-- Submit Button -->
-        <button
-          type="submit"
-          class="rounded-pill border-0 px-3 py-1 fw-semibold"
-          style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
-        >
-          Submit
+      <!-- Form Views -->
+      <div id="form-view" class="hidden">
+        <button class="btn btn-back mb-3" onclick="goBack()">
+          &larr; Back
         </button>
-      </form>
-
-      <div>{% for phone in phone_data %} {{ phone.brand }} {% endfor %}</div>
+        <div id="phoneForm" class="hidden">
+          {% include 'byt/phoneForm.html' %}
+        </div>
+      </div>
     </div>
+
+    <!-- JavaScript -->
+    <script>
+      function showForm(formId) {
+        document.getElementById("card-view").classList.add("hidden");
+        document.getElementById("form-view").classList.remove("hidden");
+        document.getElementById(formId).classList.remove("hidden");
+      }
+
+      function goBack() {
+        document.getElementById("card-view").classList.remove("hidden");
+        document.getElementById("form-view").classList.add("hidden");
+        const forms = document.querySelectorAll("#form-view > div");
+        forms.forEach((form) => form.classList.add("hidden"));
+      }
+    </script>
 
     <!-- Navbar component -->
     {% include 'byt/navbar.html' %}
