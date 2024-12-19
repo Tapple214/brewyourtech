@@ -1,4 +1,4 @@
-from django.shortcuts import render
+### START ###
 
 from .models import *
 from .forms import CSVUploadForm
@@ -22,25 +22,26 @@ def loginSignUp(request):
         password = request.POST.get("password")
 
         if action == "signup":
-            # Check if the user already exists
             if User.objects.filter(name=name).exists():
+                # If user exists
                 messages.error(request, "Oops! This username already exists! Please login instead.")
             else:
-                # Create a new user
+                # If user DOES NOT exist create a new user
                 hashed_password = make_password(password)
                 User.objects.create(name=name, password=hashed_password)
                 messages.success(request, "Yay! Sign-up successful! Please re-enter your input and hit login!")
             return redirect("loginSignUp")  
 
         elif action == "login":
-            # Authenticate the user
             try:
                 user = User.objects.get(name=name)
                 if check_password(password, user.password):
+                    # If user exists
                     messages.success(request, f"Welcome back, {name}!")
-                    # Implement session or redirect logic here
-                    return redirect("home")  # Replace with your homepage URL or view
+                    # TODO: Implement session or redirect logic here
+                    return redirect('brewLog')  
                 else:
+                    # If user DOES NOT exist
                     messages.error(request, "Uh oh.. The password you entered is invalid. Please try again!")
             except User.DoesNotExist:
                 messages.error(request, "Oops! It seems this user doesn’t exist yet. If you’re new here, please sign up to get started!")
@@ -93,3 +94,13 @@ def brewery(request):
 
     return render(request, "byt/brewery.html", context)
 
+
+# TRACKER:
+# GET
+# POST - login/signup
+# PUT
+# DELETE
+# PATCH??
+# TRANSACTIONS
+
+### END ###
