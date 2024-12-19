@@ -1,5 +1,3 @@
-### START ###
-
 import csv
 import json
 
@@ -33,27 +31,43 @@ with open(input_file, newline='', encoding='utf-8') as csvfile:
                 "model": "byt.Laptop",  
                 "pk": None,  
                 "fields": {
-                    "brand": row['brand'],
-                    "model": row['Model'],
-                    "price": float(row['Price']) if row['Price'] else 0.0,
-                    "rating": float(row['Rating']) if row['Rating'] else 0.0,
-                    "processor_brand": row['processor_brand'],
-                    "processor_tier": row['processor_tier'],
-                    "num_cores": int(row['num_cores']) if row['num_cores'] else 0,
-                    "num_threads": int(row['num_threads']) if row['num_threads'] else 0,
-                    "ram_memory": float(row['ram_memory']) if row['ram_memory'] else 0.0,
-                    "primary_storage_type": row['primary_storage_type'],
-                    "primary_storage_capacity": int(row['primary_storage_capacity']) if row['primary_storage_capacity'] else 0,
-                    "secondary_storage_type": row['secondary_storage_type'] if row['secondary_storage_type'] else None,
-                    "secondary_storage_capacity": int(row['secondary_storage_capacity']) if row['secondary_storage_capacity'] else None,
-                    "gpu_brand": row['gpu_brand'],
-                    "gpu_type": row['gpu_type'],
-                    "is_touch_screen": row['is_touch_screen'] == 'True',
-                    "display_size": float(row['display_size']) if row['display_size'] else 0.0,
-                    "resolution_width": int(row['resolution_width']) if row['resolution_width'] else 0,
-                    "resolution_height": int(row['resolution_height']) if row['resolution_height'] else 0,
+                    "company": row['Company'],
+                    "product": row['Product'],
+                    "type_name": row['TypeName'],
+                    "inches": float(row['Inches']) if row['Inches'] else 0.0,
+                    "ram": int(row['Ram']) if row['Ram'].isdigit() else 0,
                     "operating_system": row['OS'],
-                    "year_of_warranty": int(row['year_of_warranty']) if row['year_of_warranty'] else None,  
+                    "weight": float(row['Weight']) if row['Weight'] else 0.0,
+                    "price_euros": float(row['Price_euros']) if row['Price_euros'] else 0.0,
+                    "screen_type": row['Screen'],
+                    "screen_width": int(row['ScreenW']) if row['ScreenW'].isdigit() else 0,
+                    "screen_height": int(row['ScreenH']) if row['ScreenH'].isdigit() else 0,
+                    "touchscreen": row['Touchscreen'] == 'Yes',
+                    "ips_panel": row['IPSpanel'] == 'Yes',
+                    "retina_display": row['RetinaDisplay'] == 'Yes',
+                    "cpu_company": row['CPU_company'],
+                    "cpu_frequency": float(row['CPU_freq']) if row['CPU_freq'] else 0.0,
+                    "cpu_model": row['CPU_model'],
+                    "primary_storage_capacity": row['PrimaryStorage'],  # Treat as string
+                    "secondary_storage_capacity": int(row['SecondaryStorage']) if row['SecondaryStorage'].isdigit() else None,
+                    "primary_storage_type": row['PrimaryStorageType'],
+                    "secondary_storage_type": row['SecondaryStorageType'] if row['SecondaryStorageType'] else None,
+                    "gpu_company": row['GPU_company'],
+                    "gpu_model": row['GPU_model'],
+                    "gpu_full_model": row['GPU Model'],
+                    "year": int(row['Year']) if row['Year'].isdigit() else 0,
+                    "quarter": row['Quarter'],
+                    "architecture": row['Architecture'],
+                    "process_nm": int(row['Process (nm)']) if row['Process (nm)'].isdigit() else 0,
+                    "cores_shaders": row['Cores (Shaders)'],
+                    "base_clock_mhz": row['Base Clock (MHz)'] if row['Base Clock (MHz)'].isdigit() else row['Base Clock (MHz)'],  # Treat as string for mixed formats
+                    "memory_size_gb": row['Memory Size (GB)'],
+                    "memory_type": row['Memory Type'] if row['Memory Type'] else None,
+                    "memory_bus_width_bits": int(row['Memory Bus Width (bits)']) if row['Memory Bus Width (bits)'].isdigit() else None,
+                    "tdp_w": row['TDP (W)'] if row['TDP (W)'].isdigit() else row['TDP (W)'],  # Treat as string for mixed formats
+                    "integrated_gpu": row['Integrated GPU'] == 'Yes',
+                    "mobile_gpu": row['Mobile GPU'] == 'Yes',
+                    "quantity": int(row['QTY']) if row['QTY'].isdigit() else 0
                 }
             })
             # +1 increment to entry successfully added to fixture
@@ -71,12 +85,7 @@ with open(output_file, 'w', encoding='utf-8') as jsonfile:# Uses the header row 
 # Step 3: RUN python manage.py loaddata Laptops.json
 
 # Print counts; For display and tracking purposes 
-print(f"Total rows processed: {total_rows}") # Total rows processed: 991
-print(f"Rows that passed the checks: {passed_checks}") # Rows that passed the checks: 973
+print(f"Total rows processed: {total_rows}") # Total rows processed: 1275
+print(f"Rows that passed the checks: {passed_checks}") # Rows that passed the checks: 1275
 print(f"Fixture file {output_file} created successfully!") # Fixture file Laptops.json created successfully!
-
-# 21 entries were skipped due to error: invalid literal for int() with base 10: 'No information'
-
-### END ###
-
 

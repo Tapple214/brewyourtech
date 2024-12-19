@@ -95,29 +95,30 @@ def laptopBrew(request):
     if request.method == "GET":
         # Take in form inputs/GET params
         price = request.GET.get("price", None)
-        ram_memory = request.GET.get("ram_memory", None)
-        display_size = request.GET.get("display_size", None)
-        processor_brand = request.GET.get("processor_brand", None)
+        ram = request.GET.get("ram", None)  # Updated to match 'ram' field in model
+        inches = request.GET.get("inches", None)  # Updated to match 'inches' field in model
+        cpu_company = request.GET.get("cpu_company", None)  # Updated to match 'cpu_company' field in model
 
         # Initialize filters dictionary
         filters = {}
 
         # Add inputs to filters
         if price:
-            filters["price__lte"] = price  # Less than or equal to price
-        if ram_memory:
-            filters["ram_memory__gte"] = ram_memory  # Greater than or equal to RAM
-        if display_size:
-            filters["display_size__gte"] = display_size  # Minimum display size
-        # Only apply the processor brand filter if a specific value is selected (not "All" or empty)
-        if processor_brand and processor_brand.strip():  # Ensure 'All' (empty) option doesn't filter
-            filters["processor_brand__icontains"] = processor_brand  # Case-insensitive match for processor brand
+            filters["price_euros__gte"] = price  
+        if ram:
+            filters["ram__gte"] = ram  # Greater than or equal to RAM
+        if inches:
+            filters["inches__gte"] = inches  # Minimum screen size in inches
+        # Only apply the CPU company filter if a specific value is selected (not "All" or empty)
+        if cpu_company and cpu_company.strip():  # Ensure 'All' (empty) option doesn't filter
+            filters["cpu_company__icontains"] = cpu_company  # Case-insensitive match for CPU company
 
         # Query the Laptop model with the filters
         laptops = Laptop.objects.filter(**filters)
 
         # Pass the filtered laptops to the template context
         return render(request, "byt/laptopBrew.html", {"laptops": laptops})
+
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
