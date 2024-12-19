@@ -24,11 +24,11 @@ with open(input_file, newline='', encoding='utf-8') as csvfile:
         # Start row count in increments of 1
         total_rows += 1 
         try:
-            # Pre-processed 7127 entries and removed entiries with release dates earlier than 2015 as it is outdated           
+            # Pre-processed 7127 entries and removed entiries with release dates earlier than 2016 as it is outdated           
             launch_year = int(float(row['Launch Expected Year'])) if row['Launch Expected Year'] else 0
             
-            # Skip rows with release years below 2015
-            if launch_year < 2015:
+            # Skip rows with release years below 2016 as they are typically discontinues
+            if launch_year < 2016:
                 continue
 
             # +1 increment to entry successfully added to fixture
@@ -78,10 +78,10 @@ with open(output_file, 'w', encoding='utf-8') as jsonfile:
 
 # Print counts; For display and tracking purposes 
 print(f"Total rows processed: {total_rows}") # Total rows processed: 7127
-print(f"Rows that passed the checks: {passed_checks}") # Rows that passed the checks: 3550
+print(f"Rows that passed the checks: {passed_checks}") # Rows that passed the checks: 3072
 print(f"Fixture file {output_file} created successfully!") # Fixture file PhonesJson.json created successfully!
 
-# 3577 entries were skipped their launch year being < 2015
+# 4055 entries were skipped their launch year being < 2016
 
 ### END ###
 
