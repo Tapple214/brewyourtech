@@ -1,3 +1,6 @@
+<!-- ### START ### -->
+
+<!-- ASSEMBLY/FILTER PAGE -->
 {% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
 
 <!DOCTYPE html>
@@ -25,24 +28,18 @@
         overflow: hidden;
       }
 
-      .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-      }
-
       .hidden {
         display: none;
       }
 
       .btn-back {
         background-color: #5a3d2b;
-        color: #f3e5d8;
+        color: #d7c0ae;
         border: none;
       }
 
       .btn-back:hover {
-        background-color: #dab896;
+        background-color: #d7c0ae;
       }
 
       input[type="range"] {
@@ -152,31 +149,32 @@
     </div>
 
     <!-- Main Content -->
-    <div class="w-75 py-3 pe-3">
-      <div id="card-view">
+    <div class="w-75 py-3 pe-3" style="height: 93vh">
+      <div id="card-view" style="height: 96%">
         <h2 class="fw-bold">Find your perfect brew!</h2>
-        <div class="card-grid">
-          <!-- Dynamic Cards -->
+        <div class="row row-cols-1 row-cols-md-2 g-4 h-100">
           {% for category in categories %}
-          <div
-            class="card rounded-4 border-0"
-            onclick="showForm('{{ category.id }}Form')"
-          >
+          <div class="col d-flex align-items-stretch">
             <div
-              class="card-body rounded-4 border-0"
-              style="background-color: #d7c0ae; color: #5a3d2b"
+              class="card rounded-4 border-0 w-100"
+              onclick="showForm('{{ category.id }}Form')"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="50"
-                height="50"
-                fill="currentColor"
-                class="bi {{ category.icon }}"
-                viewBox="0 0 16 16"
+              <div
+                class="card-body rounded-4 border-0 d-flex flex-column"
+                style="background-color: #d7c0ae; color: #5a3d2b"
               >
-                {{ category.svg_path|safe }}
-              </svg>
-              <h4>{{ category.name }}</h4>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="50"
+                  height="50"
+                  fill="currentColor"
+                  class="bi {{ category.icon }}"
+                  viewBox="0 0 16 16"
+                >
+                  {{ category.svg_path|safe }}
+                </svg>
+                <h4 class="mt-3">{{ category.name }}</h4>
+              </div>
             </div>
           </div>
           {% endfor %}
@@ -219,3 +217,5 @@
     {% bootstrap_javascript %}
   </body>
 </html>
+
+<!-- ### END ### -->

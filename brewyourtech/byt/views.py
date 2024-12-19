@@ -14,7 +14,7 @@ def brewLog(request):
 def login(request):
     return render(request, 'byt/login.html')
 
-# Assembly/Filer page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
+# Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
     # Query all phone data
     phone_data = Phone.objects.all()
