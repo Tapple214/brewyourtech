@@ -120,7 +120,7 @@ def laptopBrew(request):
         # Pass the filtered laptops to the template context
         return render(request, "byt/laptopBrew.html", {"laptops": laptops})
     
-    # TODO: clean
+    # TODO: clean find out range of prices, currency and if there is anyway u can convert
 def cameraBrew(request):
     if request.method == "GET":
         # Take in form inputs/GET params
