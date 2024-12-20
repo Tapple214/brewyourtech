@@ -62,12 +62,15 @@ def logout(request):
     messages.success(request, "You have been logged out successfully!")
     return redirect("loginSignUp")
 
+from django.shortcuts import render, redirect
+from .models import Bookmark, User, Phone, Laptop, Tablet, Camera
+
 def brewLog(request):
     # Check if the user is logged in by checking the session
     user_id = request.session.get('user_id')
     
     if not user_id:
-        # If no session exists, redirect to login page
+        # If no session exists, redirect to the login page
         return redirect('loginSignUp')
     
     try:
@@ -84,6 +87,7 @@ def brewLog(request):
     # Create a list of bookmarked items
     bookmarked_items = []
     for bookmark in bookmarks:
+        item = None
         if bookmark.category == 'phone':
             item = Phone.objects.filter(id=bookmark.item_id).first()
         elif bookmark.category == 'laptop':
@@ -92,8 +96,6 @@ def brewLog(request):
             item = Tablet.objects.filter(index=bookmark.item_id).first()
         elif bookmark.category == 'camera':
             item = Camera.objects.filter(id=bookmark.item_id).first()
-        else:
-            item = None
 
         if item:
             bookmarked_items.append({
@@ -101,12 +103,12 @@ def brewLog(request):
                 'item': item,
             })
 
-    # Pass the user's data and bookmarked items to the template
-        return render(request, 'byt/brewLog.html', {
-            'user': user,
-            'user_id': user_id,
-            'bookmarked_items': bookmarked_items,  # Pass resolved items
-        })
+    # Return a response with the rendered template
+    return render(request, 'byt/brewLog.html', {
+        'user_data': user,
+        'user_id': user_id,
+        'bookmarked_items': bookmarked_items,  # Pass resolved items
+    })
 
 
 # Phone Filter page
