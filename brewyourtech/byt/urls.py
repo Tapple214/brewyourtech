@@ -12,4 +12,5 @@ urlpatterns = [
     path('laptopBrew', views.laptopBrew, name='laptopBrew'),
     path('cameraBrew', views.cameraBrew, name='cameraBrew'),
     path('tabletBrew', views.tabletBrew, name='tabletBrew'),
+    path('brewDisplay', views.brewDisplay, name='brewDisplay'),
 ]
