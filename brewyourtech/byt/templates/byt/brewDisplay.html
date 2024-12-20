@@ -53,7 +53,7 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
+            fill="{% if is_bookmarked %}currentColor{% else %}none{% endif %}"
             viewBox="0 0 24 24"
             stroke="currentColor"
             id="bookmark-outline"
@@ -157,33 +157,25 @@
         const svg = icon.querySelector("svg");
         const category = icon.getAttribute("data-category");
         const item_id = icon.getAttribute("data-item-id");
+        const user_id = "{{ user_id }}"; // Add user_id to the payload
 
         fetch("{% url 'toggle_bookmark' %}", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}",
+            "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token
           },
-          body: JSON.stringify({ category, item_id }),
+          body: JSON.stringify({ category, item_id, user_id }), // Include user_id in the payload
         })
-          .then((response) => {
-            if (response.status === 401) {
-              alert("You must be logged in to bookmark items.");
-              window.location.href = "{% url 'loginSignUp' %}"; // Redirect to login page
-              return;
-            }
-            return response.json();
-          })
+          .then((response) => response.json())
           .then((data) => {
-            if (data?.success) {
+            if (data.success) {
               alert(data.message);
-              if (svg.getAttribute("fill") === "none") {
-                svg.setAttribute("fill", "currentColor");
-              } else {
-                svg.setAttribute("fill", "none");
-              }
-            } else if (data) {
-              alert("Error: " + data.message);
+              // Toggle bookmark icon fill
+              const isBookmarked = svg.getAttribute("fill") !== "none";
+              svg.setAttribute("fill", isBookmarked ? "none" : "currentColor");
+            } else {
+              alert(data.message);
             }
           })
           .catch((error) => console.error("Error:", error));

@@ -41,9 +41,67 @@
       >
         <div class="row w-100 px-4">
           <!-- Individual Log Cards -->
-          {% for item in brew_logs %}
+          {% for bookmarked_item in bookmarked_items %}
           <div class="col-12 col-md-6 col-lg-4 mb-4">
-            {% include 'byt/resultCard.html' %}
+            <div class="card h-100 rounded-4 border-0 d-flex flex-column">
+              <div
+                class="card-body rounded-4 border-0 d-flex flex-column"
+                style="background-color: #d7c0ae; color: #5a3d2b"
+              >
+                {% if bookmarked_item.category == 'phone' %}
+                <h5 class="card-title fw-bold">
+                  {{ bookmarked_item.item.brand }} - {{
+                  bookmarked_item.item.model }}
+                </h5>
+                <p class="card-text">
+                  Price: ${{ bookmarked_item.item.price_usd }}
+                </p>
+                <p class="card-text">
+                  Battery: {{ bookmarked_item.item.battery_capacity_mah }} mAh
+                </p>
+                {% elif bookmarked_item.category == 'laptop' %}
+                <h5 class="card-title fw-bold">
+                  {{ bookmarked_item.item.company }} - {{
+                  bookmarked_item.item.product }}
+                </h5>
+                <p class="card-text">
+                  Price: €{{ bookmarked_item.item.price_euros }}
+                </p>
+                <p class="card-text">
+                  CPU: {{ bookmarked_item.item.cpu_model }}
+                </p>
+                {% elif bookmarked_item.category == 'tablet' %}
+                <h5 class="card-title fw-bold">
+                  {{ bookmarked_item.item.brand }} - {{
+                  bookmarked_item.item.name }}
+                </h5>
+                <p class="card-text">
+                  Display: {{ bookmarked_item.item.display_size_inches }} inches
+                </p>
+                <p class="card-text">
+                  Price: ${{ bookmarked_item.item.price }}
+                </p>
+                {% elif bookmarked_item.category == 'camera' %}
+                <h5 class="card-title fw-bold">
+                  {{ bookmarked_item.item.model }}
+                </h5>
+                <p class="card-text">
+                  Resolution: {{ bookmarked_item.item.max_resolution }} px
+                </p>
+                <p class="card-text">
+                  Price: ${{ bookmarked_item.item.price }}
+                </p>
+                {% endif %}
+                <a
+                  href="{% url 'brewDisplay' bookmarked_item.category bookmarked_item.item.id user_id %}"
+                  target="_blank"
+                  class="btn rounded-pill fw-medium mt-auto"
+                  style="background-color: #5a3d2b; color: #f3e5d8"
+                >
+                  View Details
+                </a>
+              </div>
+            </div>
           </div>
           {% empty %}
           <div class="text-center mt-5">
@@ -54,11 +112,9 @@
               class="mb-2 mx-auto"
             />
             <p style="color: #5a3d2b">
-              No brew logs found. Head to the <strong>Brewery</strong> to craft
-              your tech!
+              No bookmarks found. Explore and save your favorite tech!
             </p>
           </div>
-
           {% endfor %}
         </div>
       </div>

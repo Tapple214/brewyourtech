@@ -78,8 +78,36 @@ def brewLog(request):
         request.session.flush()  # Clear the session
         return redirect('loginSignUp')
 
-    # Pass the user's data to the template
-    return render(request, 'byt/brewLog.html', {'user': user})
+    # Fetch all bookmarks for the logged-in user
+    bookmarks = Bookmark.objects.filter(user=user)
+
+    # Create a list of bookmarked items
+    bookmarked_items = []
+    for bookmark in bookmarks:
+        if bookmark.category == 'phone':
+            item = Phone.objects.filter(id=bookmark.item_id).first()
+        elif bookmark.category == 'laptop':
+            item = Laptop.objects.filter(id=bookmark.item_id).first()
+        elif bookmark.category == 'tablet':
+            item = Tablet.objects.filter(index=bookmark.item_id).first()
+        elif bookmark.category == 'camera':
+            item = Camera.objects.filter(id=bookmark.item_id).first()
+        else:
+            item = None
+
+        if item:
+            bookmarked_items.append({
+                'category': bookmark.category,
+                'item': item,
+            })
+
+    # Pass the user's data and bookmarked items to the template
+        return render(request, 'byt/brewLog.html', {
+            'user': user,
+            'user_id': user_id,
+            'bookmarked_items': bookmarked_items,  # Pass resolved items
+        })
+
 
 # Phone Filter page
 def phoneBrew(request):
@@ -149,8 +177,8 @@ def laptopBrew(request):
         # Query the Laptop model with the filters
         laptops = Laptop.objects.filter(**filters)
 
-        # Pass the filtered laptops to the template context
-        return render(request, "byt/laptopBrew.html", {"laptops": laptops})
+        user_id = request.session.get('user_id')
+        return render(request, "byt/laptopBrew.html", {"laptops": laptops, "user_id": user_id})
     
     # TODO: clean find out range of prices, currency and if there is anyway u can convert
 def cameraBrew(request):
@@ -251,13 +279,11 @@ def brewery(request):
 
     return render(request, "byt/brewery.html", context)
 
-def brewDisplay(request, device_type, device_id):
-     # Fetch the appropriate device based on type
+def brewDisplay(request, device_type, device_id, user_id):
+    # Fetch the device based on the device_type
     device = None
     if device_type == "tablet":
         device = get_object_or_404(Tablet, id=device_id)
-    elif device_type == "phone":
-        device = get_object_or_404(Phone, id=device_id)
     elif device_type == "laptop":
         device = get_object_or_404(Laptop, id=device_id)
     elif device_type == "camera":
@@ -265,39 +291,67 @@ def brewDisplay(request, device_type, device_id):
     else:
         return render(request, "404.html", {"message": "Invalid device type"})
 
-    return render(request, 'byt/brewDisplay.html',{"device": device, "device_type": device_type})
+    # Fetch the user
+    user = get_object_or_404(User, id=user_id)
 
-# @csrf_exempt
+    # Check if the device is bookmarked
+    is_bookmarked = Bookmark.objects.filter(
+        user=user,
+        category=device_type,
+        item_id=device_id
+    ).exists()
+
+    # Pass the data to the template
+    return render(request, 'byt/brewDisplay.html', {
+        "device": device,
+        "device_type": device_type,
+        "is_bookmarked": is_bookmarked,
+        "user_id": user_id,
+    })
+
+@csrf_exempt # Temporarily exempt from CSRF for testing; remove this for production
 # @login_required  # Ensure only logged-in users can access this view
+def toggle_bookmark(request):
+    # Check if user is logged in via session
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return JsonResponse({"success": False, "message": "You must be logged in to bookmark items"}, status=401)
 
-# def toggle_bookmark(request):
-#     if not request.user.is_authenticated:
-#         return JsonResponse({"success": False, "message": "You must be logged in to bookmark items"}, status=401)
+    # Validate the user exists
+    try:
+        user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({"success": False, "message": "User does not exist"}, status=404)
 
-#     if request.method == "POST":
-#         data = json.loads(request.body)
-#         category = data.get("category")
-#         item_id = data.get("item_id")
+    if request.method == "POST":
+        # Parse JSON payload
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "message": "Invalid JSON"}, status=400)
 
-#         if not all([category, item_id]):
-#             return JsonResponse({"success": False, "message": "Invalid data"})
+        # Extract data
+        category = data.get("category")
+        item_id = data.get("item_id")
 
-#         user = request.user
+        # Validate input
+        if not category or not item_id:
+            return JsonResponse({"success": False, "message": "Invalid data"}, status=400)
 
-#         # Check if the bookmark already exists
-#         existing_bookmark = Bookmark.objects.filter(
-#             user=user, category=category, item_id=item_id
-#         ).first()
+        # Check if the bookmark already exists
+        bookmark = Bookmark.objects.filter(user=user, category=category, item_id=item_id).first()
+        if bookmark:
+            # Remove bookmark if it exists
+            bookmark.delete()
+            return JsonResponse({"success": True, "message": "Bookmark removed"})
+        else:
+            # Create a new bookmark if it doesn't exist
+            Bookmark.objects.create(user=user, category=category, item_id=item_id)
+            return JsonResponse({"success": True, "message": "Bookmark added"})
 
-#         if existing_bookmark:
-#             existing_bookmark.delete()
-#             return JsonResponse({"success": True, "message": "Bookmark removed"})
-#         else:
-#             Bookmark.objects.create(user=user, category=category, item_id=item_id)
-#             return JsonResponse({"success": True, "message": "Bookmark added"})
-
-#     return JsonResponse({"success": False, "message": "Invalid request method"})
-
+    # Return method not allowed for non-POST requests
+    return JsonResponse({"success": False, "message": "Invalid request method"}, status=405)
 
 
 
