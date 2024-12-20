@@ -91,7 +91,16 @@
                 <p class="card-text">
                   Price: ${{ bookmarked_item.item.price }}
                 </p>
-                {% endif %}
+                {% endif %} {% if bookmarked_item.category == 'tablet' %}
+                <a
+                  href="{% url 'brewDisplay' bookmarked_item.category bookmarked_item.item.index user_id %}"
+                  target="_blank"
+                  class="btn rounded-pill fw-medium mt-auto"
+                  style="background-color: #5a3d2b; color: #f3e5d8"
+                >
+                  View Details
+                </a>
+                {% else %}
                 <a
                   href="{% url 'brewDisplay' bookmarked_item.category bookmarked_item.item.id user_id %}"
                   target="_blank"
@@ -100,6 +109,7 @@
                 >
                   View Details
                 </a>
+                {% endif %}
               </div>
             </div>
           </div>

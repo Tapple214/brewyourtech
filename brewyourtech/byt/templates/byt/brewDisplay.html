@@ -48,7 +48,7 @@
           class="bookmark-icon"
           onclick="toggleBookmark(this)"
           data-category="{{ device_type }}"
-          data-item-id="{{ device.id }}"
+          data-item-id="{% if device_type == 'tablet' %}{{ device.index }}{% else %}{{ device.id }}{% endif %}"
           title="Click this to save it!"
         >
           <svg
@@ -157,7 +157,9 @@
         const svg = icon.querySelector("svg");
         const category = icon.getAttribute("data-category");
         const item_id = icon.getAttribute("data-item-id");
-        const user_id = "{{ user_id }}"; // Add user_id to the payload
+        const user_id = "{{ user_id }}"; // Add user_id to the payload'
+        console.log(category);
+        console.log(item_id);
 
         fetch("{% url 'toggle_bookmark' %}", {
           method: "POST",

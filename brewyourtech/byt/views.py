@@ -62,9 +62,6 @@ def logout(request):
     messages.success(request, "You have been logged out successfully!")
     return redirect("loginSignUp")
 
-from django.shortcuts import render, redirect
-from .models import Bookmark, User, Phone, Laptop, Tablet, Camera
-
 def brewLog(request):
     # Check if the user is logged in by checking the session
     user_id = request.session.get('user_id')
@@ -150,8 +147,9 @@ def phoneBrew(request):
         # Query the Phone model with the filters
         phones = Phone.objects.filter(**filters)
 
+        user_id = request.session.get('user_id')
         # Pass the filtered phones to the template context
-        return render(request, "byt/phoneBrew.html", {"phones": phones})
+        return render(request, "byt/phoneBrew.html", {"phones": phones, 'user_id': user_id})
 
 # TODO: clean
 def laptopBrew(request):
@@ -195,7 +193,7 @@ def cameraBrew(request):
 
         # Add inputs to filters
         if price:
-            filters["price__lte"] = price  # Less than or equal to price
+            filters["price__gte"] = price  # Less than or equal to price
         if max_resolution:
             filters["max_resolution__gte"] = max_resolution  # Greater than or equal to max resolution
         if zoom_tele:
@@ -204,8 +202,9 @@ def cameraBrew(request):
         # Query the Camera model with the filters
         cameras = Camera.objects.filter(**filters)
 
+        user_id = request.session.get('user_id')
         # Pass the filtered cameras to the template context
-        return render(request, "byt/cameraBrew.html", {"cameras": cameras})
+        return render(request, "byt/cameraBrew.html", {"cameras": cameras, 'user_id': user_id})
     
 def tabletBrew(request):
     if request.method == "GET":
@@ -219,7 +218,7 @@ def tabletBrew(request):
 
         # Add inputs to filters
         if price:
-            filters["price__lte"] = price  # Less than or equal to price
+            filters["price__gte"] = price  # Less than or equal to price
         if display_size_inches:
             filters["display_size_inches__gte"] = display_size_inches  # Greater than or equal to display size
         if battery_capacity:
@@ -228,8 +227,9 @@ def tabletBrew(request):
         # Query the Tablet model with the filters
         tablets = Tablet.objects.filter(**filters)
 
+        user_id = request.session.get('user_id')
         # Pass the filtered tablets to the template context
-        return render(request, "byt/tabletBrew.html", {"tablets": tablets})
+        return render(request, "byt/tabletBrew.html", {"tablets": tablets, 'user_id': user_id})
 
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
@@ -285,7 +285,9 @@ def brewDisplay(request, device_type, device_id, user_id):
     # Fetch the device based on the device_type
     device = None
     if device_type == "tablet":
-        device = get_object_or_404(Tablet, id=device_id)
+        device = get_object_or_404(Tablet, index=device_id)
+    elif device_type == "phone":
+        device = get_object_or_404(Phone, id=device_id)
     elif device_type == "laptop":
         device = get_object_or_404(Laptop, id=device_id)
     elif device_type == "camera":
@@ -339,7 +341,9 @@ def toggle_bookmark(request):
 
         # Validate input
         if not category or not item_id:
+            print(f"Debug: category = {category}, item_id = {item_id}")
             return JsonResponse({"success": False, "message": "Invalid data"}, status=400)
+
 
         # Check if the bookmark already exists
         bookmark = Bookmark.objects.filter(user=user, category=category, item_id=item_id).first()

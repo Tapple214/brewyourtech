@@ -120,7 +120,7 @@
               value="{{ request.GET.price|default:500 }}"
               oninput="document.getElementById('price_value').textContent = this.value"
             />
-            <span id="price_value">{{ request.GET.price|default:500 }}</span> USD
+            <span id="price_value">{{ request.GET.price|default:0 }}</span> USD
           </div>
 
           <!-- Max Resolution -->
@@ -136,7 +136,7 @@
               value="{{ request.GET.max_resolution|default:1024 }}"
               oninput="document.getElementById('resolution_value').textContent = this.value"
             />
-            <span id="resolution_value">{{ request.GET.max_resolution|default:1024 }}</span> px
+            <span id="resolution_value">{{ request.GET.max_resolution|default:0 }}</span> px
           </div>
 
           <!-- Zoom Wide -->
@@ -152,7 +152,7 @@
               value="{{ request.GET.zoom_wide|default:38 }}"
               oninput="document.getElementById('zoom_wide_value').textContent = this.value"
             />
-            <span id="zoom_wide_value">{{ request.GET.zoom_wide|default:38 }}</span> mm
+            <span id="zoom_wide_value">{{ request.GET.zoom_wide|default:0 }}</span> mm
           </div>
 
           <!-- Submit Button -->
@@ -186,14 +186,16 @@
                 <p class="card-text">Max Resolution: {{ tablet.max_resolution }} px</p>
                 <p class="card-text">Zoom Wide: {{ tablet.zoom_wide }} mm</p>
                 <p class="card-text">Price: ${{ tablet.price }}</p>
+            
+                {{tablet.index}}
                 <a
-                  href="{% url 'brewDisplay' 'tablet' tablet.id %}"
-                  target="_blank"
-                  class="btn rounded-pill fw-medium mt-auto"
-                  style="background-color: #5a3d2b; color: #f3e5d8"
-                >
-                  View Details
-                </a>
+                href="{% url 'brewDisplay' 'tablet' tablet.index user_id %}"
+                target="_blank"
+                class="btn rounded-pill fw-medium mt-auto"
+                style="background-color: #5a3d2b; color: #f3e5d8"
+              >
+                View Details
+              </a>
               </div>
             </div>
           </div>
