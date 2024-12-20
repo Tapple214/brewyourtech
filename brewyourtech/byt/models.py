@@ -143,6 +143,22 @@ class Camera(models.Model):
         return f"{self.model} ({self.release_date})"
     # To ensure that display is readable 
 
+class Bookmark(models.Model):
+    CATEGORY_CHOICES = [
+        ('phone', 'phone'),
+        ('laptop', 'laptop'),
+        ('tablet', 'tablet'),
+        ('camera', 'camera'),
+    ]
+
+    user = models.ForeignKey('User', on_delete=models.CASCADE)  # Links the bookmark to a specific user
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)  # Specifies the category of the bookmarked item
+    item_id = models.IntegerField()  # Stores the ID of the bookmarked item (Phone, Laptop, etc.)
+    bookmarked_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when the bookmark was created
+
+    def __str__(self):
+        return f"Bookmark by {self.user.name} - {self.category} ID: {self.item_id}"
+
 # TRACKER (in codes for python manage.py shell):
 # from byt.models import Phone
 # from byt.models import Laptop

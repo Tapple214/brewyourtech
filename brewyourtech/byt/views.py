@@ -2,10 +2,14 @@
 
 from .models import *
 from .forms import CSVUploadForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from .models import User
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 # Views
 
@@ -247,8 +251,54 @@ def brewery(request):
 
     return render(request, "byt/brewery.html", context)
 
-def brewDisplay(request):
-    return render(request, 'byt/brewDisplay.html')
+def brewDisplay(request, device_type, device_id):
+     # Fetch the appropriate device based on type
+    device = None
+    if device_type == "tablet":
+        device = get_object_or_404(Tablet, id=device_id)
+    elif device_type == "phone":
+        device = get_object_or_404(Phone, id=device_id)
+    elif device_type == "laptop":
+        device = get_object_or_404(Laptop, id=device_id)
+    elif device_type == "camera":
+        device = get_object_or_404(Camera, id=device_id)
+    else:
+        return render(request, "404.html", {"message": "Invalid device type"})
+
+    return render(request, 'byt/brewDisplay.html',{"device": device, "device_type": device_type})
+
+# @csrf_exempt
+# @login_required  # Ensure only logged-in users can access this view
+
+# def toggle_bookmark(request):
+#     if not request.user.is_authenticated:
+#         return JsonResponse({"success": False, "message": "You must be logged in to bookmark items"}, status=401)
+
+#     if request.method == "POST":
+#         data = json.loads(request.body)
+#         category = data.get("category")
+#         item_id = data.get("item_id")
+
+#         if not all([category, item_id]):
+#             return JsonResponse({"success": False, "message": "Invalid data"})
+
+#         user = request.user
+
+#         # Check if the bookmark already exists
+#         existing_bookmark = Bookmark.objects.filter(
+#             user=user, category=category, item_id=item_id
+#         ).first()
+
+#         if existing_bookmark:
+#             existing_bookmark.delete()
+#             return JsonResponse({"success": True, "message": "Bookmark removed"})
+#         else:
+#             Bookmark.objects.create(user=user, category=category, item_id=item_id)
+#             return JsonResponse({"success": True, "message": "Bookmark added"})
+
+#     return JsonResponse({"success": False, "message": "Invalid request method"})
+
+
 
 
 # TRACKER:

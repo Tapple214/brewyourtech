@@ -70,6 +70,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'brewyourtech.wsgi.application'
 
 # To enable image access

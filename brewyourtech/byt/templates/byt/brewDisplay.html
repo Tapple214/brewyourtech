@@ -1,0 +1,196 @@
+{% load django_bootstrap5 %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title & Icon -->
+    <title>Device Overview</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'byt/images/logo.png' %}"
+    />
+
+    <!-- Bootstrap CSS -->
+    {% bootstrap_css %}
+
+    <style>
+      .bookmark-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
+      .bookmark-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+    </style>
+  </head>
+
+  <body style="color: #5a3d2b; overflow-x: hidden; background-color: #f3e5d8">
+    <div class="container-fluid vh-100 d-flex flex-column">
+      <!-- Header Section -->
+      <div
+        class="py-4 text-center card border-0 rounded-4 mt-3 mx-3 position-relative"
+        style="background-color: #5a3d2b; color: #f3e5d8"
+      >
+        <h1 class="fw-bold">Device Overview</h1>
+        <p class="small">
+          This is where you will see more details about your device in an
+          interesting way! <br />
+          Click the bookmark to save your brew and revisit them in your brew
+          log!
+        </p>
+        <div
+          class="bookmark-icon"
+          onclick="toggleBookmark(this)"
+          data-category="{{ device_type }}"
+          data-item-id="{{ device.id }}"
+          title="Click this to save it!"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            id="bookmark-outline"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 3v19l7-5 7 5V3a2 2 0 00-2-2H7a2 2 0 00-2 2z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Content Section -->
+      <div
+        class="flex-grow-1 d-flex justify-content-center align-items-start py-4"
+      >
+        <div class="row w-100 px-4">
+          <!-- Device Details Section -->
+          <div class="container mt-4">
+            {% if device_type == "tablet" %}
+            <p><strong>Brand:</strong> {{ device.brand }}</p>
+            <p><strong>Name:</strong> {{ device.name }}</p>
+            <p><strong>Price:</strong> {{ device.price }}</p>
+            <p>
+              <strong>Resolution:</strong> {{ device.resolution_width }} x {{
+              device.resolution_height }}
+            </p>
+            <p><strong>Rating:</strong> {{ device.rating }}</p>
+            <p><strong>Processor:</strong> {{ device.processor_brand }}</p>
+            <p><strong>RAM:</strong> {{ device.ram }}</p>
+            <p>
+              <strong>Battery Capacity:</strong> {{ device.battery_capacity }}
+            </p>
+            {% elif device_type == "phone" %}
+            <p><strong>Brand:</strong> {{ device.brand }}</p>
+            <p><strong>Model:</strong> {{ device.model }}</p>
+            <p><strong>Price:</strong> {{ device.price_usd }}</p>
+            <p>
+              <strong>Battery Capacity:</strong> {{ device.battery_capacity_mah
+              }} mAh
+            </p>
+            <p>
+              <strong>Display Size:</strong> {{ device.display_size_inches }}
+              inches
+            </p>
+            <p><strong>RAM:</strong> {{ device.ram_gb }} GB</p>
+            <p>
+              <strong>Main Camera:</strong> {{ device.main_camera_single_mp }}
+              MP
+            </p>
+            <p>
+              <strong>Selfie Camera:</strong> {{ device.selfie_camera_single_mp
+              }} MP
+            </p>
+            {% elif device_type == "laptop" %}
+            <p><strong>Company:</strong> {{ device.company }}</p>
+            <p><strong>Product:</strong> {{ device.product }}</p>
+            <p><strong>Price:</strong> €{{ device.price_euros }}</p>
+            <p><strong>CPU:</strong> {{ device.cpu_model }}</p>
+            <p><strong>RAM:</strong> {{ device.ram }} GB</p>
+            <p>
+              <strong>Storage:</strong> {{ device.primary_storage_capacity }}
+            </p>
+            <p><strong>Screen:</strong> {{ device.inches }} inches</p>
+            <p><strong>Weight:</strong> {{ device.weight }} kg</p>
+            {% elif device_type == "camera" %}
+            <p><strong>Model:</strong> {{ device.model }}</p>
+            <p><strong>Release Date:</strong> {{ device.release_date }}</p>
+            <p><strong>Price:</strong> ${{ device.price }}</p>
+            <p>
+              <strong>Max Resolution:</strong> {{ device.max_resolution }} px
+            </p>
+            <p>
+              <strong>Effective Pixels:</strong> {{ device.effective_pixels }}
+              MP
+            </p>
+            <p><strong>Zoom Wide:</strong> {{ device.zoom_wide }} mm</p>
+            <p><strong>Weight:</strong> {{ device.weight }} g</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar component -->
+    {% include 'byt/navbar.html' %}
+
+    <script>
+      function toggleBookmark(icon) {
+        const svg = icon.querySelector("svg");
+        if (svg.getAttribute("fill") === "none") {
+          svg.setAttribute("fill", "currentColor");
+        } else {
+          svg.setAttribute("fill", "none");
+        }
+      }
+
+      function toggleBookmark(icon) {
+        const svg = icon.querySelector("svg");
+        const category = icon.getAttribute("data-category");
+        const item_id = icon.getAttribute("data-item-id");
+
+        fetch("{% url 'toggle_bookmark' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+          body: JSON.stringify({ category, item_id }),
+        })
+          .then((response) => {
+            if (response.status === 401) {
+              alert("You must be logged in to bookmark items.");
+              window.location.href = "{% url 'loginSignUp' %}"; // Redirect to login page
+              return;
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data?.success) {
+              alert(data.message);
+              if (svg.getAttribute("fill") === "none") {
+                svg.setAttribute("fill", "currentColor");
+              } else {
+                svg.setAttribute("fill", "none");
+              }
+            } else if (data) {
+              alert("Error: " + data.message);
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+
+    <!-- Bootstrap JavaScript -->
+    {% bootstrap_javascript %}
+  </body>
+</html>

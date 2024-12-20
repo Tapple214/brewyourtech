@@ -187,7 +187,7 @@
                 <p class="card-text">Zoom Wide: {{ tablet.zoom_wide }} mm</p>
                 <p class="card-text">Price: ${{ tablet.price }}</p>
                 <a
-                  href="#"
+                  href="{% url 'brewDisplay' 'tablet' tablet.id %}"
                   target="_blank"
                   class="btn rounded-pill fw-medium mt-auto"
                   style="background-color: #5a3d2b; color: #f3e5d8"
