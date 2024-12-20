@@ -160,10 +160,10 @@ class Bookmark(models.Model):
         return f"Bookmark by {self.user.name} - {self.category} ID: {self.item_id}"
 
 # TRACKER (in codes for python manage.py shell):
-# from byt.models import Phone
-# from byt.models import Laptop
-# from byt.models import Tablet
-# from byt.models import Camera
+# from byt.models import Phone (csv: https://www.kaggle.com/datasets/sanjanchaudhari/camera-dataset)
+# from byt.models import Laptop (csv: https://www.kaggle.com/datasets/robermuench/laptop-prices-incl-gpu-technical-specs)
+# from byt.models import Tablet (csv: https://www.kaggle.com/datasets/siddiquifaiznaeem/tablet-dataset-2024)
+# from byt.models import Camera (csv: https://www.kaggle.com/datasets/sanjanchaudhari/camera-dataset)
 # print(Phone.objects.count())
 # 3550
 # print(Laptop.objects.count())
