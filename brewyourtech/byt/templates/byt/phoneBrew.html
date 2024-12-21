@@ -284,15 +284,17 @@
                 <br/>
               </h6>
 
-              <span class="mb-2">Price (USD): {{ phone.price_usd|stringformat:"s"|slice:":5" }}</span>
-              <a
-                href="{% url 'brewDisplay' 'phone' phone.id user_id %}"
-                target="_blank"
-                class="btn rounded-pill fw-medium mt-auto"
-                style="background-color: #5a3d2b; color: #f3e5d8"
-              >
-                View Details
-              </a>
+              <div class="mt-auto d-flex flex-column"> 
+                <span class="mb-2">Price (USD): {{ phone.price_usd|stringformat:"s"|slice:":5" }}</span>
+                <a
+                  href="{% url 'brewDisplay' 'phone' phone.id user_id %}"
+                  target="_blank"
+                  class="btn rounded-pill fw-medium mt-auto"
+                  style="background-color: #5a3d2b; color: #f3e5d8"
+                >
+                  View Details
+                </a></div>
+             
             </div>
           </div>
         </div>
