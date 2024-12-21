@@ -115,7 +115,7 @@
               id="price"
               name="price"
               min="50"
-              max="2000"
+              max="8000"
               step="50"
               value="{{ request.GET.price|default:0 }}"
               oninput="document.getElementById('price_value').textContent = this.value"
@@ -178,20 +178,22 @@
                 class="card-body rounded-4 border-0 d-flex flex-column"
                 style="background-color: #d7c0ae; color: #5a3d2b"
               >
-                <h5 class="card-title fw-bold">
-                  {{ camera.brand }} - {{ camera.model }}
-                </h5>
-                <p class="card-text">Display Size: {{ camera.display_size_inches }} inches</p>
-                <p class="card-text">Battery: {{ camera.battery_capacity }} mAh</p>
-                <p class="card-text">Price: ${{ camera.price }}</p>
-                <a
+                <h6 class="card-title">
+                  <span class="fw-bold">{{ camera.model }}</span> ({{camera.release_date}})
+                  <br/>
+                </h6>
+
+                <div class="mt-auto d-flex flex-column"> 
+                  <span class="mb-2">Price (USD): {{ camera.price|stringformat:"s"|slice:":8" }}</span>
+                  <a
                   href="{% url 'brewDisplay' 'camera' camera.id user_id %}"
                   target="_blank"
                   class="btn rounded-pill fw-medium mt-auto"
                   style="background-color: #5a3d2b; color: #f3e5d8"
                 >
                   View Details
-                </a>
+                </a></div>
+               
               </div>
             </div>
           </div>

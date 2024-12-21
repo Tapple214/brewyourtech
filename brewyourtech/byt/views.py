@@ -207,11 +207,11 @@ def cameraBrew(request):
 
         # Add inputs to filters
         if price:
-            filters["price__gte"] = price  # Less than or equal to price
+            filters["price__lte"] = price  # Less than or equal to price
         if max_resolution:
-            filters["max_resolution__gte"] = max_resolution  # Greater than or equal to max resolution
+            filters["max_resolution__lte"] = max_resolution  # Greater than or equal to max resolution
         if zoom_tele:
-            filters["zoom_tele__gte"] = zoom_tele  # Greater than or equal to zoom tele
+            filters["zoom_tele__lte"] = zoom_tele  # Greater than or equal to zoom tele
 
         # Query the Camera model with the filters
         cameras = Camera.objects.filter(**filters)
