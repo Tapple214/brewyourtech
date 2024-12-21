@@ -152,6 +152,8 @@ def phoneBrew(request):
         return render(request, "byt/phoneBrew.html", {"phones": phones, 'user_id': user_id})
 
 # TODO: clean
+from currency_converter import CurrencyConverter
+
 def laptopBrew(request):
     if request.method == "GET":
         # Take in form inputs/GET params
@@ -165,11 +167,11 @@ def laptopBrew(request):
 
         # Add inputs to filters
         if price:
-            filters["price_euros__gte"] = price  
+            filters["price_euros__lte"] = price
         if ram:
-            filters["ram__gte"] = ram  # Greater than or equal to RAM
+            filters["ram__lte"] = ram  # Greater than or equal to RAM
         if inches:
-            filters["inches__gte"] = inches  # Minimum screen size in inches
+            filters["inches__lte"] = inches  # Minimum screen size in inches
         # Only apply the CPU company filter if a specific value is selected (not "All" or empty)
         if cpu_company and cpu_company.strip():  # Ensure 'All' (empty) option doesn't filter
             filters["cpu_company__icontains"] = cpu_company  # Case-insensitive match for CPU company
@@ -177,8 +179,20 @@ def laptopBrew(request):
         # Query the Laptop model with the filters
         laptops = Laptop.objects.filter(**filters)
 
+        # Initialize CurrencyConverter object for conversion
+        c = CurrencyConverter()
+
+        # Convert the price from Euros to USD for each laptop
+        laptops_with_converted_prices = []
+        for laptop in laptops:
+            try:
+                laptop.price_usd = round(c.convert(laptop.price_euros, 'EUR', 'USD'), 2)  # Convert and round to 2 decimal places
+            except Exception as e:
+                laptop.price_usd = "Error"  # Handle conversion error gracefully
+            laptops_with_converted_prices.append(laptop)
+
         user_id = request.session.get('user_id')
-        return render(request, "byt/laptopBrew.html", {"laptops": laptops, "user_id": user_id})
+        return render(request, "byt/laptopBrew.html", {"laptops": laptops_with_converted_prices, "user_id": user_id})
     
     # TODO: clean find out range of prices, currency and if there is anyway u can convert
 def cameraBrew(request):
