@@ -130,7 +130,7 @@ def phoneBrew(request):
         if price:
             filters["price_usd__lte"] = price 
         if launch_year:
-            filters["launch_expected_year__gte"] = launch_year  
+            filters["launch_expected_year__lte"] = launch_year  
         if ram:
             filters["ram_gb__gte"] = float(ram) / 1024  # Convert MB to GB
         if main_camera:
@@ -358,8 +358,6 @@ def toggle_bookmark(request):
 
     # Return method not allowed for non-POST requests
     return JsonResponse({"success": False, "message": "Invalid request method"}, status=405)
-
-
 
 # TRACKER:
 # GET

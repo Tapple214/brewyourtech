@@ -278,9 +278,13 @@
               class="card-body rounded-4 border-0 d-flex flex-column"
               style="background-color: #d7c0ae; color: #5a3d2b"
             >
-              <h5 class="card-title fw-bold">
-                {{ phone.brand }} - {{ phone.model }}
-              </h5>
+              <h6 class="card-title">
+                <span class="fw-bold">{{ phone.brand }}</span> - {{ phone.model }} ({{phone.launch_expected_year}})
+                <br/>
+                <br/>
+              </h6>
+
+              <span class="mb-2">Price (USD): {{ phone.price_usd|stringformat:"s"|slice:":5" }}</span>
               <a
                 href="{% url 'brewDisplay' 'phone' phone.id user_id %}"
                 target="_blank"
