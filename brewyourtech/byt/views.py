@@ -232,18 +232,31 @@ def tabletBrew(request):
 
         # Add inputs to filters
         if price:
-            filters["price__gte"] = price  # Less than or equal to price
+            filters["price__lte"] = price  # Less than or equal to price
         if display_size_inches:
-            filters["display_size_inches__gte"] = display_size_inches  # Greater than or equal to display size
+            filters["display_size_inches__lte"] = display_size_inches  # Greater than or equal to display size
         if battery_capacity:
-            filters["battery_capacity__gte"] = battery_capacity  # Greater than or equal to battery capacity
+            filters["battery_capacity__lte"] = battery_capacity  # Greater than or equal to battery capacity
 
         # Query the Tablet model with the filters
         tablets = Tablet.objects.filter(**filters)
 
+        # Initialize CurrencyConverter object for conversion
+        c = CurrencyConverter()
+
+        # Convert the price from Indian Rupees to USD for each tablet
+        tablets_with_converted_prices = []
+        for tablet in tablets:
+            try:
+                tablet.price_usd = round(c.convert(tablet.price, 'INR', 'USD'), 2)  # Convert and round to 2 decimal places
+            except Exception as e:
+                tablet.price_usd = "Error"  # Handle conversion error gracefully
+            tablets_with_converted_prices.append(tablet)
+
         user_id = request.session.get('user_id')
         # Pass the filtered tablets to the template context
-        return render(request, "byt/tabletBrew.html", {"tablets": tablets, 'user_id': user_id})
+        return render(request, "byt/tabletBrew.html", {"tablets": tablets_with_converted_prices, 'user_id': user_id})
+
 
 
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device

@@ -117,10 +117,10 @@
               min="50"
               max="2000"
               step="50"
-              value="{{ request.GET.price|default:500 }}"
+              value="{{ request.GET.price|default:50 }}"
               oninput="document.getElementById('price_value').textContent = this.value"
             />
-            <span id="price_value">{{ request.GET.price|default:0 }}</span> USD
+            <span id="price_value">{{ request.GET.price|default:50 }}</span> USD
           </div>
 
           <!-- Max Resolution -->
@@ -133,10 +133,10 @@
               min="640"
               max="8192"
               step="100"
-              value="{{ request.GET.max_resolution|default:1024 }}"
+              value="{{ request.GET.max_resolution|default:640 }}"
               oninput="document.getElementById('resolution_value').textContent = this.value"
             />
-            <span id="resolution_value">{{ request.GET.max_resolution|default:0 }}</span> px
+            <span id="resolution_value">{{ request.GET.max_resolution|default:640 }}</span> px
           </div>
 
           <!-- Zoom Wide -->
@@ -149,10 +149,10 @@
               min="10"
               max="200"
               step="10"
-              value="{{ request.GET.zoom_wide|default:38 }}"
+              value="{{ request.GET.zoom_wide|default:10 }}"
               oninput="document.getElementById('zoom_wide_value').textContent = this.value"
             />
-            <span id="zoom_wide_value">{{ request.GET.zoom_wide|default:0 }}</span> mm
+            <span id="zoom_wide_value">{{ request.GET.zoom_wide|default:10 }}</span> mm
           </div>
 
           <!-- Submit Button -->
@@ -180,22 +180,25 @@
                 class="card-body rounded-4 border-0 d-flex flex-column"
                 style="background-color: #d7c0ae; color: #5a3d2b"
               >
-                <h5 class="card-title fw-bold">
-                  {{ tablet.brand }} - {{ tablet.name }}
-                </h5>
-                <p class="card-text">Max Resolution: {{ tablet.max_resolution }} px</p>
-                <p class="card-text">Zoom Wide: {{ tablet.zoom_wide }} mm</p>
-                <p class="card-text">Price: ${{ tablet.price }}</p>
-            
-                {{tablet.index}}
-                <a
+          
+
+                <h6 class="card-title">
+                  <span class="fw-bold"> {{ tablet.brand }}</span> - {{ tablet.name }}
+                  <br/>
+                </h6>
+             
+                <div class="mt-auto d-flex flex-column"> 
+                  <span class="mb-2">Price (USD): {{ tablet.price_usd|stringformat:"s"|slice:":8" }}</span>
+                  <a
                 href="{% url 'brewDisplay' 'tablet' tablet.index user_id %}"
                 target="_blank"
                 class="btn rounded-pill fw-medium mt-auto"
                 style="background-color: #5a3d2b; color: #f3e5d8"
               >
                 View Details
-              </a>
+              </a></div>
+         
+                
               </div>
             </div>
           </div>
