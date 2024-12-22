@@ -386,18 +386,6 @@ def toggle_bookmark(request):
     # Return method not allowed for non-POST requests
     return JsonResponse({"success": False, "message": "Invalid request method"}, status=405)
 
-import random
-from django import template
-
-register = template.Library()
-
-@register.filter(name='random_height')
-def random_height(value):
-    # List of predefined height classes
-    height_classes = ['height-150', 'height-180', 'height-220', 'height-250', 'height-300']
-    return random.choice(height_classes)
-
-
 
 # TRACKER:
 # GET

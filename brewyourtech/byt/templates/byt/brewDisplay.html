@@ -24,16 +24,17 @@
 
   <body style="color: #5a3d2b; overflow-x: hidden; overflow-y: hidden; background-color: #f3e5d8">
     <div class="container-fluid vh-100 d-flex flex-column">
-      <div class="py-4 text-center card border-0 rounded-4 mt-3 mx-3 position-relative" style="background-color: #5a3d2b; color: #f3e5d8">
+      <div class="py-3 text-center card border-0 rounded-4 mt-3 mx-3 position-relative" style="background-color: #5a3d2b; color: #f3e5d8">
         <h1 class="fw-bold">Device Overview</h1>
-        <p class="small">This is where you will see more details about your device in an interesting way!</p>
+        <p class="small">This is where you will see more details about your device!</p>
       </div>
 
-      <div class="flex-grow-1 d-flex justify-content-center align-items-start py-4">
+
+      <div class="flex-grow-1 d-flex justify-content-center align-items-start py-2">
         <div class="w-100 px-4">
           <!-- Device Details Section for Phones -->
           {% if device_type == "phone" %}
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-grid">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-phone-grid">
             {% include 'byt/detailDisplay.html' with label="Brand" value=device.brand description="The manufacturer of the device." %}
             {% include 'byt/detailDisplay.html' with label="Model" value=device.model description="The model name or number of the device." %}
             {% include 'byt/detailDisplay.html' with label="Hits" value=device.hits description="The total number of hits or views the device has received." %}
@@ -46,6 +47,54 @@
             {% include 'byt/detailDisplay.html' with label="Display Type" value=device.display_type description="The type of display technology used in the device." %}
             {% include 'byt/detailDisplay.html' with label="Resolution" value=device.pixels_x|stringformat:"s x "|add:device.pixels_y description="The display resolution in pixels (width x height)." %}
             {% include 'byt/detailDisplay.html' with label="Display Size" value=device.display_size_inches|stringformat:"s inches" description="The size of the display in inches, measured diagonally." %}
+            {% include 'byt/detailDisplay.html' with label="Link" url=device.url description="Click here to visit the source!" %}
+          </div>
+          {% endif %}
+
+          <!-- Device Details Section for Tablets -->
+          {% if device_type == "tablet" %}
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-tablet-grid">
+            {% include 'byt/detailDisplay.html' with label="Brand" value=device.brand description="The manufacturer of the device." %}
+            {% include 'byt/detailDisplay.html' with label="Name" value=device.name description="The name or title of the device." %}
+            {% include 'byt/detailDisplay.html' with label="Price" value=device.price description="The retail price of the device." %}
+            {% include 'byt/detailDisplay.html' with label="Processor" value=device.processor_brand description="The brand or manufacturer of the device's processor." %}
+            {% include 'byt/detailDisplay.html' with label="Number of Processors" value=device.num_processor description="The total number of processors in the device." %}
+            {% include 'byt/detailDisplay.html' with label="Processor Speed" value=device.processor_speed|stringformat:"s GHz" description="The speed of the processor, measured in gigahertz (GHz)." %}
+            {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" description="The amount of random access memory (RAM) in the device, measured in gigabytes (GB)." %}
+            {% include 'byt/detailDisplay.html' with label="Inbuilt Memory" value=device.memory_inbuilt|stringformat:"s GB" description="The built-in storage memory of the device, measured in gigabytes (GB)." %}
+            {% include 'byt/detailDisplay.html' with label="Battery Capacity" value=device.battery_capacity|stringformat:"s mAh" description="The capacity of the device's battery, measured in milliampere-hours (mAh)." %}
+            {% include 'byt/detailDisplay.html' with label="Charger Power" value=device.charger|stringformat:"s W" description="The power output of the device's charger, measured in watts (W)." %}
+          </div>
+          {% endif %}
+
+          <!-- Device Details Section for Laptops -->
+          {% if device_type == "laptop" %}
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-laptop-grid">
+            {% include 'byt/detailDisplay.html' with label="Company" value=device.company description="The company or organization that manufactures the device." %}
+            {% include 'byt/detailDisplay.html' with label="Product" value=device.product description="The specific product name or category the device belongs to." %}
+            {% include 'byt/detailDisplay.html' with label="Type" value=device.type_name description="The type or classification of the device (e.g., smartphone, laptop, tablet)." %}
+            {% include 'byt/detailDisplay.html' with label="Screen Size" value=device.inches|stringformat:"s inches" description="The diagonal size of the device's screen, measured in inches." %}
+            {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" description="The amount of random access memory (RAM) available in the device, measured in gigabytes (GB)." %}
+            {% include 'byt/detailDisplay.html' with label="Operating System" value=device.operating_system description="The software platform that runs on the device (e.g., Windows, Android, iOS)." %}
+            {% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s kg" description="The weight of the device, measured in kilograms (kg)." %}
+            {% include 'byt/detailDisplay.html' with label="Price" value=device.price_euros|stringformat:"s €" description="The price of the device in euros (€)." %}
+          </div>
+          {% endif %}
+
+          <!-- Device Details Section for Cameras -->
+          {% if device_type == "camera" %}
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-camera-grid">
+            {% include 'byt/detailDisplay.html' with label="Model" value=device.model description="The model number or name of the device." %}
+            {% include 'byt/detailDisplay.html' with label="Release Date" value=device.release_date description="The date when the device was officially released." %}
+            {% include 'byt/detailDisplay.html' with label="Max Resolution" value=device.max_resolution|stringformat:"s px" description="The maximum resolution supported by the device, measured in pixels." %}
+            {% include 'byt/detailDisplay.html' with label="Low Resolution" value=device.low_resolution|stringformat:"s px" description="The lowest resolution the device can display or capture, measured in pixels." %}
+            {% include 'byt/detailDisplay.html' with label="Effective Pixels" value=device.effective_pixels|stringformat:"s MP" description="The effective number of pixels available for imaging, measured in megapixels (MP)." %}
+            {% include 'byt/detailDisplay.html' with label="Zoom Wide" value=device.zoom_wide|stringformat:"s mm" description="The wide-angle zoom capacity of the device, measured in millimeters (mm)." %}
+            {% include 'byt/detailDisplay.html' with label="Zoom Tele" value=device.zoom_tele|stringformat:"s mm" description="The telephoto zoom capacity of the device, measured in millimeters (mm)." %}
+            {% include 'byt/detailDisplay.html' with label="Normal Focus Range" value=device.normal_focus_range|stringformat:"s mm" description="The normal focus range of the device, measured in millimeters (mm)." %}
+            {% include 'byt/detailDisplay.html' with label="Macro Focus Range" value=device.macro_focus_range|stringformat:"s mm" description="The close-up or macro focus range of the device, measured in millimeters (mm)." %}
+            {% include 'byt/detailDisplay.html' with label="Storage Included" value=device.storage_included|stringformat:"s MB" description="The built-in storage capacity of the device, measured in megabytes (MB)." %}
+            {% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s g" description="The weight of the device, measured in grams (g)." %}
           </div>
           {% endif %}
         </div>
@@ -61,8 +110,26 @@
     <!-- Masonry JavaScript -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var masonryGrid = document.getElementById('masonry-grid');
-        var masonry = new Masonry(masonryGrid, {
+        // Initialize Masonry on each section
+        new Masonry('#masonry-phone-grid', {
+          itemSelector: '.col',
+          columnWidth: '.col',
+          percentPosition: true
+        });
+
+        new Masonry('#masonry-tablet-grid', {
+          itemSelector: '.col',
+          columnWidth: '.col',
+          percentPosition: true
+        });
+
+        new Masonry('#masonry-laptop-grid', {
+          itemSelector: '.col',
+          columnWidth: '.col',
+          percentPosition: true
+        });
+
+        new Masonry('#masonry-camera-grid', {
           itemSelector: '.col',
           columnWidth: '.col',
           percentPosition: true
