@@ -14,5 +14,4 @@ urlpatterns = [
     path('tabletBrew/', views.tabletBrew, name='tabletBrew'),
     path('brewDisplay/<str:device_type>/<int:device_id>/<int:user_id>', views.brewDisplay, name='brewDisplay'),
     path("toggle_bookmark", views.toggle_bookmark, name="toggle_bookmark"), #api call
-
 ]

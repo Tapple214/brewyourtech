@@ -1,4 +1,7 @@
-{% load django_bootstrap5 %} {% load static %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% include 'byt/detailDisplay.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -76,364 +79,75 @@
           <!-- Device Details Section -->
           <div class="container mt-2 mb-5 pb-3">
             {% if device_type == "tablet" %}
-
-                {% if device.brand %}
-                <p><strong>Brand:</strong> {{ device.brand }}</p>
-                {% endif %}
-
-                {% if device.name %}
-                <p><strong>Name:</strong> {{ device.name }}</p>
-                {% endif %}
-
-                {% if device.price %}
-                <p><strong>Price:</strong> {{ device.price }}</p>
-                {% endif %}
-
-                {% if device.processor_brand %}
-                <p><strong>Processor:</strong> {{ device.processor_brand }}</p>
-                {% endif %}
-
-                {% if device.num_processor %}
-                <p>
-                  <strong>Number of Processors:</strong> {{ device.num_processor }}
-                </p>
-                {% endif %}
-
-                {% if device.processor_speed %}
-                <p>
-                  <strong>Processor Speed:</strong> {{ device.processor_speed }} GHz
-                </p>
-                {% endif %}
-
-                {% if device.ram %}
-                <p><strong>RAM:</strong> {{ device.ram }} GB</p>
-                {% endif %}
-
-                {% if device.memory_inbuilt %}
-                <p>
-                  <strong>Inbuilt Memory:</strong> {{ device.memory_inbuilt }} GB
-                </p>
-                {% endif %}
-
-                {% if device.battery_capacity %}
-                <p>
-                  <strong>Battery Capacity:</strong> {{ device.battery_capacity }}
-                  mAh
-                </p>
-                {% endif %}
-
-                {% if device.charger %}
-                <p><strong>Charger Power:</strong> {{ device.charger }} W</p>
-                {% endif %}
-
-                {% if device.charging %}
-                <p><strong>Charging Type:</strong> {{ device.charging }}</p>
-                {% endif %}
-
-                {% if device.display_size_inches %}
-                <p>
-                  <strong>Display Size:</strong> {{ device.display_size_inches }}
-                  inches
-                </p>
-                {% endif %}
-
-                {% if device.resolution_width and device.resolution_height %}
-                <p>
-                  <strong>Resolution:</strong> {{ device.resolution_width }} x {{
-                  device.resolution_height }}
-                </p>
-                {% endif %}
-
-                {% if device.ppi %}
-                <p><strong>Pixels Per Inch (PPI):</strong> {{ device.ppi }}</p>
-                {% endif %}
-
-                {% if device.frequency_display_hz %}
-                <p>
-                  <strong>Display Refresh Rate:</strong> {{
-                  device.frequency_display_hz }} Hz
-                </p>
-                {% endif %}
-
-                {% if device.primary_front_camera %}
-                <p>
-                  <strong>Primary Front Camera:</strong> {{
-                  device.primary_front_camera }} MP
-                </p>
-                {% endif %}
-
-                {% if device.secondary_front_camera %}
-                <p>
-                  <strong>Secondary Front Camera:</strong> {{
-                  device.secondary_front_camera }}
-                </p>
-                {% endif %}
-
-                {% if device.primary_rear_camera %}
-                <p>
-                  <strong>Primary Rear Camera:</strong> {{
-                  device.primary_rear_camera }} MP
-                </p>
-                {% endif %}
-
-                {% if device.secondary_rear_camera %}
-                <p>
-                  <strong>Secondary Rear Camera:</strong> {{
-                  device.secondary_rear_camera }}
-                </p>
-                {% endif %}
-
-                {% if device.os_brand %}
-                <p><strong>Operating System:</strong> {{ device.os_brand }}</p>
-                {% endif %}
-
-                {% if device.version %}
-                <p><strong>OS Version:</strong> {{ device.version }}</p>
-                {% endif %}
-
-                {% if device.memory_card_upto %}
-                <p>
-                  <strong>Memory Card Support:</strong> {{ device.memory_card_upto
-                  }}
-                </p>
-                {% endif %}
-
-                {% if device.sim %}
-                <p><strong>SIM Support:</strong> {{ device.sim }}</p>
-                {% endif %}
-
-                {% if device.is_5G %}
-                <p>
-                  <strong>5G Support:</strong> {{ device.is_5G|yesno:"Yes,No" }}
-                </p>
-                {% endif %}
-
-                {% if device.is_wifi %}
-                <p>
-                  <strong>WiFi Support:</strong> {{ device.is_wifi|yesno:"Yes,No" }}
-                </p>
-                {% endif %}
-
+            <div class="row row-cols-1 row-cols-md-5 g-4">
+              {% include 'byt/detailDisplay.html' with label="Brand" value=device.brand %}
+              {% include 'byt/detailDisplay.html' with label="Name" value=device.name %}
+              {% include 'byt/detailDisplay.html' with label="Price" value=device.price %}
+              {% include 'byt/detailDisplay.html' with label="Processor" value=device.processor_brand %}
+              {% include 'byt/detailDisplay.html' with label="Number of Processors" value=device.num_processor %}
+              {% include 'byt/detailDisplay.html' with label="Processor Speed" value=device.processor_speed|stringformat:"s GHz" %}
+              {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" %}
+              {% include 'byt/detailDisplay.html' with label="Inbuilt Memory" value=device.memory_inbuilt|stringformat:"s GB" %}
+              {% include 'byt/detailDisplay.html' with label="Battery Capacity" value=device.battery_capacity|stringformat:"s mAh" %}
+              {% include 'byt/detailDisplay.html' with label="Charger Power" value=device.charger|stringformat:"s W" %}
+            </div>
             {% endif %}
 
             {% if device_type == "phone" %}
-
-                {% if device.brand %}
-                <p><strong>Brand:</strong> {{ device.brand }}</p>
-                {% endif %}
-
-                {% if device.model %}
-                <p><strong>Model:</strong> {{ device.model }}</p>
-                {% endif %}
-
-                {% if device.hits %}
-                <p><strong>Hits:</strong> {{ device.hits }}</p>
-                {% endif %}
-
-                {% if device.became_fan %}
-                <p><strong>Fans:</strong> {{ device.became_fan }}</p>
-                {% endif %}
-
-                {% if device.launch_expected_year %}
-                <p>
-                  <strong>Launch Year:</strong> {{ device.launch_expected_year }}
-                </p>
-                {% endif %}
-
-                {% if device.height_mm %}
-                <p><strong>Height:</strong> {{ device.height_mm }} mm</p>
-                {% endif %}
-
-                {% if device.width_mm %}
-                <p><strong>Width:</strong> {{ device.width_mm }} mm</p>
-                {% endif %}
-
-                {% if device.thickness_mm %}
-                <p><strong>Thickness:</strong> {{ device.thickness_mm }} mm</p>
-                {% endif %}
-
-                {% if device.body_weight_g %}
-                <p><strong>Weight:</strong> {{ device.body_weight_g }} g</p>
-                {% endif %}
-
-                {% if device.display_type %}
-                <p><strong>Display Type:</strong> {{ device.display_type }}</p>
-                {% endif %}
-
-                {% if device.pixels_x and device.pixels_y %}
-                <p>
-                  <strong>Resolution:</strong> {{ device.pixels_x }} x {{
-                  device.pixels_y }}
-                </p>
-                {% endif %}
-
-                {% if device.display_size_inches %}
-                <p>
-                  <strong>Display Size:</strong> {{ device.display_size_inches }}
-                  inches
-                </p>
-                {% endif %}
-
-                {% if device.screen_to_body_ratio %}
-                <p>
-                  <strong>Screen-to-Body Ratio:</strong> {{
-                  device.screen_to_body_ratio }}%
-                </p>
-                {% endif %}
-
-                {% if device.ram_gb %}
-                <p><strong>RAM:</strong> {{ device.ram_gb }} GB</p>
-                {% endif %}
-
-                {% if device.main_camera_single_mp %}
-                <p>
-                  <strong>Main Camera:</strong> {{ device.main_camera_single_mp }}
-                </p>
-                {% endif %}
-
-                {% if device.selfie_camera_single_mp %}
-                <p>
-                  <strong>Selfie Camera:</strong> {{ device.selfie_camera_single_mp
-                  }}
-                </p>
-                {% endif %}
-
-                {% if device.sound_3_5mm_jack %}
-                <p>
-                  <strong>3.5mm Jack:</strong> {{
-                  device.sound_3_5mm_jack|yesno:"Yes,No" }}
-                </p>
-                {% endif %}
-
-                {% if device.comms_bluetooth %}
-                <p><strong>Bluetooth:</strong> {{ device.comms_bluetooth }}</p>
-                {% endif %}
-
-                {% if device.comms_nfc %}
-                <p><strong>NFC:</strong> {{ device.comms_nfc|yesno:"Yes,No" }}</p>
-                {% endif %}
-
-                {% if device.battery_capacity_mah %}
-                <p>
-                  <strong>Battery Capacity:</strong> {{ device.battery_capacity_mah
-                  }} mAh
-                </p>
-                {% endif %}
-
-                {% if device.price_usd %}
-                <p><strong>Price:</strong> ${{ device.price_usd }}</p>
-                {% endif %}
-
+            <div class="row row-cols-1 row-cols-md-5 g-4">
+              {% include 'byt/detailDisplay.html' with label="Brand" value=device.brand %}
+              {% include 'byt/detailDisplay.html' with label="Model" value=device.model %}
+              {% include 'byt/detailDisplay.html' with label="Hits" value=device.hits %}
+              {% include 'byt/detailDisplay.html' with label="Fans" value=device.became_fan %}
+              {% include 'byt/detailDisplay.html' with label="Launch Year" value=device.launch_expected_year %}
+              {% include 'byt/detailDisplay.html' with label="Height" value=device.height_mm|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Width" value=device.width_mm|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Thickness" value=device.thickness_mm|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Weight" value=device.body_weight_g|stringformat:"s g" %}
+              {% include 'byt/detailDisplay.html' with label="Display Type" value=device.display_type %}
+              {% include 'byt/detailDisplay.html' with label="Resolution" value=device.pixels_x|stringformat:"s x "|add:device.pixels_y %}
+              {% include 'byt/detailDisplay.html' with label="Display Size" value=device.display_size_inches|stringformat:"s inches" %}
+              {% include 'byt/detailDisplay.html' with label="Screen-to-Body Ratio" value=device.screen_to_body_ratio|stringformat:"s%" %}
+              {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram_gb|stringformat:"s GB" %}
+              {% include 'byt/detailDisplay.html' with label="Main Camera" value=device.main_camera_single_mp %}
+              {% include 'byt/detailDisplay.html' with label="Selfie Camera" value=device.selfie_camera_single_mp %}
+              {% include 'byt/detailDisplay.html' with label="3.5mm Jack" value=device.sound_3_5mm_jack|yesno:"Yes,No" %}
+              {% include 'byt/detailDisplay.html' with label="Bluetooth" value=device.comms_bluetooth %}
+              {% include 'byt/detailDisplay.html' with label="NFC" value=device.comms_nfc|yesno:"Yes,No" %}
+              {% include 'byt/detailDisplay.html' with label="Battery Capacity" value=device.battery_capacity_mah|stringformat:"s mAh" %}
+              {% include 'byt/detailDisplay.html' with label="Price" value=device.price_usd|stringformat:"s $" %}
+            </div>
             {% endif %}
 
             {% if device_type == "laptop" %}
-
-                {% if device.company %}
-                <p><strong>Company:</strong> {{ device.company }}</p>
-                {% endif %}
-
-                {% if device.product %}
-                <p><strong>Product:</strong> {{ device.product }}</p>
-                {% endif %}
-
-                {% if device.type_name %}
-                <p><strong>Type:</strong> {{ device.type_name }}</p>
-                {% endif %}
-
-                {% if device.inches %}
-                <p><strong>Screen Size:</strong> {{ device.inches }} inches</p>
-                {% endif %}
-
-                {% if device.ram %}
-                <p><strong>RAM:</strong> {{ device.ram }} GB</p>
-                {% endif %}
-
-                {% if device.operating_system %}
-                <p>
-                  <strong>Operating System:</strong> {{ device.operating_system }}
-                </p>
-                {% endif %}
-
-                {% if device.weight %}
-                <p><strong>Weight:</strong> {{ device.weight }} kg</p>
-                {% endif %}
-
-                {% if device.price_euros %}
-                <p><strong>Price:</strong> €{{ device.price_euros }}</p>
-                {% endif %}
-
+            <div class="row row-cols-1 row-cols-md-5 g-4">
+              {% include 'byt/detailDisplay.html' with label="Company" value=device.company %}
+              {% include 'byt/detailDisplay.html' with label="Product" value=device.product %}
+              {% include 'byt/detailDisplay.html' with label="Type" value=device.type_name %}
+              {% include 'byt/detailDisplay.html' with label="Screen Size" value=device.inches|stringformat:"s inches" %}
+              {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" %}
+              {% include 'byt/detailDisplay.html' with label="Operating System" value=device.operating_system %}
+              {% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s kg" %}
+              {% include 'byt/detailDisplay.html' with label="Price" value=device.price_euros|stringformat:"s €" %}
+            </div>
             {% endif %}
 
             {% if device_type == "camera" %}
-
-                {% if device.model %}
-                <p><strong>Model:</strong> {{ device.model }}</p>
-                {% endif %}
-
-                {% if device.release_date %}
-                <p><strong>Release Date:</strong> {{ device.release_date }}</p>
-                {% endif %}
-
-                {% if device.max_resolution %}
-                <p>
-                  <strong>Max Resolution:</strong> {{ device.max_resolution }} px
-                </p>
-                {% endif %}
-
-                {% if device.low_resolution %}
-                <p>
-                  <strong>Low Resolution:</strong> {{ device.low_resolution }} px
-                </p>
-                {% endif %}
-
-                {% if device.effective_pixels %}
-                <p>
-                  <strong>Effective Pixels:</strong> {{ device.effective_pixels }}
-                  MP
-                </p>
-                {% endif %}
-
-                {% if device.zoom_wide %}
-                <p><strong>Zoom Wide:</strong> {{ device.zoom_wide }} mm</p>
-                {% endif %}
-
-                {% if device.zoom_tele %}
-                <p><strong>Zoom Tele:</strong> {{ device.zoom_tele }} mm</p>
-                {% endif %}
-
-                {% if device.normal_focus_range %}
-                <p>
-                  <strong>Normal Focus Range:</strong> {{ device.normal_focus_range
-                  }} mm
-                </p>
-                {% endif %}
-
-                {% if device.macro_focus_range %}
-                <p>
-                  <strong>Macro Focus Range:</strong> {{ device.macro_focus_range }}
-                  mm
-                </p>
-                {% endif %}
-
-                {% if device.storage_included %}
-                <p>
-                  <strong>Storage Included:</strong> {{ device.storage_included }}
-                  MB
-                </p>
-                {% endif %}
-
-                {% if device.weight %}
-                <p><strong>Weight:</strong> {{ device.weight }} g</p>
-                {% endif %}
-
-                {% if device.dimensions %}
-                <p><strong>Dimensions:</strong> {{ device.dimensions }}</p>
-                {% endif %}
-
-                {% if device.price %}
-                <p><strong>Price:</strong> ${{ device.price }}</p>
-                {% endif %}
-
+            <div class="row row-cols-1 row-cols-md-5 g-4">
+              {% include 'byt/detailDisplay.html' with label="Model" value=device.model %}
+              {% include 'byt/detailDisplay.html' with label="Release Date" value=device.release_date %}
+              {% include 'byt/detailDisplay.html' with label="Max Resolution" value=device.max_resolution|stringformat:"s px" %}
+              {% include 'byt/detailDisplay.html' with label="Low Resolution" value=device.low_resolution|stringformat:"s px" %}
+              {% include 'byt/detailDisplay.html' with label="Effective Pixels" value=device.effective_pixels|stringformat:"s MP" %}
+              {% include 'byt/detailDisplay.html' with label="Zoom Wide" value=device.zoom_wide|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Zoom Tele" value=device.zoom_tele|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Normal Focus Range" value=device.normal_focus_range|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Macro Focus Range" value=device.macro_focus_range|stringformat:"s mm" %}
+              {% include 'byt/detailDisplay.html' with label="Storage Included" value=device.storage_included|stringformat:"s MB" %}
+              {% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s g" %}
+              {% include 'byt/detailDisplay.html' with label="Dimensions" value=device.dimensions %}
+              {% include 'byt/detailDisplay.html' with label="Price" value=device.price|stringformat:"s $" %}
+            </div>
             {% endif %}
           </div>
         </div>
