@@ -1,24 +1,15 @@
-<!-- LAPTOP FILTERING PAGE -->
-
-{% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% include 'byt/navbar.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Title & Icon -->
     <title>Brewery</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="{% static 'byt/images/logo.png' %}"
-    />
-
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="{% static 'byt/images/logo.png' %}" />
     {% bootstrap_css %}
-
     <style>
       body {
         color: #5a3d2b;
@@ -42,7 +33,6 @@
         opacity: 0.8;
       }
 
-      /* Style the slider track */
       input[type="range"]::-webkit-slider-runnable-track {
         background: #5a3d2b;
         border-radius: 10px;
@@ -61,7 +51,6 @@
         height: 8px;
       }
 
-      /* Style the slider thumb */
       input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -91,25 +80,17 @@
         cursor: pointer;
       }
 
-      /* Adjust thumb hover effect */
       input[type="range"]:hover::-webkit-slider-thumb {
         background: #dab896;
       }
     </style>
+  </head>
 
   <body class="d-flex">
-    <!-- Main Content Wrapper -->
     <div class="d-flex" style="width: 100%; height: 93vh">
-      <!-- Sidebar-style Div -->
       <div
         class="py-4 px-4 card border-0 rounded-4 m-4 p-4 text-center"
-        style="
-          color: #5a3d2b;
-          background-color: #f3e5d8;
-          width: 250px;
-          height: 87vh;
-          flex-shrink: 0;
-        "
+        style="color: #5a3d2b; background-color: #f3e5d8; width: 250px; height: 87vh; flex-shrink: 0;"
       >
         <h3 class="fw-bold mb-4 pb-1">Filters Below:</h3>
         <form method="GET" action="{% url 'laptopBrew' %}">
@@ -172,63 +153,53 @@
             </select>
           </div>
 
-          <!-- Submit Button -->
-        <button
-        type="submit"
-        class="rounded-pill border-0 px-3 py-1 fw-semibold"
-        style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
-    >
-        Submit
-    </button>
+          <button
+            type="submit"
+            class="rounded-pill border-0 px-3 py-1 fw-semibold"
+            style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
+          >
+            Submit
+          </button>
         </form>
       </div>
 
-     <!-- Main Content -->
-<div
-class="py-3 px-3 w-100"
-style="height: 93vh; overflow-y: auto"
->
-<h3 class="fw-bold mb-4 pt-2 text-center">Your brews!</h3>
-{% if laptops %}
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  {% for laptop in laptops %}
-  <div class="col">
-    <div class="card h-100 rounded-4 border-0 d-flex flex-column">
-      <div
-        class="card-body rounded-4 border-0 d-flex flex-column"
-        style="background-color: #d7c0ae; color: #5a3d2b"
-      >
-        <h6 class="card-title">
-          <span class="fw-bold">{{ laptop.company }}</span> - {{ laptop.product }} ({{laptop.year}}) ({{laptop.type_name}})
-          <br/>
-          <br/>
-        </h6>
-    
-        <div class="mt-auto d-flex flex-column"> 
-          <span class="mb-2">Price (USD): {{ laptop.price_usd|stringformat:"s"|slice:":8" }}</span>
-          <a
-          href="{% url 'brewDisplay' 'laptop' laptop.id user_id %}"
-          target="_blank"
-          class="btn rounded-pill fw-medium"
-          style="background-color: #5a3d2b; color: #f3e5d8"
-        >
-          View Details
-        </a></div>
-        
-       
+      <!-- Main Content -->
+      <div class="py-3 px-3 w-100" style="height: 93vh; overflow-y: auto">
+        <h3 class="fw-bold mb-4 pt-2 text-center">Your brews!</h3>
+        {% if laptops %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for laptop in laptops %}
+          <div class="col">
+            <div class="card h-100 rounded-4 border-0 d-flex flex-column">
+              <div
+                class="card-body rounded-4 border-0 d-flex flex-column"
+                style="background-color: #d7c0ae; color: #5a3d2b"
+              >
+                <h6 class="card-title">
+                  <span class="fw-bold">{{ laptop.company }}</span> - {{ laptop.product }} ({{ laptop.year }}) ({{ laptop.type_name }})
+                </h6>
+                <div class="mt-auto d-flex flex-column">
+                  <span class="mb-2">Price (USD): {{ laptop.price_usd|stringformat:"s"|slice:":8" }}</span>
+                  <a
+                    href="{% url 'brewDisplay' 'laptop' laptop.id user_id %}"
+                    target="_blank"
+                    class="btn rounded-pill fw-medium"
+                    style="background-color: #5a3d2b; color: #f3e5d8"
+                  >
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">
+          No laptops match your criteria. Please try again with different filters.
+        </p>
+        {% endif %}
       </div>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-{% else %}
-<p class="text-center">
-  No laptops match your criteria. Please try again with different
-  filters.
-</p>
-{% endif %}
-</div>
-
     </div>
 
     {% bootstrap_javascript %}
