@@ -47,7 +47,7 @@
             {% include 'byt/detailDisplay.html' with label="Display Type" value=device.display_type description="The type of display technology used in the device." %}
             {% include 'byt/detailDisplay.html' with label="Resolution" value=device.pixels_x|stringformat:"s x "|add:device.pixels_y description="The display resolution in pixels (width x height)." %}
             {% include 'byt/detailDisplay.html' with label="Display Size" value=device.display_size_inches|stringformat:"s inches" description="The size of the display in inches, measured diagonally." %}
-            {% include 'byt/detailDisplay.html' with label="Link" url=device.url description="Click here to visit the source!" %}
+            {% include 'byt/detailDisplay.html' with label="Link" value=device.url url=device.url description="Click here to visit the source!" %}
           </div>
           {% endif %}
 
