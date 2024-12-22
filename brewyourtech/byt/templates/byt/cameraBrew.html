@@ -1,24 +1,15 @@
-<!--  CAMERA FILTERING PAGE -->
-
-{% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% include 'byt/navbar.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Title & Icon -->
     <title>Camera Brewery</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="{% static 'byt/images/logo.png' %}"
-    />
-
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="{% static 'byt/images/logo.png' %}" />
     {% bootstrap_css %}
-
     <style>
       body {
         color: #5a3d2b;
@@ -93,17 +84,13 @@
         background: #dab896;
       }
     </style>
+  </head>
+
   <body class="d-flex">
     <div class="d-flex" style="width: 100%; height: 93vh">
       <div
         class="py-4 px-4 card border-0 rounded-4 m-4 p-4 text-center"
-        style="
-          color: #5a3d2b;
-          background-color: #f3e5d8;
-          width: 250px;
-          height: 87vh;
-          flex-shrink: 0;
-        "
+        style="color: #5a3d2b; background-color: #f3e5d8; width: 250px; height: 87vh; flex-shrink: 0;"
       >
         <h3 class="fw-bold mb-4 pb-1">Filters Below:</h3>
         <form method="GET" action="{% url 'cameraBrew' %}">
@@ -138,6 +125,7 @@
             />
             <span id="display_value">{{ request.GET.display_size_inches|default:0 }}</span> inches
           </div>
+
           <!-- Battery Capacity -->
           <div style="margin-bottom: 15px">
             <label for="battery_capacity">Battery Capacity:</label>
@@ -164,10 +152,7 @@
         </form>
       </div>
 
-      <div
-        class="py-3 px-3 w-100"
-        style="height: 93vh; overflow-y: auto"
-      >
+      <div class="py-3 px-3 w-100" style="height: 93vh; overflow-y: auto">
         <h3 class="fw-bold mb-4 pt-2 text-center">Your brews!</h3>
         {% if cameras %}
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -179,21 +164,20 @@
                 style="background-color: #d7c0ae; color: #5a3d2b"
               >
                 <h6 class="card-title">
-                  <span class="fw-bold">{{ camera.model }}</span> ({{camera.release_date}})
-                  <br/>
+                  <span class="fw-bold">{{ camera.model }}</span> ({{ camera.release_date }})
                 </h6>
 
-                <div class="mt-auto d-flex flex-column"> 
+                <div class="mt-auto d-flex flex-column">
                   <span class="mb-2">Price (USD): {{ camera.price|stringformat:"s"|slice:":8" }}</span>
                   <a
-                  href="{% url 'brewDisplay' 'camera' camera.id user_id %}"
-                  target="_blank"
-                  class="btn rounded-pill fw-medium mt-auto"
-                  style="background-color: #5a3d2b; color: #f3e5d8"
-                >
-                  View Details
-                </a></div>
-               
+                    href="{% url 'brewDisplay' 'camera' camera.id user_id %}"
+                    target="_blank"
+                    class="btn rounded-pill fw-medium mt-auto"
+                    style="background-color: #5a3d2b; color: #f3e5d8"
+                  >
+                    View Details
+                  </a>
+                </div>
               </div>
             </div>
           </div>
