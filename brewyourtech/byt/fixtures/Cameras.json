@@ -4,18 +4,7 @@
         "pk": null,
         "fields": {
             "model": "Agfa ePhoto 1280",
-            "release_date": 1997,
-            "max_resolution": 1024,
-            "low_resolution": 640,
-            "effective_pixels": 0.0,
-            "zoom_wide": 38,
-            "zoom_tele": 114,
-            "normal_focus_range": 70,
-            "macro_focus_range": 40,
-            "storage_included": 4,
-            "weight": 420,
-            "dimensions": "95",
-            "price": 179.0
+            
         }
     },
     {

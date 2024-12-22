@@ -22,7 +22,7 @@
     </style>
   </head>
 
-  <body style="color: #5a3d2b; overflow-x: hidden; overflow-y: hidden; background-color: #f3e5d8">
+  <body style="color: #5a3d2b; overflow-x: hidden; overflow-y: auto; background-color: #f3e5d8; padding-bottom: 470px">
     <div class="container-fluid vh-100 d-flex flex-column">
       <div class="py-3 text-center card border-0 rounded-4 mt-3 mx-3 position-relative" style="background-color: #5a3d2b; color: #f3e5d8">
         <h1 class="fw-bold">Device Overview</h1>
@@ -48,6 +48,15 @@
             {% include 'byt/detailDisplay.html' with label="Resolution" value=device.pixels_x|stringformat:"s x "|add:device.pixels_y description="The display resolution in pixels (width x height)." %}
             {% include 'byt/detailDisplay.html' with label="Display Size" value=device.display_size_inches|stringformat:"s inches" description="The size of the display in inches, measured diagonally." %}
             {% include 'byt/detailDisplay.html' with label="Link" value=device.url url=device.url description="Click here to visit the source!" %}
+            {% include 'byt/detailDisplay.html' with label="Screen to Body Ratio" value=device.screen_to_body_ratio|stringformat:"s %" description="The screen-to-body ratio as a percentage." %}
+            {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram_gb|stringformat:"s GB" description="The amount of RAM in the device." %}
+            {% include 'byt/detailDisplay.html' with label="Main Camera (MP)" value=device.main_camera_single_mp|stringformat:"s MP" description="The resolution of the main camera (in megapixels). If unavailable, this might show null." %}
+            {% include 'byt/detailDisplay.html' with label="Selfie Camera (MP)" value=device.selfie_camera_single_mp|stringformat:"s MP" description="The resolution of the selfie camera (in megapixels)." %}
+            {% include 'byt/detailDisplay.html' with label="3.5mm Jack" value=device.sound_3_5mm_jack|stringformat:"s" description="Whether the device supports a 3.5mm headphone jack." %}
+            {% include 'byt/detailDisplay.html' with label="Bluetooth" value=device.comms_bluetooth description="The Bluetooth version supported by the device." %}
+            {% include 'byt/detailDisplay.html' with label="NFC" value=device.comms_nfc|stringformat:"s" description="Whether the device supports NFC (Near Field Communication)." %}
+            {% include 'byt/detailDisplay.html' with label="Battery Capacity" value=device.battery_capacity_mah|stringformat:"s mAh" description="The battery capacity in milliamp-hours." %}
+            {% include 'byt/detailDisplay.html' with label="Price (USD)" value=device.price_usd|stringformat:"s USD" description="The price of the device in US dollars." %}
           </div>
           {% endif %}
 
@@ -55,15 +64,33 @@
           {% if device_type == "tablet" %}
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-tablet-grid">
             {% include 'byt/detailDisplay.html' with label="Brand" value=device.brand description="The manufacturer of the device." %}
-            {% include 'byt/detailDisplay.html' with label="Name" value=device.name description="The name or title of the device." %}
-            {% include 'byt/detailDisplay.html' with label="Price" value=device.price description="The retail price of the device." %}
-            {% include 'byt/detailDisplay.html' with label="Processor" value=device.processor_brand description="The brand or manufacturer of the device's processor." %}
-            {% include 'byt/detailDisplay.html' with label="Number of Processors" value=device.num_processor description="The total number of processors in the device." %}
-            {% include 'byt/detailDisplay.html' with label="Processor Speed" value=device.processor_speed|stringformat:"s GHz" description="The speed of the processor, measured in gigahertz (GHz)." %}
-            {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" description="The amount of random access memory (RAM) in the device, measured in gigabytes (GB)." %}
-            {% include 'byt/detailDisplay.html' with label="Inbuilt Memory" value=device.memory_inbuilt|stringformat:"s GB" description="The built-in storage memory of the device, measured in gigabytes (GB)." %}
-            {% include 'byt/detailDisplay.html' with label="Battery Capacity" value=device.battery_capacity|stringformat:"s mAh" description="The capacity of the device's battery, measured in milliampere-hours (mAh)." %}
-            {% include 'byt/detailDisplay.html' with label="Charger Power" value=device.charger|stringformat:"s W" description="The power output of the device's charger, measured in watts (W)." %}
+{% include 'byt/detailDisplay.html' with label="Name" value=device.name description="The name or title of the device." %}
+{% include 'byt/detailDisplay.html' with label="Price" value=device.price|stringformat:"s" description="The retail price of the device." %}
+{% include 'byt/detailDisplay.html' with label="Processor" value=device.processor_brand description="The brand or manufacturer of the device's processor." %}
+{% include 'byt/detailDisplay.html' with label="Number of Processors" value=device.num_processor description="The total number of processors in the device." %}
+{% include 'byt/detailDisplay.html' with label="Processor Speed" value=device.processor_speed|stringformat:"s GHz" description="The speed of the processor, measured in gigahertz (GHz)." %}
+{% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" description="The amount of random access memory (RAM) in the device, measured in gigabytes (GB)." %}
+{% include 'byt/detailDisplay.html' with label="Inbuilt Memory" value=device.memory_inbuilt|stringformat:"s GB" description="The built-in storage memory of the device, measured in gigabytes (GB)." %}
+{% include 'byt/detailDisplay.html' with label="Battery Capacity" value=device.battery_capacity|stringformat:"s mAh" description="The capacity of the device's battery, measured in milliampere-hours (mAh)." %}
+{% include 'byt/detailDisplay.html' with label="Charger Power" value=device.charger|stringformat:"s W" description="The power output of the device's charger, measured in watts (W)." %}
+
+<!-- Additional Fields -->
+{% include 'byt/detailDisplay.html' with label="Charging Type" value=device.charging description="The type of charging supported (e.g., Fast charging)." %}
+{% include 'byt/detailDisplay.html' with label="Display Size" value=device.display_size_inches|stringformat:"s inches" description="The size of the display in inches, measured diagonally." %}
+{% include 'byt/detailDisplay.html' with label="Resolution" value=device.pixel description="The display resolution in pixels (width x height)." %}
+{% include 'byt/detailDisplay.html' with label="PPI" value=device.ppi|stringformat:"s" description="The pixels per inch (PPI) of the display." %}
+{% include 'byt/detailDisplay.html' with label="Display Frequency" value=device.frequency_display_hz|stringformat:"s Hz" description="The refresh rate of the display, measured in Hertz (Hz)." %}
+{% include 'byt/detailDisplay.html' with label="Primary Front Camera" value=device.primary_front_camera|stringformat:"s MP" description="The megapixel count of the primary front camera." %}
+{% include 'byt/detailDisplay.html' with label="Secondary Front Camera" value=device.secondary_front_camera|stringformat:"s MP" description="The megapixel count of the secondary front camera (if available)." %}
+{% include 'byt/detailDisplay.html' with label="Primary Rear Camera" value=device.primary_rear_camera|stringformat:"s MP" description="The megapixel count of the primary rear camera." %}
+{% include 'byt/detailDisplay.html' with label="Secondary Rear Camera" value=device.secondary_rear_camera|stringformat:"s MP" description="The megapixel count of the secondary rear camera (if available)." %}
+{% include 'byt/detailDisplay.html' with label="Operating System" value=device.os_brand description="The brand of the operating system running on the device." %}
+{% include 'byt/detailDisplay.html' with label="OS Version" value=device.version description="The version of the operating system." %}
+{% include 'byt/detailDisplay.html' with label="Memory Card Support" value=device.memory_card_upto description="The maximum size of memory card supported by the device (if available)." %}
+{% include 'byt/detailDisplay.html' with label="SIM Support" value=device.sim description="Information about SIM support (e.g., number of SIM cards)." %}
+{% include 'byt/detailDisplay.html' with label="5G Support" value=device.is_5G|stringformat:"s" description="Whether the device supports 5G connectivity." %}
+{% include 'byt/detailDisplay.html' with label="Wi-Fi Support" value=device.is_wifi|stringformat:"s" description="Whether the device supports Wi-Fi connectivity." %}
+
           </div>
           {% endif %}
 
@@ -71,13 +98,40 @@
           {% if device_type == "laptop" %}
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="masonry-laptop-grid">
             {% include 'byt/detailDisplay.html' with label="Company" value=device.company description="The company or organization that manufactures the device." %}
-            {% include 'byt/detailDisplay.html' with label="Product" value=device.product description="The specific product name or category the device belongs to." %}
-            {% include 'byt/detailDisplay.html' with label="Type" value=device.type_name description="The type or classification of the device (e.g., smartphone, laptop, tablet)." %}
-            {% include 'byt/detailDisplay.html' with label="Screen Size" value=device.inches|stringformat:"s inches" description="The diagonal size of the device's screen, measured in inches." %}
-            {% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" description="The amount of random access memory (RAM) available in the device, measured in gigabytes (GB)." %}
-            {% include 'byt/detailDisplay.html' with label="Operating System" value=device.operating_system description="The software platform that runs on the device (e.g., Windows, Android, iOS)." %}
-            {% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s kg" description="The weight of the device, measured in kilograms (kg)." %}
-            {% include 'byt/detailDisplay.html' with label="Price" value=device.price_euros|stringformat:"s €" description="The price of the device in euros (€)." %}
+{% include 'byt/detailDisplay.html' with label="Product" value=device.product description="The specific product name or category the device belongs to." %}
+{% include 'byt/detailDisplay.html' with label="Type" value=device.type_name description="The type or classification of the device (e.g., smartphone, laptop, tablet)." %}
+{% include 'byt/detailDisplay.html' with label="Screen Size" value=device.inches|stringformat:"s inches" description="The diagonal size of the device's screen, measured in inches." %}
+{% include 'byt/detailDisplay.html' with label="RAM" value=device.ram|stringformat:"s GB" description="The amount of random access memory (RAM) available in the device, measured in gigabytes (GB)." %}
+{% include 'byt/detailDisplay.html' with label="Operating System" value=device.operating_system description="The software platform that runs on the device (e.g., Windows, Android, iOS)." %}
+{% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s kg" description="The weight of the device, measured in kilograms (kg)." %}
+{% include 'byt/detailDisplay.html' with label="Price" value=device.price_euros|stringformat:"s €" description="The price of the device in euros (€)." %}
+
+<!-- Additional Fields -->
+{% include 'byt/detailDisplay.html' with label="Screen Type" value=device.screen_type description="The type of screen, such as standard, IPS, or OLED." %}
+{% include 'byt/detailDisplay.html' with label="Screen Resolution" value=device.screen_width|stringformat:"s x "|add:device.screen_height description="The screen resolution (width x height) in pixels." %}
+{% include 'byt/detailDisplay.html' with label="Touchscreen" value=device.touchscreen|stringformat:"s" description="Whether the device has a touchscreen." %}
+{% include 'byt/detailDisplay.html' with label="IPS Panel" value=device.ips_panel|stringformat:"s" description="Whether the device uses an IPS panel." %}
+{% include 'byt/detailDisplay.html' with label="Retina Display" value=device.retina_display|stringformat:"s" description="Whether the device has a Retina display." %}
+{% include 'byt/detailDisplay.html' with label="CPU Company" value=device.cpu_company description="The manufacturer of the device's CPU." %}
+{% include 'byt/detailDisplay.html' with label="CPU Model" value=device.cpu_model description="The model of the device's CPU." %}
+{% include 'byt/detailDisplay.html' with label="CPU Frequency" value=device.cpu_frequency|stringformat:"s GHz" description="The frequency of the device's CPU, measured in gigahertz (GHz)." %}
+{% include 'byt/detailDisplay.html' with label="Primary Storage Capacity" value=device.primary_storage_capacity|stringformat:"s GB" description="The capacity of the device's primary storage, measured in gigabytes (GB)." %}
+{% include 'byt/detailDisplay.html' with label="Secondary Storage Capacity" value=device.secondary_storage_capacity|stringformat:"s GB" description="The capacity of the device's secondary storage, if available." %}
+{% include 'byt/detailDisplay.html' with label="Primary Storage Type" value=device.primary_storage_type description="The type of the device's primary storage (e.g., SSD, HDD)." %}
+{% include 'byt/detailDisplay.html' with label="Secondary Storage Type" value=device.secondary_storage_type description="The type of the device's secondary storage (if available)." %}
+{% include 'byt/detailDisplay.html' with label="GPU Company" value=device.gpu_company description="The manufacturer of the device's GPU." %}
+{% include 'byt/detailDisplay.html' with label="GPU Model" value=device.gpu_model description="The model of the device's GPU." %}
+{% include 'byt/detailDisplay.html' with label="GPU Full Model" value=device.gpu_full_model description="The full model name of the device's GPU." %}
+{% include 'byt/detailDisplay.html' with label="Year" value=device.year description="The year the device was released." %}
+{% include 'byt/detailDisplay.html' with label="Quarter" value=device.quarter description="The quarter of the year when the device was released." %}
+{% include 'byt/detailDisplay.html' with label="Architecture" value=device.architecture description="The CPU architecture used in the device (e.g., Intel Gen9)." %}
+{% include 'byt/detailDisplay.html' with label="Process (nm)" value=device.process_nm|stringformat:"s nm" description="The manufacturing process size of the CPU, measured in nanometers (nm)." %}
+{% include 'byt/detailDisplay.html' with label="Cores/Shaders" value=device.cores_shaders description="The number of cores or shaders in the device's GPU." %}
+{% include 'byt/detailDisplay.html' with label="Base Clock (MHz)" value=device.base_clock_mhz description="The base clock speed of the device's GPU, measured in megahertz (MHz)." %}
+{% include 'byt/detailDisplay.html' with label="TDP (W)" value=device.tdp_w|stringformat:"s W" description="The thermal design power (TDP) of the device's CPU/GPU, measured in watts (W)." %}
+{% include 'byt/detailDisplay.html' with label="Integrated GPU" value=device.integrated_gpu|stringformat:"s" description="Whether the device uses an integrated GPU." %}
+{% include 'byt/detailDisplay.html' with label="Mobile GPU" value=device.mobile_gpu|stringformat:"s" description="Whether the device uses a mobile GPU." %}
+
           </div>
           {% endif %}
 
@@ -95,7 +149,11 @@
             {% include 'byt/detailDisplay.html' with label="Macro Focus Range" value=device.macro_focus_range|stringformat:"s mm" description="The close-up or macro focus range of the device, measured in millimeters (mm)." %}
             {% include 'byt/detailDisplay.html' with label="Storage Included" value=device.storage_included|stringformat:"s MB" description="The built-in storage capacity of the device, measured in megabytes (MB)." %}
             {% include 'byt/detailDisplay.html' with label="Weight" value=device.weight|stringformat:"s g" description="The weight of the device, measured in grams (g)." %}
-          </div>
+            
+            <!-- Additional Fields (if necessary) -->
+            {% include 'byt/detailDisplay.html' with label="Dimensions" value=device.dimensions description="The dimensions of the device (e.g., length, width, height)." %}
+            {% include 'byt/detailDisplay.html' with label="Price" value=device.price|stringformat:"s USD" description="The price of the device in USD." %}
+            </div>
           {% endif %}
         </div>
       </div>

@@ -65,7 +65,7 @@
                   bookmarked_item.item.product }}
                 </h5>
                 <p class="card-text">
-                  Price: €{{ bookmarked_item.item.price_euros }}
+                  Price: ${{ bookmarked_item.item.price_usd }}
                 </p>
                 <p class="card-text">
                   CPU: {{ bookmarked_item.item.cpu_model }}
@@ -79,7 +79,7 @@
                   Display: {{ bookmarked_item.item.display_size_inches }} inches
                 </p>
                 <p class="card-text">
-                  Price: ${{ bookmarked_item.item.price }}
+                  Price: ${{ bookmarked_item.item.price_usd }}
                 </p>
                 {% elif bookmarked_item.category == 'camera' %}
                 <h5 class="card-title fw-bold">

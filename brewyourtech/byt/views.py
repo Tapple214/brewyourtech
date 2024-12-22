@@ -62,6 +62,8 @@ def logout(request):
     messages.success(request, "You have been logged out successfully!")
     return redirect("loginSignUp")
 
+from currency_converter import CurrencyConverter
+
 def brewLog(request):
     # Check if the user is logged in by checking the session
     user_id = request.session.get('user_id')
@@ -83,14 +85,28 @@ def brewLog(request):
 
     # Create a list of bookmarked items
     bookmarked_items = []
+    c = CurrencyConverter()  # Initialize CurrencyConverter object
+
     for bookmark in bookmarks:
         item = None
         if bookmark.category == 'phone':
             item = Phone.objects.filter(id=bookmark.item_id).first()
         elif bookmark.category == 'laptop':
             item = Laptop.objects.filter(id=bookmark.item_id).first()
+            # Convert the price from Euros to USD for laptops
+            if item:
+                try:
+                    item.price_usd = round(c.convert(item.price_euros, 'EUR', 'USD'), 2)
+                except Exception as e:
+                    item.price_usd = "Error"  # Handle conversion error gracefully
         elif bookmark.category == 'tablet':
             item = Tablet.objects.filter(index=bookmark.item_id).first()
+            # Convert the price from INR to USD for tablets
+            if item:
+                try:
+                    item.price_usd = round(c.convert(item.price, 'INR', 'USD'), 2)
+                except Exception as e:
+                    item.price_usd = "Error"  # Handle conversion error gracefully
         elif bookmark.category == 'camera':
             item = Camera.objects.filter(id=bookmark.item_id).first()
 
@@ -104,8 +120,9 @@ def brewLog(request):
     return render(request, 'byt/brewLog.html', {
         'user_data': user,
         'user_id': user_id,
-        'bookmarked_items': bookmarked_items,  # Pass resolved items
+        'bookmarked_items': bookmarked_items,  # Pass resolved items with prices
     })
+
 
 
 # Phone Filter page
@@ -313,10 +330,22 @@ def brewDisplay(request, device_type, device_id, user_id):
     device = None
     if device_type == "tablet":
         device = get_object_or_404(Tablet, index=device_id)
+        # Convert the price from INR to USD for tablets
+        c = CurrencyConverter()
+        try:
+            device.price_usd = round(c.convert(device.price, 'INR', 'USD'), 2)  # Convert and round to 2 decimal places
+        except Exception as e:
+            device.price_usd = "Error"  # Handle conversion error gracefully
     elif device_type == "phone":
         device = get_object_or_404(Phone, id=device_id)
     elif device_type == "laptop":
         device = get_object_or_404(Laptop, id=device_id)
+        # Convert the price from Euros to USD for laptops
+        c = CurrencyConverter()
+        try:
+            device.price_usd = round(c.convert(device.price_euros, 'EUR', 'USD'), 2)  # Convert and round to 2 decimal places
+        except Exception as e:
+            device.price_usd = "Error"  # Handle conversion error gracefully
     elif device_type == "camera":
         device = get_object_or_404(Camera, id=device_id)
     else:
