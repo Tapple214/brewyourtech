@@ -325,29 +325,36 @@ def brewery(request):
 
     return render(request, "byt/brewery.html", context)
 
+from currency_converter import CurrencyConverter
+from django.shortcuts import render, get_object_or_404
+from .models import Tablet, Phone, Laptop, Camera, User, Bookmark
+
 def brewDisplay(request, device_type, device_id, user_id):
-    # Fetch the device based on the device_type
+    # Initialize the device and the price conversion object
     device = None
+    c = CurrencyConverter()  # Currency converter instance
+
+    # Handle device type logic
     if device_type == "tablet":
         device = get_object_or_404(Tablet, index=device_id)
-        # Convert the price from INR to USD for tablets
-        c = CurrencyConverter()
+        # Convert price from INR to USD for tablets
         try:
-            device.price_usd = round(c.convert(device.price, 'INR', 'USD'), 2)  # Convert and round to 2 decimal places
+            device.price_usd = round(c.convert(device.price, 'INR', 'USD'), 2)
         except Exception as e:
-            device.price_usd = "Error"  # Handle conversion error gracefully
+            device.price_usd = "Error"  # Handle any error gracefully
     elif device_type == "phone":
         device = get_object_or_404(Phone, id=device_id)
+        # Add similar logic here if needed for phones
     elif device_type == "laptop":
         device = get_object_or_404(Laptop, id=device_id)
-        # Convert the price from Euros to USD for laptops
-        c = CurrencyConverter()
+        # Convert price from EUR to USD for laptops
         try:
-            device.price_usd = round(c.convert(device.price_euros, 'EUR', 'USD'), 2)  # Convert and round to 2 decimal places
+            device.price_usd = round(c.convert(device.price_euros, 'EUR', 'USD'), 2)
         except Exception as e:
-            device.price_usd = "Error"  # Handle conversion error gracefully
+            device.price_usd = "Error"  # Handle any error gracefully
     elif device_type == "camera":
         device = get_object_or_404(Camera, id=device_id)
+        # Add similar logic for cameras if needed
     else:
         return render(request, "404.html", {"message": "Invalid device type"})
 
@@ -368,6 +375,7 @@ def brewDisplay(request, device_type, device_id, user_id):
         "is_bookmarked": is_bookmarked,
         "user_id": user_id,
     })
+
 
 @csrf_exempt # Temporarily exempt from CSRF for testing; remove this for production
 # @login_required  # Ensure only logged-in users can access this view
