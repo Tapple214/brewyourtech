@@ -4,7 +4,7 @@ from django.db import models
 
 # Step 1: Make the schema changes
 # Step 2: RUN python manage.py makemigrations     
-# Step 3: RUN  python manage.py migrate 
+# Step 3: RUN python manage.py migrate 
 # (To pre-populate the your db/models)  
 # Step 4: RUN the CSV to Fixture codes 
 
@@ -32,7 +32,7 @@ class Phone(models.Model):
     display_size_inches = models.FloatField()
     screen_to_body_ratio = models.FloatField()
     ram_gb = models.FloatField()
-    main_camera_single_mp = models.FloatField(null=True, blank=True) # Allow null values
+    main_camera_single_mp = models.FloatField(null=True, blank=True)  # Allow null values
     selfie_camera_single_mp = models.FloatField(null=True, blank=True)  
     sound_3_5mm_jack = models.BooleanField()
     comms_bluetooth = models.CharField(max_length=100)
@@ -87,7 +87,6 @@ class Laptop(models.Model):
 
     def __str__(self):
         return f"{self.company} {self.product} ({self.type_name})"
-
 
 class Tablet(models.Model):
     index = models.AutoField(primary_key=True)  
