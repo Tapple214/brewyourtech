@@ -1,11 +1,5 @@
-<!-- ### START ### -->
-
 <!-- NAVBAR -->
-
-<nav
-  class="navbar navbar-expand fixed-bottom"
-  style="background-color: #5a3d2b; color: #f3e5d8"
->
+<nav class="navbar navbar-expand fixed-bottom" style="background-color: #5a3d2b; color: #f3e5d8">
   <div class="container-fluid d-flex justify-content-around">
     {% for item in navbar_items %}
     <a
@@ -24,12 +18,9 @@
       >
         {{ item.svg_path|safe }}
       </svg>
-      <span class="d-block small fw-bold" style="color: #f3e5d8"
-        >{{ item.label }}</span
-      >
+      <span class="d-block small fw-bold" style="color: #f3e5d8">{{ item.label }}</span>
     </a>
     {% endfor %}
   </div>
 </nav>
 
-<!-- ### END ### -->
