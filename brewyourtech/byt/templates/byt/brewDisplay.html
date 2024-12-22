@@ -74,66 +74,366 @@
       >
         <div class="row w-100 px-4">
           <!-- Device Details Section -->
-          <div class="container mt-4">
+          <div class="container mt-2 mb-5 pb-3">
             {% if device_type == "tablet" %}
-            <p><strong>Brand:</strong> {{ device.brand }}</p>
-            <p><strong>Name:</strong> {{ device.name }}</p>
-            <p><strong>Price:</strong> {{ device.price }}</p>
-            <p>
-              <strong>Resolution:</strong> {{ device.resolution_width }} x {{
-              device.resolution_height }}
-            </p>
-            <p><strong>Rating:</strong> {{ device.rating }}</p>
-            <p><strong>Processor:</strong> {{ device.processor_brand }}</p>
-            <p><strong>RAM:</strong> {{ device.ram }}</p>
-            <p>
-              <strong>Battery Capacity:</strong> {{ device.battery_capacity }}
-            </p>
-            {% elif device_type == "phone" %}
-            <p><strong>Brand:</strong> {{ device.brand }}</p>
-            <p><strong>Model:</strong> {{ device.model }}</p>
-            <p><strong>Price:</strong> {{ device.price_usd }}</p>
-            <p>
-              <strong>Battery Capacity:</strong> {{ device.battery_capacity_mah
-              }} mAh
-            </p>
-            <p>
-              <strong>Display Size:</strong> {{ device.display_size_inches }}
-              inches
-            </p>
-            <p><strong>RAM:</strong> {{ device.ram_gb }} GB</p>
-            <p>
-              <strong>Main Camera:</strong> {{ device.main_camera_single_mp }}
-              MP
-            </p>
-            <p>
-              <strong>Selfie Camera:</strong> {{ device.selfie_camera_single_mp
-              }} MP
-            </p>
-            {% elif device_type == "laptop" %}
-            <p><strong>Company:</strong> {{ device.company }}</p>
-            <p><strong>Product:</strong> {{ device.product }}</p>
-            <p><strong>Price:</strong> €{{ device.price_euros }}</p>
-            <p><strong>CPU:</strong> {{ device.cpu_model }}</p>
-            <p><strong>RAM:</strong> {{ device.ram }} GB</p>
-            <p>
-              <strong>Storage:</strong> {{ device.primary_storage_capacity }}
-            </p>
-            <p><strong>Screen:</strong> {{ device.inches }} inches</p>
-            <p><strong>Weight:</strong> {{ device.weight }} kg</p>
-            {% elif device_type == "camera" %}
-            <p><strong>Model:</strong> {{ device.model }}</p>
-            <p><strong>Release Date:</strong> {{ device.release_date }}</p>
-            <p><strong>Price:</strong> ${{ device.price }}</p>
-            <p>
-              <strong>Max Resolution:</strong> {{ device.max_resolution }} px
-            </p>
-            <p>
-              <strong>Effective Pixels:</strong> {{ device.effective_pixels }}
-              MP
-            </p>
-            <p><strong>Zoom Wide:</strong> {{ device.zoom_wide }} mm</p>
-            <p><strong>Weight:</strong> {{ device.weight }} g</p>
+
+                {% if device.brand %}
+                <p><strong>Brand:</strong> {{ device.brand }}</p>
+                {% endif %}
+
+                {% if device.name %}
+                <p><strong>Name:</strong> {{ device.name }}</p>
+                {% endif %}
+
+                {% if device.price %}
+                <p><strong>Price:</strong> {{ device.price }}</p>
+                {% endif %}
+
+                {% if device.processor_brand %}
+                <p><strong>Processor:</strong> {{ device.processor_brand }}</p>
+                {% endif %}
+
+                {% if device.num_processor %}
+                <p>
+                  <strong>Number of Processors:</strong> {{ device.num_processor }}
+                </p>
+                {% endif %}
+
+                {% if device.processor_speed %}
+                <p>
+                  <strong>Processor Speed:</strong> {{ device.processor_speed }} GHz
+                </p>
+                {% endif %}
+
+                {% if device.ram %}
+                <p><strong>RAM:</strong> {{ device.ram }} GB</p>
+                {% endif %}
+
+                {% if device.memory_inbuilt %}
+                <p>
+                  <strong>Inbuilt Memory:</strong> {{ device.memory_inbuilt }} GB
+                </p>
+                {% endif %}
+
+                {% if device.battery_capacity %}
+                <p>
+                  <strong>Battery Capacity:</strong> {{ device.battery_capacity }}
+                  mAh
+                </p>
+                {% endif %}
+
+                {% if device.charger %}
+                <p><strong>Charger Power:</strong> {{ device.charger }} W</p>
+                {% endif %}
+
+                {% if device.charging %}
+                <p><strong>Charging Type:</strong> {{ device.charging }}</p>
+                {% endif %}
+
+                {% if device.display_size_inches %}
+                <p>
+                  <strong>Display Size:</strong> {{ device.display_size_inches }}
+                  inches
+                </p>
+                {% endif %}
+
+                {% if device.resolution_width and device.resolution_height %}
+                <p>
+                  <strong>Resolution:</strong> {{ device.resolution_width }} x {{
+                  device.resolution_height }}
+                </p>
+                {% endif %}
+
+                {% if device.ppi %}
+                <p><strong>Pixels Per Inch (PPI):</strong> {{ device.ppi }}</p>
+                {% endif %}
+
+                {% if device.frequency_display_hz %}
+                <p>
+                  <strong>Display Refresh Rate:</strong> {{
+                  device.frequency_display_hz }} Hz
+                </p>
+                {% endif %}
+
+                {% if device.primary_front_camera %}
+                <p>
+                  <strong>Primary Front Camera:</strong> {{
+                  device.primary_front_camera }} MP
+                </p>
+                {% endif %}
+
+                {% if device.secondary_front_camera %}
+                <p>
+                  <strong>Secondary Front Camera:</strong> {{
+                  device.secondary_front_camera }}
+                </p>
+                {% endif %}
+
+                {% if device.primary_rear_camera %}
+                <p>
+                  <strong>Primary Rear Camera:</strong> {{
+                  device.primary_rear_camera }} MP
+                </p>
+                {% endif %}
+
+                {% if device.secondary_rear_camera %}
+                <p>
+                  <strong>Secondary Rear Camera:</strong> {{
+                  device.secondary_rear_camera }}
+                </p>
+                {% endif %}
+
+                {% if device.os_brand %}
+                <p><strong>Operating System:</strong> {{ device.os_brand }}</p>
+                {% endif %}
+
+                {% if device.version %}
+                <p><strong>OS Version:</strong> {{ device.version }}</p>
+                {% endif %}
+
+                {% if device.memory_card_upto %}
+                <p>
+                  <strong>Memory Card Support:</strong> {{ device.memory_card_upto
+                  }}
+                </p>
+                {% endif %}
+
+                {% if device.sim %}
+                <p><strong>SIM Support:</strong> {{ device.sim }}</p>
+                {% endif %}
+
+                {% if device.is_5G %}
+                <p>
+                  <strong>5G Support:</strong> {{ device.is_5G|yesno:"Yes,No" }}
+                </p>
+                {% endif %}
+
+                {% if device.is_wifi %}
+                <p>
+                  <strong>WiFi Support:</strong> {{ device.is_wifi|yesno:"Yes,No" }}
+                </p>
+                {% endif %}
+
+            {% endif %}
+
+            {% if device_type == "phone" %}
+
+                {% if device.brand %}
+                <p><strong>Brand:</strong> {{ device.brand }}</p>
+                {% endif %}
+
+                {% if device.model %}
+                <p><strong>Model:</strong> {{ device.model }}</p>
+                {% endif %}
+
+                {% if device.hits %}
+                <p><strong>Hits:</strong> {{ device.hits }}</p>
+                {% endif %}
+
+                {% if device.became_fan %}
+                <p><strong>Fans:</strong> {{ device.became_fan }}</p>
+                {% endif %}
+
+                {% if device.launch_expected_year %}
+                <p>
+                  <strong>Launch Year:</strong> {{ device.launch_expected_year }}
+                </p>
+                {% endif %}
+
+                {% if device.height_mm %}
+                <p><strong>Height:</strong> {{ device.height_mm }} mm</p>
+                {% endif %}
+
+                {% if device.width_mm %}
+                <p><strong>Width:</strong> {{ device.width_mm }} mm</p>
+                {% endif %}
+
+                {% if device.thickness_mm %}
+                <p><strong>Thickness:</strong> {{ device.thickness_mm }} mm</p>
+                {% endif %}
+
+                {% if device.body_weight_g %}
+                <p><strong>Weight:</strong> {{ device.body_weight_g }} g</p>
+                {% endif %}
+
+                {% if device.display_type %}
+                <p><strong>Display Type:</strong> {{ device.display_type }}</p>
+                {% endif %}
+
+                {% if device.pixels_x and device.pixels_y %}
+                <p>
+                  <strong>Resolution:</strong> {{ device.pixels_x }} x {{
+                  device.pixels_y }}
+                </p>
+                {% endif %}
+
+                {% if device.display_size_inches %}
+                <p>
+                  <strong>Display Size:</strong> {{ device.display_size_inches }}
+                  inches
+                </p>
+                {% endif %}
+
+                {% if device.screen_to_body_ratio %}
+                <p>
+                  <strong>Screen-to-Body Ratio:</strong> {{
+                  device.screen_to_body_ratio }}%
+                </p>
+                {% endif %}
+
+                {% if device.ram_gb %}
+                <p><strong>RAM:</strong> {{ device.ram_gb }} GB</p>
+                {% endif %}
+
+                {% if device.main_camera_single_mp %}
+                <p>
+                  <strong>Main Camera:</strong> {{ device.main_camera_single_mp }}
+                </p>
+                {% endif %}
+
+                {% if device.selfie_camera_single_mp %}
+                <p>
+                  <strong>Selfie Camera:</strong> {{ device.selfie_camera_single_mp
+                  }}
+                </p>
+                {% endif %}
+
+                {% if device.sound_3_5mm_jack %}
+                <p>
+                  <strong>3.5mm Jack:</strong> {{
+                  device.sound_3_5mm_jack|yesno:"Yes,No" }}
+                </p>
+                {% endif %}
+
+                {% if device.comms_bluetooth %}
+                <p><strong>Bluetooth:</strong> {{ device.comms_bluetooth }}</p>
+                {% endif %}
+
+                {% if device.comms_nfc %}
+                <p><strong>NFC:</strong> {{ device.comms_nfc|yesno:"Yes,No" }}</p>
+                {% endif %}
+
+                {% if device.battery_capacity_mah %}
+                <p>
+                  <strong>Battery Capacity:</strong> {{ device.battery_capacity_mah
+                  }} mAh
+                </p>
+                {% endif %}
+
+                {% if device.price_usd %}
+                <p><strong>Price:</strong> ${{ device.price_usd }}</p>
+                {% endif %}
+
+            {% endif %}
+
+            {% if device_type == "laptop" %}
+
+                {% if device.company %}
+                <p><strong>Company:</strong> {{ device.company }}</p>
+                {% endif %}
+
+                {% if device.product %}
+                <p><strong>Product:</strong> {{ device.product }}</p>
+                {% endif %}
+
+                {% if device.type_name %}
+                <p><strong>Type:</strong> {{ device.type_name }}</p>
+                {% endif %}
+
+                {% if device.inches %}
+                <p><strong>Screen Size:</strong> {{ device.inches }} inches</p>
+                {% endif %}
+
+                {% if device.ram %}
+                <p><strong>RAM:</strong> {{ device.ram }} GB</p>
+                {% endif %}
+
+                {% if device.operating_system %}
+                <p>
+                  <strong>Operating System:</strong> {{ device.operating_system }}
+                </p>
+                {% endif %}
+
+                {% if device.weight %}
+                <p><strong>Weight:</strong> {{ device.weight }} kg</p>
+                {% endif %}
+
+                {% if device.price_euros %}
+                <p><strong>Price:</strong> €{{ device.price_euros }}</p>
+                {% endif %}
+
+            {% endif %}
+
+            {% if device_type == "camera" %}
+
+                {% if device.model %}
+                <p><strong>Model:</strong> {{ device.model }}</p>
+                {% endif %}
+
+                {% if device.release_date %}
+                <p><strong>Release Date:</strong> {{ device.release_date }}</p>
+                {% endif %}
+
+                {% if device.max_resolution %}
+                <p>
+                  <strong>Max Resolution:</strong> {{ device.max_resolution }} px
+                </p>
+                {% endif %}
+
+                {% if device.low_resolution %}
+                <p>
+                  <strong>Low Resolution:</strong> {{ device.low_resolution }} px
+                </p>
+                {% endif %}
+
+                {% if device.effective_pixels %}
+                <p>
+                  <strong>Effective Pixels:</strong> {{ device.effective_pixels }}
+                  MP
+                </p>
+                {% endif %}
+
+                {% if device.zoom_wide %}
+                <p><strong>Zoom Wide:</strong> {{ device.zoom_wide }} mm</p>
+                {% endif %}
+
+                {% if device.zoom_tele %}
+                <p><strong>Zoom Tele:</strong> {{ device.zoom_tele }} mm</p>
+                {% endif %}
+
+                {% if device.normal_focus_range %}
+                <p>
+                  <strong>Normal Focus Range:</strong> {{ device.normal_focus_range
+                  }} mm
+                </p>
+                {% endif %}
+
+                {% if device.macro_focus_range %}
+                <p>
+                  <strong>Macro Focus Range:</strong> {{ device.macro_focus_range }}
+                  mm
+                </p>
+                {% endif %}
+
+                {% if device.storage_included %}
+                <p>
+                  <strong>Storage Included:</strong> {{ device.storage_included }}
+                  MB
+                </p>
+                {% endif %}
+
+                {% if device.weight %}
+                <p><strong>Weight:</strong> {{ device.weight }} g</p>
+                {% endif %}
+
+                {% if device.dimensions %}
+                <p><strong>Dimensions:</strong> {{ device.dimensions }}</p>
+                {% endif %}
+
+                {% if device.price %}
+                <p><strong>Price:</strong> ${{ device.price }}</p>
+                {% endif %}
+
             {% endif %}
           </div>
         </div>
@@ -142,47 +442,6 @@
 
     <!-- Navbar component -->
     {% include 'byt/navbar.html' %}
-
-    <script>
-      function toggleBookmark(icon) {
-        const svg = icon.querySelector("svg");
-        if (svg.getAttribute("fill") === "none") {
-          svg.setAttribute("fill", "currentColor");
-        } else {
-          svg.setAttribute("fill", "none");
-        }
-      }
-
-      function toggleBookmark(icon) {
-        const svg = icon.querySelector("svg");
-        const category = icon.getAttribute("data-category");
-        const item_id = icon.getAttribute("data-item-id");
-        const user_id = "{{ user_id }}"; // Add user_id to the payload'
-        console.log(category);
-        console.log(item_id);
-
-        fetch("{% url 'toggle_bookmark' %}", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token
-          },
-          body: JSON.stringify({ category, item_id, user_id }), // Include user_id in the payload
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.success) {
-              alert(data.message);
-              // Toggle bookmark icon fill
-              const isBookmarked = svg.getAttribute("fill") !== "none";
-              svg.setAttribute("fill", isBookmarked ? "none" : "currentColor");
-            } else {
-              alert(data.message);
-            }
-          })
-          .catch((error) => console.error("Error:", error));
-      }
-    </script>
 
     <!-- Bootstrap JavaScript -->
     {% bootstrap_javascript %}
