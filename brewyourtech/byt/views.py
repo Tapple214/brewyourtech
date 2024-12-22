@@ -123,8 +123,6 @@ def brewLog(request):
         'bookmarked_items': bookmarked_items,  # Pass resolved items with prices
     })
 
-
-
 # Phone Filter page
 def phoneBrew(request):
     if request.method == "GET":
@@ -274,8 +272,6 @@ def tabletBrew(request):
         # Pass the filtered tablets to the template context
         return render(request, "byt/tabletBrew.html", {"tablets": tablets_with_converted_prices, 'user_id': user_id})
 
-
-
 # Assembly/Filter page aka "Brewery"; Assembly indicated page/location where we "assemble" our wanted device
 def brewery(request):
     # Query all phone data
@@ -376,7 +372,6 @@ def brewDisplay(request, device_type, device_id, user_id):
         "user_id": user_id,
     })
 
-
 @csrf_exempt # Temporarily exempt from CSRF for testing; remove this for production
 # @login_required  # Ensure only logged-in users can access this view
 def toggle_bookmark(request):
@@ -422,7 +417,6 @@ def toggle_bookmark(request):
 
     # Return method not allowed for non-POST requests
     return JsonResponse({"success": False, "message": "Invalid request method"}, status=405)
-
 
 # TRACKER:
 # GET
