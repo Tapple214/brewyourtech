@@ -1,25 +1,15 @@
-<!-- ### START ### -->
-
-<!-- ASSEMBLY/FILTER PAGE -->
-{% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% include 'byt/navbar.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Title & Icon -->
     <title>Brewery</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="{% static 'byt/images/logo.png' %}"
-    />
-
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="{% static 'byt/images/logo.png' %}" />
     {% bootstrap_css %}
-
     <style>
       body {
         color: #5a3d2b;
@@ -56,7 +46,6 @@
         opacity: 0.8;
       }
 
-      /* Style the slider track */
       input[type="range"]::-webkit-slider-runnable-track {
         background: #5a3d2b;
         border-radius: 10px;
@@ -76,7 +65,6 @@
         height: 8px;
       }
 
-      /* Style the slider thumb */
       input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -106,7 +94,6 @@
         cursor: pointer;
       }
 
-      /* Adjust thumb hover effect */
       input[type="range"]:hover::-webkit-slider-thumb {
         background: #dab896;
       }
@@ -117,34 +104,21 @@
     <!-- Sidebar-style Div -->
     <div
       class="py-4 card border-0 rounded-4 m-4 p-4 text-center d-flex align-items-center justify-content-center"
-      style="
-        background-color: #5a3d2b;
-        color: #f3e5d8;
-        width: 250px;
-        height: 87vh;
-      "
+      style="background-color: #5a3d2b; color: #f3e5d8; width: 250px; height: 87vh;"
     >
       <h2 class="fw-bold">Welcome to the Brewery!</h2>
       <p class="small mb-0">
-        Step into a world where your tastes take center stage! Here, you’ll
-        craft your perfect device — a unique "brew" that captures your style and
-        needs.
+        Step into a world where your tastes take center stage! Here, you’ll craft your perfect device — a unique "brew" that captures your style and needs.
       </p>
-
       <img
         src="{% static 'byt/images/logo2.png' %}"
         alt="BrewYourTech Logo"
         style="width: 70px"
         class="my-4"
       />
-
       <h4 class="fw-bold">To Get Started</h4>
       <p class="mb-0 small">
-        First select the type of device you are looking for then fill out the
-        form that respectively appears to share your preferences. Based on your
-        inputs, we’ll provide a curated selection of options just for you.
-        Explore each choice and, if you find your perfect match, tap the save
-        icon to keep it in your collection. It’s as simple as that!
+        First select the type of device you are looking for then fill out the form that respectively appears to share your preferences. Based on your inputs, we’ll provide a curated selection of options just for you. Explore each choice and, if you find your perfect match, tap the save icon to keep it in your collection. It’s as simple as that!
       </p>
     </div>
 
@@ -155,10 +129,7 @@
         <div class="row row-cols-1 row-cols-md-2 g-4 h-100">
           {% for category in categories %}
           <div class="col d-flex align-items-stretch">
-            <div
-              class="card rounded-4 border-0 w-100"
-              onclick="window.location.href='{{ category.link }}'"
-            >
+            <div class="card rounded-4 border-0 w-100" onclick="window.location.href='{{ category.link }}'">
               <div
                 class="card-body rounded-4 border-0 d-flex flex-column justify-content-center align-items-center"
                 style="background-color: #d7c0ae; color: #5a3d2b; height: 100%"
@@ -173,10 +144,9 @@
                 >
                   {{ category.svg_path|safe }}
                 </svg>
-                <h4 class="mt-1 mb- 3 text-center">{{ category.name }}</h4>
-
+                <h4 class="mt-1 mb-3 text-center">{{ category.name }}</h4>
                 <div class="small text-center px-2">
-                  {{category.description}}
+                  {{ category.description }}
                 </div>
               </div>
             </div>
@@ -193,5 +163,3 @@
     {% bootstrap_javascript %}
   </body>
 </html>
-
-<!-- ### END ### -->
