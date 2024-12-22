@@ -64,12 +64,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'byt.context_processors.navbarItems', # Makes it automatically accessible to all pages; For modularization
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'brewyourtech.wsgi.application'
+
+# To enable image access
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 # Database

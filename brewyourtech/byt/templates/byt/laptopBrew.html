@@ -1,0 +1,207 @@
+{% load django_bootstrap5 %}
+{% load static %}
+{% include 'byt/navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brewery</title>
+    <link rel="icon" type="image/png" href="{% static 'byt/images/logo.png' %}" />
+    {% bootstrap_css %}
+    <style>
+      body {
+        color: #5a3d2b;
+        background-color: #f3e5d8;
+        height: 100vh;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        width: 240px;
+        background: #5a3d2b;
+        border-radius: 10px;
+        outline: none;
+        opacity: 1;
+        transition: opacity 0.2s;
+      }
+
+      input[type="range"]:hover {
+        opacity: 0.8;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        background: #5a3d2b;
+        border-radius: 10px;
+      }
+
+      input[type="range"]::-moz-range-track {
+        background: #5a3d2b;
+        border-radius: 10px;
+      }
+
+      input[type="range"]::-ms-track {
+        background: transparent;
+        border-color: transparent;
+        border-width: 6px 0;
+        color: transparent;
+        height: 8px;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #f3e5d8;
+        border-radius: 50%;
+        border: 2px solid #5a3d2b;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #f3e5d8;
+        border-radius: 50%;
+        border: 2px solid #5a3d2b;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-ms-thumb {
+        width: 20px;
+        height: 20px;
+        background: #f3e5d8;
+        border-radius: 50%;
+        border: 2px solid #5a3d2b;
+        cursor: pointer;
+      }
+
+      input[type="range"]:hover::-webkit-slider-thumb {
+        background: #dab896;
+      }
+    </style>
+  </head>
+
+  <body class="d-flex">
+    <div class="d-flex" style="width: 100%; height: 93vh">
+      <div
+        class="py-4 px-4 card border-0 rounded-4 m-4 p-4 text-center"
+        style="color: #5a3d2b; background-color: #f3e5d8; width: 250px; height: 87vh; flex-shrink: 0;"
+      >
+        <h3 class="fw-bold mb-4 pb-1">Filters Below:</h3>
+        <form method="GET" action="{% url 'laptopBrew' %}">
+          <!-- Price -->
+          <div style="margin-bottom: 15px">
+            <label for="price">Price in USD:</label>
+            <input
+              type="range"
+              id="price"
+              name="price"
+              min="10"
+              max="5000"
+              step="50"
+              value="{{ request.GET.price|default:10 }}"
+              oninput="document.getElementById('price_value').textContent = this.value"
+            />
+            <span id="price_value">{{ request.GET.price|default:10 }}</span> Euros
+          </div>
+
+          <!-- RAM -->
+          <div style="margin-bottom: 15px">
+            <label for="ram">RAM (GB):</label>
+            <input
+              type="range"
+              id="ram"
+              name="ram"
+              min="4"
+              max="64"
+              step="4"
+              value="{{ request.GET.ram|default:4 }}"
+              oninput="document.getElementById('ram_value').textContent = this.value"
+            />
+            <span id="ram_value">{{ request.GET.ram|default:4 }}</span> GB
+          </div>
+
+          <!-- Display Size -->
+          <div style="margin-bottom: 15px">
+            <label for="inches">Display Size (inches):</label>
+            <input
+              type="range"
+              id="inches"
+              name="inches"
+              min="11"
+              max="18"
+              step="0.5"
+              value="{{ request.GET.inches|default:11 }}"
+              oninput="document.getElementById('inches_value').textContent = this.value"
+            />
+            <span id="inches_value">{{ request.GET.inches|default:11 }}</span> inches
+          </div>
+
+          <!-- CPU Company -->
+          <div style="margin-bottom: 15px" class="d-flex flex-column justify-content-center align-items-center">
+            <label for="cpu_company">CPU Company:</label>
+            <select id="cpu_company" style="width: 100px; background-color: #f3e5d8; border: 2px #5a3d2b solid" name="cpu_company" class="form-select rounded-pill p-1 ps-2">
+              <option value="">All</option>
+              <option value="Intel" {% if request.GET.cpu_company == "Intel" %}selected{% endif %}>Intel</option>
+              <option value="AMD" {% if request.GET.cpu_company == "AMD" %}selected{% endif %}>AMD</option>
+              <option value="Apple" {% if request.GET.cpu_company == "Apple" %}selected{% endif %}>Apple</option>
+            </select>
+          </div>
+
+          <button
+            type="submit"
+            class="rounded-pill border-0 px-3 py-1 fw-semibold"
+            style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <!-- Main Content -->
+      <div class="py-3 px-3 w-100" style="height: 93vh; overflow-y: auto">
+        <h3 class="fw-bold mb-4 pt-2 text-center">Your brews!</h3>
+        {% if laptops %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for laptop in laptops %}
+          <div class="col">
+            <div class="card h-100 rounded-4 border-0 d-flex flex-column">
+              <div
+                class="card-body rounded-4 border-0 d-flex flex-column"
+                style="background-color: #d7c0ae; color: #5a3d2b"
+              >
+                <h6 class="card-title">
+                  <span class="fw-bold">{{ laptop.company }}</span> - {{ laptop.product }} ({{ laptop.year }}) ({{ laptop.type_name }})
+                </h6>
+                <div class="mt-auto d-flex flex-column">
+                  <span class="mb-2">Price (USD): {{ laptop.price_usd|stringformat:"s"|slice:":8" }}</span>
+                  <a
+                    href="{% url 'brewDisplay' 'laptop' laptop.id user_id %}"
+                    target="_blank"
+                    class="btn rounded-pill fw-medium"
+                    style="background-color: #5a3d2b; color: #f3e5d8"
+                  >
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">
+          No laptops match your criteria. Please try again with different filters.
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
+    {% bootstrap_javascript %}
+  </body>
+</html>

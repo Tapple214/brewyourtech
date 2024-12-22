@@ -1,0 +1,20 @@
+{% if value %}
+<div class="col py-2">
+  <div
+    class="card-body rounded-4 border-0 p-4 d-flex flex-column justify-content-center align-items-center text-center"
+    style="background-color: #d7c0ae; color: #5a3d2b; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;"
+  >
+    <h5 class="fw-bold mb-1" style="font-size: 1.2rem;">{{ label }}</h5>
+    <p class="mb-1 small opacity-50">{{ description }}</p>
+    <p class="mt-2 mb-0 fs-5" style="font-size: 1rem;">
+      {% if url %}
+      <a href="{{ url }}" style="color: #5a3d2b; text-decoration: none; transition: color 0.2s ease;">
+        Clicking this link wil redirect you to the source of this information
+      </a>
+      {% else %}
+      {{ value }}
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% endif %}
