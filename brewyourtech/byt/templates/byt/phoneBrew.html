@@ -1,26 +1,15 @@
-<!-- ### START ### -->
-
-<!-- PHONE FILTERING PAGE -->
-
-{% load django_bootstrap5 %} {% load static %} {% include 'byt/navbar.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% include 'byt/navbar.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Title & Icon -->
     <title>Brewery</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="{% static 'byt/images/logo.png' %}"
-    />
-
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="{% static 'byt/images/logo.png' %}" />
     {% bootstrap_css %}
-
     <style>
       body {
         color: #5a3d2b;
@@ -44,7 +33,6 @@
         opacity: 0.8;
       }
 
-      /* Style the slider track */
       input[type="range"]::-webkit-slider-runnable-track {
         background: #5a3d2b;
         border-radius: 10px;
@@ -63,7 +51,6 @@
         height: 8px;
       }
 
-      /* Style the slider thumb */
       input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
@@ -93,7 +80,6 @@
         cursor: pointer;
       }
 
-      /* Adjust thumb hover effect */
       input[type="range"]:hover::-webkit-slider-thumb {
         background: #dab896;
       }
@@ -101,213 +87,181 @@
   </head>
 
   <body class="d-flex">
-    <!-- Main Content Wrapper -->
     <div class="d-flex" style="width: 100%; height: 93vh">
-     
       <!-- Sidebar-style Div -->
       <div
         class="py-4 px-4 card border-0 rounded-4 m-4 p-4 text-center d-flex align-items-center justify-content-center"
-        style="
-          color: #5a3d2b;
-          background-color: #f3e5d8;
-          width: 250px;
-          height: 87vh;
-          flex-shrink: 0;
-        "
+        style="color: #5a3d2b; background-color: #f3e5d8; width: 250px; height: 87vh; flex-shrink: 0;"
       >
-      <h3 class="fw-bold mb-4 pb-1">Filters Below:</h3>
-      <form method="GET" action="{% url 'phoneBrew' %}">
-        <!-- Price -->
-        <div style="margin-bottom: 15px">
+        <h3 class="fw-bold mb-4 pb-1">Filters Below:</h3>
+        <form method="GET" action="{% url 'phoneBrew' %}">
+          <!-- Price -->
+          <div style="margin-bottom: 15px">
             <label for="price" style="display: block">Price in USD:</label>
             <input
-                type="range"
-                id="price"
-                name="price"
-                min="10"
-                max="2000"
-                step="10"
-                value="{{ request.GET.price|default:10 }}"
-                oninput="document.getElementById('price_value').textContent = this.value"
-
+              type="range"
+              id="price"
+              name="price"
+              min="10"
+              max="2000"
+              step="10"
+              value="{{ request.GET.price|default:10 }}"
+              oninput="document.getElementById('price_value').textContent = this.value"
             />
             <span id="price_value">{{ request.GET.price|default:10 }}</span> USD
-        </div>
+          </div>
 
-        <!-- Launch Expected Year -->
-        <div style="margin-bottom: 15px">
+          <!-- Launch Expected Year -->
+          <div style="margin-bottom: 15px">
             <label for="launch_year" style="display: block">Launch Year:</label>
             <input
-                type="range"
-                id="launch_year"
-                name="launch_year"
-                min="2016"
-                max="2024"
-                step="1"
-                value="{{ request.GET.launch_year|default:2016 }}"
-                oninput="document.getElementById('year_value').textContent = this.value"
-            
+              type="range"
+              id="launch_year"
+              name="launch_year"
+              min="2016"
+              max="2024"
+              step="1"
+              value="{{ request.GET.launch_year|default:2016 }}"
+              oninput="document.getElementById('year_value').textContent = this.value"
             />
             <span id="year_value">{{ request.GET.launch_year|default:2016 }}</span>
-        </div>
+          </div>
 
-        <!-- RAM -->
-        <div style="margin-bottom: 15px">
+          <!-- RAM -->
+          <div style="margin-bottom: 15px">
             <label for="ram" style="display: block">RAM (MB):</label>
             <input
-                type="range"
-                id="ram"
-                name="ram"
-                min="0"
-                max="512"
-                step="1"
-                value="{{ request.GET.ram|default:0 }}"
-                oninput="document.getElementById('ram_value').textContent = this.value"
-   
+              type="range"
+              id="ram"
+              name="ram"
+              min="0"
+              max="512"
+              step="1"
+              value="{{ request.GET.ram|default:0 }}"
+              oninput="document.getElementById('ram_value').textContent = this.value"
             />
             <span id="ram_value">{{ request.GET.ram|default:0 }}</span> MB
-        </div>
+          </div>
 
-        <!-- Main Camera Single -->
-        <div style="margin-bottom: 15px">
+          <!-- Main Camera Single -->
+          <div style="margin-bottom: 15px">
             <label for="main_camera" style="display: block">Main Camera Single (MP):</label>
             <input
-                type="range"
-                id="main_camera"
-                name="main_camera"
-                min="0"
-                max="60"
-                step="1"
-                value="{{ request.GET.main_camera|default:0 }}"
-                oninput="document.getElementById('main_camera_value').textContent = this.value"
-          
+              type="range"
+              id="main_camera"
+              name="main_camera"
+              min="0"
+              max="60"
+              step="1"
+              value="{{ request.GET.main_camera|default:0 }}"
+              oninput="document.getElementById('main_camera_value').textContent = this.value"
             />
             <span id="main_camera_value">{{ request.GET.main_camera|default:0 }}</span> MP
-        </div>
+          </div>
 
-        <!-- Selfie Camera Single -->
-        <div style="margin-bottom: 15px">
+          <!-- Selfie Camera Single -->
+          <div style="margin-bottom: 15px">
             <label for="selfie_camera" style="display: block">Selfie Camera Single (MP):</label>
             <input
-                type="range"
-                id="selfie_camera"
-                name="selfie_camera"
-                min="0"
-                max="60"
-                step="1"
-                value="{{ request.GET.selfie_camera|default:0 }}"
-                oninput="document.getElementById('selfie_camera_value').textContent = this.value"
-         
+              type="range"
+              id="selfie_camera"
+              name="selfie_camera"
+              min="0"
+              max="60"
+              step="1"
+              value="{{ request.GET.selfie_camera|default:0 }}"
+              oninput="document.getElementById('selfie_camera_value').textContent = this.value"
             />
             <span id="selfie_camera_value">{{ request.GET.selfie_camera|default:0 }}</span> MP
-        </div>
+          </div>
 
-        <!-- Sound 3.5mm Jack -->
-        <div style="margin-bottom: 15px">
+          <!-- Sound 3.5mm Jack -->
+          <div style="margin-bottom: 15px">
             <label for="sound_jack" style="display: block">Sound 3.5mm Jack:</label>
             <select
-                id="sound_jack"
-                name="sound_jack"
-                style="width: 100px; background-color: #f3e5d8; border: 2px #5a3d2b solid"
-                class="rounded-4 p-1"
-                required
+              id="sound_jack"
+              name="sound_jack"
+              style="width: 100px; background-color: #f3e5d8; border: 2px #5a3d2b solid"
+              class="rounded-4 p-1"
             >
-                <option value="">Select</option>
-                <option value="Yes" {% if request.GET.sound_jack == 'Yes' %}selected{% endif %}>Yes</option>
-                <option value="No" {% if request.GET.sound_jack == 'No' %}selected{% endif %}>No</option>
+              <option value="">Select</option>
+              <option value="Yes" {% if request.GET.sound_jack == 'Yes' %}selected{% endif %}>Yes</option>
+              <option value="No" {% if request.GET.sound_jack == 'No' %}selected{% endif %}>No</option>
             </select>
-        </div>
+          </div>
 
-        <!-- Comms Bluetooth -->
-        <div style="margin-bottom: 15px">
+          <!-- Comms Bluetooth -->
+          <div style="margin-bottom: 15px">
             <label for="bluetooth" style="display: block">Bluetooth Version:</label>
             <input
-                type="range"
-                id="bluetooth"
-                name="bluetooth"
-                min="0"
-                max="5.5"
-                step="0.1"
-                value="{{ request.GET.bluetooth|default:0 }}"
-                oninput="document.getElementById('bluetooth_value').textContent = this.value"
-         
+              type="range"
+              id="bluetooth"
+              name="bluetooth"
+              min="0"
+              max="5.5"
+              step="0.1"
+              value="{{ request.GET.bluetooth|default:0 }}"
+              oninput="document.getElementById('bluetooth_value').textContent = this.value"
             />
             <span id="bluetooth_value">{{ request.GET.bluetooth|default:0 }}</span>
-        </div>
+          </div>
 
-        <!-- Battery Capacity -->
-        <div style="margin-bottom: 15px">
+          <!-- Battery Capacity -->
+          <div style="margin-bottom: 15px">
             <label for="battery_capacity" style="display: block">Battery Capacity (mAh):</label>
             <input
-                type="range"
-                id="battery_capacity"
-                name="battery_capacity"
-                min="0"
-                max="28000"
-                step="100"
-                value="{{ request.GET.battery_capacity|default:0 }}"
-                oninput="document.getElementById('battery_capacity_value').textContent = this.value"
-          
+              type="range"
+              id="battery_capacity"
+              name="battery_capacity"
+              min="0"
+              max="28000"
+              step="100"
+              value="{{ request.GET.battery_capacity|default:0 }}"
+              oninput="document.getElementById('battery_capacity_value').textContent = this.value"
             />
             <span id="battery_capacity_value">{{ request.GET.battery_capacity|default:0 }}</span> mAh
-        </div>
+          </div>
 
-        <!-- Submit Button -->
-        <button
+          <!-- Submit Button -->
+          <button
             type="submit"
             class="rounded-pill border-0 px-3 py-1 fw-semibold"
             style="background-color: #5a3d2b; color: #f3e5d8; cursor: pointer"
-        >
+          >
             Submit
-        </button>
-    </form>
+          </button>
+        </form>
       </div>
 
       <!-- Main Content -->
-    <div
-      class="py-3 px-3 w-100"
-      style="height: 93vh; overflow-y: auto"
-    >
-      <h3 class="fw-bold mb-4 pt-2 text-center">Your brews!</h3>
-      {% if phones %}
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for phone in phones %}
-        <div class="col">
-          <div class="card h-100 rounded-4 border-0 d-flex flex-column">
-            <div
-              class="card-body rounded-4 border-0 d-flex flex-column"
-              style="background-color: #d7c0ae; color: #5a3d2b"
-            >
-              <h6 class="card-title">
-                <span class="fw-bold">{{ phone.brand }}</span> - {{ phone.model }} ({{phone.launch_expected_year}})
-                <br/>
-                <br/>
-              </h6>
-
-              <div class="mt-auto d-flex flex-column"> 
-                <span class="mb-2">Price (USD): {{ phone.price_usd|stringformat:"s"|slice:":5" }}</span>
-                <a
-                  href="{% url 'brewDisplay' 'phone' phone.id user_id %}"
-                  target="_blank"
-                  class="btn rounded-pill fw-medium mt-auto"
-                  style="background-color: #5a3d2b; color: #f3e5d8"
-                >
-                  View Details
-                </a></div>
-             
+      <div class="py-3 px-3 w-100" style="height: 93vh; overflow-y: auto">
+        <h3 class="fw-bold mb-4 pt-2 text-center">Your brews!</h3>
+        {% if phones %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for phone in phones %}
+          <div class="col">
+            <div class="card h-100 rounded-4 border-0 d-flex flex-column">
+              <div class="card-body rounded-4 border-0 d-flex flex-column" style="background-color: #d7c0ae; color: #5a3d2b">
+                <h6 class="card-title">
+                  <span class="fw-bold">{{ phone.brand }}</span> - {{ phone.model }} ({{ phone.launch_expected_year }})
+                </h6>
+                <div class="mt-auto d-flex flex-column">
+                  <span class="mb-2">Price (USD): {{ phone.price_usd|stringformat:"s"|slice:":5" }}</span>
+                  <a href="{% url 'brewDisplay' 'phone' phone.id user_id %}" target="_blank" class="btn rounded-pill fw-medium mt-auto" style="background-color: #5a3d2b; color: #f3e5d8">
+                    View Details
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <p class="text-center">
+          No phones match your criteria. Please try again with different filters.
+        </p>
+        {% endif %}
       </div>
-      {% else %}
-      <p class="text-center">
-        No phones match your criteria. Please try again with different
-        filters.
-      </p>
-      {% endif %}
-    </div>
-    
     </div>
 
     <!-- Navbar component -->
@@ -317,5 +271,3 @@
     {% bootstrap_javascript %}
   </body>
 </html>
-
-<!-- ### END ### -->
