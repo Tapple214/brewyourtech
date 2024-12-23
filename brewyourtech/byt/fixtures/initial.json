@@ -1,8 +1,0 @@
-[
-  {
-    "model": "byt.User",
-    "pk": 1,
-    "fields": { "name": "Apple", "password": "123" }
-  }
-]
-

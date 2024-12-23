@@ -1,3 +1,5 @@
+<!-- ### START ### -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,14 +21,37 @@
         padding: 1rem;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
+
+      .bookmark-icon svg {
+        fill: none;
+      }
+
+      .bookmark-icon.bookmarked svg {
+        fill: currentColor;
+      }
     </style>
   </head>
-
   <body style="color: #5a3d2b; overflow-x: hidden; overflow-y: auto; background-color: #f3e5d8;">
     <div class="container-fluid d-flex flex-column pb-3" style="height: 93vh; overflow-y: scroll;">
+      
       <div class="py-3 text-center card border-0 rounded-4 mt-3 mx-3 position-relative" style="background-color: #5a3d2b; color: #f3e5d8">
         <h1 class="fw-bold">Device Overview</h1>
         <p class="small">This is where you will see more details about your device!</p>
+
+          <!-- Bookmark Icon -->
+          <div class="justify-content-end align-items-center position-absolute ps-3">
+            <div
+              class="bookmark-icon {% if is_bookmarked %}bookmarked{% endif %} start-0"
+              onclick="toggleBookmark(this)"
+              data-category="{{ device_type }}"
+              data-item-id="{% if device_type == 'tablet' %}{{ device.index }}{% else %}{{ device.id }}{% endif %}"
+              title="Click this to save it!"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 10" stroke="currentColor" class="ml-2">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l7-3 7 3V3H5z"></path>
+              </svg>
+            </div>
+          </div>
       </div>
 
       <div class="flex-grow-1 d-flex justify-content-center align-items-start py-2">
@@ -123,6 +148,7 @@
             {% include 'byt/detailDisplay.html' with label="Price" value=device.price|stringformat:"s USD" description="The price of the device in USD." %}
           </div>
           {% endif %}
+
         </div>
       </div>
     </div>
@@ -161,6 +187,44 @@
           percentPosition: true
         });
       });
+
+      function toggleBookmark(icon) {
+        const svg = icon.querySelector("svg");
+        const category = icon.getAttribute("data-category");
+        const item_id = icon.getAttribute("data-item-id");
+        const user_id = "{{ user_id }}"; 
+
+        console.log(category, item_id, user_id);
+
+        // Check the current bookmark status
+        fetch("http://127.0.0.1:8000/api/toggle_bookmark/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({ category, item_id, user_id }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                alert(data.message);
+                // Toggle the 'bookmarked' class on the bookmark icon
+                icon.classList.toggle("bookmarked");
+                // Toggle the icon fill based on bookmark status
+                if (icon.classList.contains("bookmarked")) {
+                    svg.style.fill = "currentColor"; 
+                } else {
+                    svg.style.fill = "none";
+                }
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch((error) => console.error("Error:", error));
+    }
     </script>
   </body>
 </html>
+
+<!-- ### END ### -->

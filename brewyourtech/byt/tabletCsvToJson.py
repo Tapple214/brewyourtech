@@ -9,7 +9,6 @@ import json
 input_file = '/Users/tapple/Desktop/UOL Y3/Sem 1/Advanced Web Development/Midterm/BYT/brewyourtech/byt/static/byt/csv/Tablets.csv'
 output_file = 'Tablets.json' 
 
-
 total_rows = 0
 passed_checks = 0
 
@@ -65,6 +64,7 @@ with open(input_file, newline='', encoding='utf-8') as csvfile:
             })
             # +1 increment to entry successfully added to fixture
             passed_checks += 1  
+            
         except (ValueError, KeyError) as e:
             print(f"Skipping row due to error: {e}")
             continue

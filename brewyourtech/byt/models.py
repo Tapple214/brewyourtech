@@ -164,7 +164,7 @@ class Bookmark(models.Model):
 # from byt.models import Tablet (csv: https://www.kaggle.com/datasets/siddiquifaiznaeem/tablet-dataset-2024)
 # from byt.models import Camera (csv: https://www.kaggle.com/datasets/sanjanchaudhari/camera-dataset)
 # print(Phone.objects.count())
-# 3550
+# 3072
 # print(Laptop.objects.count())
 # 1275
 # print(Tablet.objects.count())

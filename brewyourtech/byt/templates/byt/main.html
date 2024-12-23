@@ -1,0 +1,64 @@
+<!-- ### START ### -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrewYourTech - Main Page</title>
+</head>
+<body>
+    <h1>Welcome to BrewYourTech</h1>
+
+    <p>Here are the available API endpoints for you to explore:</p>
+
+    <ul>
+        <!-- API Endpoints for Devices -->
+        <li><a href="{% url 'phoneBrew' %}">GET /api/phones/ - List of Phones</a></li>
+        <li><a href="{% url 'laptopBrew' %}">GET /api/laptops/ - List of Laptops</a></li>
+        <li><a href="{% url 'tabletBrew' %}">GET /api/tablets/ - List of Tablets</a></li>
+        <li><a href="{% url 'cameraBrew' %}">GET /api/cameras/ - List of Cameras</a></li>
+
+        <!-- API Endpoints for Specific Device Details -->
+        <li><a href="{% url 'brewDisplay' device_type='phone' device_id=1 user_id=1 %}">GET /api/phones/{device_id}/ - Phone Details</a></li>
+        <li><a href="{% url 'brewDisplay' device_type='laptop' device_id=1 user_id=1 %}">GET /api/laptops/{device_id}/ - Laptop Details</a></li>
+        <li><a href="{% url 'brewDisplay' device_type='tablet' device_id=1 user_id=1 %}">GET /api/tablets/{device_id}/ - Tablet Details</a></li>
+        <li><a href="{% url 'brewDisplay' device_type='camera' device_id=1 user_id=1 %}">GET /api/cameras/{device_id}/ - Camera Details</a></li>
+
+        <!-- User Authentication -->
+        <li><a href="{% url 'loginSignUp' %}">POST /api/loginSignUp/ - Login/Signup</a></li>
+        <li><a href="{% url 'logout' %}">GET /api/logout/ - Logout</a></li>
+
+        <!-- Bookmarking -->
+        <li><a href="{% url 'toggle_bookmark' %}">POST /api/toggle_bookmark/ - Toggle Bookmark</a> <br/>
+            (To experience this, go into brewDisplay, click the bookmark, then go back to brewLog, there you will see your bookmarked device)</li>
+    </ul>
+
+    <h2>Technical Details</h2>
+    <p><strong>Python Version:</strong> 3.12.7</p>
+    <p><strong>Python3 Version:</strong> 3.9.6</p>
+    <p><strong>Django Version:</strong> 5.1.4</p>
+    <p><strong>Packages Used:</strong>
+        <ul>
+            <li>certifi==2024.12.14</li>
+            <li>charset-normalizer==3.4.0</li>
+            <li>CurrencyConverter==0.18.1</li>
+            <li>Django==5.1.4</li>
+            <li>django-bootstrap5==24.3</li>
+            <li>djangorestframework==3.15.2</li>
+            <li>idna==3.10</li>
+            <li>requests==2.32.3</li>
+            <li>setuptools==75.1.0</li>
+            <li>simplejson==3.19.3</li>
+            <li>sqlparse==0.5.3</li>
+            <li>urllib3==2.2.3</li>
+            <li>wheel==0.44.0</li>
+        </ul>
+    </p>
+    <p><strong>Admin Username:</strong> admin</p>
+    <p><strong>Admin Email:</strong> bytadmin@example.com</p>
+    <p><strong>Admin Password:</strong> brewyourtech123</p>
+</body>
+</html>
+
+<!-- ### END ### -->

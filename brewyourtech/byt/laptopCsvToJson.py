@@ -1,3 +1,5 @@
+### START ###
+
 import csv
 import json
 
@@ -89,3 +91,4 @@ print(f"Total rows processed: {total_rows}") # Total rows processed: 1275
 print(f"Rows that passed the checks: {passed_checks}") # Rows that passed the checks: 1275
 print(f"Fixture file {output_file} created successfully!") # Fixture file Laptops.json created successfully!
 
+### END ###

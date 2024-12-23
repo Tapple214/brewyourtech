@@ -1,3 +1,5 @@
+<!-- ### START ### -->
+
 {% load django_bootstrap5 %}
 {% load static %}
 {% include 'byt/navbar.html' %}
@@ -247,7 +249,7 @@
                 </h6>
                 <div class="mt-auto d-flex flex-column">
                   <span class="mb-2">Price (USD): {{ phone.price_usd|stringformat:"s"|slice:":5" }}</span>
-                  <a href="{% url 'brewDisplay' 'phone' phone.id user_id %}" target="_blank" class="btn rounded-pill fw-medium mt-auto" style="background-color: #5a3d2b; color: #f3e5d8">
+                  <a href="{% url 'brewDisplay' 'phone' phone.id user_id|default:0 %}" target="_blank" class="btn rounded-pill fw-medium mt-auto" style="background-color: #5a3d2b; color: #f3e5d8">
                     View Details
                   </a>
                 </div>
@@ -271,3 +273,5 @@
     {% bootstrap_javascript %}
   </body>
 </html>
+
+<!-- ### END ### -->

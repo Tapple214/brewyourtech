@@ -1,3 +1,5 @@
+<!-- ### START ### -->
+
 {% load django_bootstrap5 %}
 {% load static %}
 {% include 'byt/navbar.html' %}
@@ -101,45 +103,44 @@
               type="range"
               id="price"
               name="price"
-              min="50"
+              min="10"
               max="8000"
               step="50"
-              value="{{ request.GET.price|default:0 }}"
+              value="{{ request.GET.price|default:10 }}"
               oninput="document.getElementById('price_value').textContent = this.value"
             />
-            <span id="price_value">{{ request.GET.price|default:0 }}</span> USD
+            <span id="price_value">{{ request.GET.price|default:10 }}</span> USD
           </div>
 
-          <!-- Display Size -->
+          <!-- Max Resolution -->
           <div style="margin-bottom: 15px">
-            <label for="display_size_inches">Display Size (inches):</label>
+            <label for="max_resolution">Max Resolution (MP):</label>
             <input
               type="range"
-              id="display_size_inches"
-              name="display_size_inches"
-              min="7"
-              max="14"
-              step="0.1"
-              value="{{ request.GET.display_size_inches|default:0 }}"
-              oninput="document.getElementById('display_value').textContent = this.value"
+              id="max_resolution"
+              name="max_resolution"
+              min="10"
+              max="5000"
+              value="{{ request.GET.max_resolution|default:10 }}"
+              oninput="document.getElementById('resolution_value').textContent = this.value"
             />
-            <span id="display_value">{{ request.GET.display_size_inches|default:0 }}</span> inches
+            <span id="resolution_value">{{ request.GET.max_resolution|default:10 }}</span> MP
           </div>
 
-          <!-- Battery Capacity -->
+          <!-- Release Date -->
           <div style="margin-bottom: 15px">
-            <label for="battery_capacity">Battery Capacity:</label>
+            <label for="release_date" style="display: block">Launch Year:</label>
             <input
               type="range"
-              id="battery_capacity"
-              name="battery_capacity"
-              min="3000"
-              max="15000"
-              step="500"
-              value="{{ request.GET.battery_capacity|default:0 }}"
-              oninput="document.getElementById('battery_value').textContent = this.value"
+              id="release_date"
+              name="release_date"
+              min="1980"
+              max="2024"
+              step="1"
+              value="{{ request.GET.release_date|default:1980 }}"
+              oninput="document.getElementById('year_value').textContent = this.value"
             />
-            <span id="battery_value">{{ request.GET.battery_capacity|default:0 }}</span> mAh
+            <span id="year_value">{{ request.GET.release_date|default:1980 }}</span>
           </div>
 
           <button
@@ -170,7 +171,7 @@
                 <div class="mt-auto d-flex flex-column">
                   <span class="mb-2">Price (USD): {{ camera.price|stringformat:"s"|slice:":8" }}</span>
                   <a
-                    href="{% url 'brewDisplay' 'camera' camera.id user_id %}"
+                    href="{% url 'brewDisplay' 'camera' camera.id user_id|default:0 %}"
                     target="_blank"
                     class="btn rounded-pill fw-medium mt-auto"
                     style="background-color: #5a3d2b; color: #f3e5d8"
@@ -194,3 +195,5 @@
     {% bootstrap_javascript %}
   </body>
 </html>
+
+<!-- ### END ### -->

@@ -1,3 +1,5 @@
+### START ###
+
 def navbarItems(request):
     navbar_items = [
         {
@@ -32,3 +34,5 @@ def navbarItems(request):
     return {
         "navbar_items": navbar_items
     }
+
+### END ###

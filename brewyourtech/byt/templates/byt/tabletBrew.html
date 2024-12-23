@@ -1,3 +1,5 @@
+<!-- ### START ### -->
+
 {% load django_bootstrap5 %}
 {% load static %}
 {% include 'byt/navbar.html' %}
@@ -167,7 +169,7 @@
                 <div class="mt-auto d-flex flex-column">
                   <span class="mb-2">Price (USD): {{ tablet.price_usd|stringformat:"s"|slice:":8" }}</span>
                   <a
-                    href="{% url 'brewDisplay' 'tablet' tablet.index user_id %}"
+                    href="{% url 'brewDisplay' 'tablet' tablet.index user_id|default:0 %}"
                     target="_blank"
                     class="btn rounded-pill fw-medium mt-auto"
                     style="background-color: #5a3d2b; color: #f3e5d8"
@@ -191,3 +193,5 @@
     {% bootstrap_javascript %}
   </body>
 </html>
+
+<!-- ### END ### -->
